@@ -1,9 +1,8 @@
-import { NextApiRequest, NextApiResponse } from "next";
-import authMiddleware from "../authMiddleware";
+import { NextRequest, NextResponse } from "next/server";
 
-// Rota GET de usuários
-export async function GET(req: NextApiRequest, res: NextApiResponse) {
-  authMiddleware(req, res, () => {
-    res.send("te amo");
-  });
+export async function GET() {
+  const req = NextRequest;
+  const res = NextResponse;
+  const next = NextResponse.next();
+  return NextResponse.json({ name: "carlos", idade: "30" });
 }
