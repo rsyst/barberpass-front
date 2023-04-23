@@ -10,9 +10,70 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
-model Clients {
-  id Int @id @default(autoincrement())
-  email String
+model Barber_shops{
+  id String @id @default(uuid())
+  name String
+  email String @unique
   password String
-  name String?
+  document String 
+  phone_number String 
+  barbers Barbers[]
+  products Products[]
+  @@index([id])
+}
+
+model Barbers {
+  id String @id @default(uuid())
+  name String
+  start_work DateTime @db.Timestamp()
+  end_work DateTime @db.Timestamp()
+  time_per_work DateTime @db.Timestamp()
+  phone_number String @unique
+  barber_shop_id String
+  barber_shop Barber_shops @relation(fields: [barber_shop_id], references: [id])
+  appointments Appointments[]
+   @@index([id])
+}
+
+model Clients {
+  id String @id @default(uuid())
+  name String
+  email String @unique
+  password String
+  document String @unique 
+  phone_number String @unique
+  appointments Appointments[]
+   @@index([id])
+}
+
+model Appointments {
+  id String @id @default(uuid())
+  start DateTime @db.Timestamp()
+  end DateTime @db.Timestamp()
+  barber_id String
+  barber Barbers @relation(fields: [barber_id], references: [id])
+  client_id String
+  client Clients @relation(fields: [client_id], references: [id])
+  service_id String
+  service Services @relation(fields: [service_id], references: [id])
+   @@index([id])
+}
+
+model Services {
+  id String @id @default(uuid())
+  name String
+  price Float
+  work_amount Int
+  appointments Appointments[]
+   @@index([id])
+}
+
+model Products {
+  id String @id @default(uuid())
+  name String
+  price Float
+  quantity Int
+  barber_shop_id String
+  barber_shop Barber_shops @relation(fields: [barber_shop_id], references: [id])
+   @@index([id])
 }
