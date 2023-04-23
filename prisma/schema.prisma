@@ -38,7 +38,7 @@ model Barbers {
 model Clients {
   id String @id @default(uuid())
   name String
-  email String @unique
+  email String? @unique
   password String
   document String @unique 
   phone_number String @unique
