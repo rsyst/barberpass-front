@@ -1,6 +1,6 @@
 import { rstApi } from './api'
 import { useQuery } from '@tanstack/react-query'
-import { iEmploye } from 'shared/interface/public'
+import { iEmploye } from '@shared/interface/public'
 
 type ICompaniesControllerShowResponse = iEmploye
 

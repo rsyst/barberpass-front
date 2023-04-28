@@ -2,9 +2,9 @@ import { Avatar, Box, Flex, IconButton, Menu, MenuButton, MenuItem, MenuList, Te
 import Router from 'next/router'
 import React from 'react'
 import { FiMenu } from 'react-icons/fi'
-import { useAuth } from 'shared/providers/auth'
-import { useUserContext } from 'shared/providers/user'
-import { iEmployesControllerResponse, useQueryEmployesController } from 'shared/service/EmployesController'
+import { useAuth } from '@shared/providers/auth'
+import { useUserContext } from '@shared/providers/user'
+import { iEmployesControllerResponse, useQueryEmployesController } from '@shared/service/EmployesController'
 import { iRoutes } from './NavBar'
 
 interface iProps {

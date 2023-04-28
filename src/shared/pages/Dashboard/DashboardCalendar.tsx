@@ -1,9 +1,9 @@
 import { Flex, Grid, Input, Skeleton } from '@chakra-ui/react'
 import React from 'react'
 import moment from 'moment'
-import { useQueryMeetsControllerShow } from 'shared/service/MeetsController'
-import { useUserContext } from 'shared/providers/user'
-import RstMeetCard from 'shared/components/MeetCard'
+import { useQueryMeetsControllerShow } from '@shared/service/MeetsController'
+import { useUserContext } from '@shared/providers/user'
+import RstMeetCard from '@shared/components/MeetCard'
 
 const DashboardCalendar = () => {
   const [selectDate, setSelectDate] = React.useState(moment().format('YYYY-MM-DD'))

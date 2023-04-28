@@ -1,3 +1,3 @@
-import AuthLogin from 'shared/pages/Auth/Login'
+import AuthLogin from '@shared/pages/Auth/Login'
 
 export default AuthLogin

@@ -10,8 +10,8 @@ import {
   useToast
 } from '@chakra-ui/react'
 import React, { useState, useMemo } from 'react'
-import { iMeet } from 'shared/interface/public'
-import { useMutationMeetsControllerUpdate } from 'shared/service/MeetsController'
+import { iMeet } from '@shared/interface/public'
+import { useMutationMeetsControllerUpdate } from '@shared/service/MeetsController'
 import RstInput from '../Input'
 
 interface iProps {

@@ -1,6 +1,6 @@
 import { Collapse, Grid, GridItem, useDisclosure } from '@chakra-ui/react'
 import React, { useEffect } from 'react'
-import RstAccordion from 'shared/components/Accordion'
+import RstAccordion from '@shared/components/Accordion'
 import DashboardCalendar from './DashboardCalendar'
 import DashboardCalendarToday from './DashboardCalendarToday'
 

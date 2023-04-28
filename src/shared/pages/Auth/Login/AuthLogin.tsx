@@ -1,7 +1,7 @@
 import { Button, Flex, Grid, GridItem, Text } from '@chakra-ui/react'
 import React, { useMemo, useState } from 'react'
-import RstInput from 'shared/components/Input'
-import { useAuth } from 'shared/providers/auth'
+import RstInput from '@shared/components/Input'
+import { useAuth } from '@shared/providers/auth'
 
 export interface iLogin {
   user: string

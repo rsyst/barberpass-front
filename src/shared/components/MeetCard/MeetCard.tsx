@@ -15,12 +15,12 @@ import {
 import moment from 'moment'
 import React from 'react'
 import { FiTrash, FiMoreVertical, FiCalendar, FiSlash } from 'react-icons/fi'
-import { iMeet } from 'shared/interface/public'
+import { iMeet } from '@shared/interface/public'
 import {
   iMeetsControllerResponse,
   useMutationMeetsControllerCancel,
   useMutationMeetsControllerInterval
-} from 'shared/service/MeetsController'
+} from '@shared/service/MeetsController'
 import MeetCardSchedule from './MeetCardSchedule'
 
 interface iProps {

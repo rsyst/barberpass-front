@@ -1,5 +1,5 @@
 import React, { useContext, createContext, useState, useEffect } from 'react'
-import { iEmployesControllerResponse, useQueryEmployesController } from 'shared/service/EmployesController'
+import { iEmployesControllerResponse, useQueryEmployesController } from '@shared/service/EmployesController'
 import { useAuth } from './auth'
 
 interface iUser {

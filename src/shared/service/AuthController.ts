@@ -1,6 +1,6 @@
 import { rstApi } from './api'
 import { useMutation } from '@tanstack/react-query'
-import { iCompany } from 'shared/providers/auth'
+import { iCompany } from '@shared/providers/auth'
 
 export interface IAuthControllerCreatePayload {
   email: string

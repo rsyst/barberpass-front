@@ -1,8 +1,8 @@
 import { useToast } from '@chakra-ui/react'
 import Router from 'next/router'
 import React, { useContext, createContext, useState, useEffect } from 'react'
-import { iLogin } from 'shared/pages/Auth/Login/AuthLogin'
-import { iAuthControllerCreateResponse, useMutationAuthControllerCreate } from 'shared/service/AuthController'
+import { iLogin } from '@shared/pages/Auth/Login/AuthLogin'
+import { iAuthControllerCreateResponse, useMutationAuthControllerCreate } from '@shared/service/AuthController'
 
 export interface iCompany {
   created_at: string

@@ -1,5 +1,5 @@
 import React from 'react'
-import { useMobileContext } from 'shared/providers/isMobile'
+import { useMobileContext } from '@shared/providers/isMobile'
 import RstNavBarDesktop from './NavBarDesktop'
 import RstNavBarMobile from './NavBarMobile'
 export interface iRoutes {

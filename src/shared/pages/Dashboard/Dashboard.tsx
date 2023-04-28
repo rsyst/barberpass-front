@@ -1,7 +1,7 @@
 import { Flex } from '@chakra-ui/react'
 import React from 'react'
-import RstNavBar from 'shared/components/NavBar'
-import { useMobileContext } from 'shared/providers/isMobile'
+import RstNavBar from '@shared/components/NavBar'
+import { useMobileContext } from '@shared/providers/isMobile'
 
 import DashboardDesktop from './DashboardDesktop'
 import DashboardMobile from './DashboardMobile'

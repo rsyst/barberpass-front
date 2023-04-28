@@ -1,9 +1,9 @@
 import { Grid, Skeleton } from '@chakra-ui/react'
 import moment from 'moment'
 import React from 'react'
-import RstMeetCard from 'shared/components/MeetCard/MeetCard'
-import { useUserContext } from 'shared/providers/user'
-import { useQueryMeetsControllerShow } from 'shared/service/MeetsController'
+import RstMeetCard from '@shared/components/MeetCard/MeetCard'
+import { useUserContext } from '@shared/providers/user'
+import { useQueryMeetsControllerShow } from '@shared/service/MeetsController'
 
 const DashboardCalendarToday = () => {
   const { user } = useUserContext()

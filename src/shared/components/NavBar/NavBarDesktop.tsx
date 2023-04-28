@@ -1,6 +1,6 @@
 import { Flex, Grid, GridItem, Text } from '@chakra-ui/react'
 import React from 'react'
-import { iRoutes } from 'shared/interface/routes'
+import { iRoutes } from '@shared/interface/routes'
 interface iProps {
   routes: iRoutes[]
 }

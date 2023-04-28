@@ -1,10 +1,10 @@
 import { Button, Divider, Flex, Grid, GridItem, Text, useToast } from '@chakra-ui/react'
 import moment from 'moment'
 import React, { useMemo, useState } from 'react'
-import RstInput from 'shared/components/Input'
-import RstNavBar from 'shared/components/NavBar'
-import { useUserContext } from 'shared/providers/user'
-import { useMutationEmployesControllerUpdate, useQueryEmployesControllerShow } from 'shared/service/EmployesController'
+import RstInput from '@shared/components/Input'
+import RstNavBar from '@shared/components/NavBar'
+import { useUserContext } from '@shared/providers/user'
+import { useMutationEmployesControllerUpdate, useQueryEmployesControllerShow } from '@shared/service/EmployesController'
 
 interface iForm {
   name: string
