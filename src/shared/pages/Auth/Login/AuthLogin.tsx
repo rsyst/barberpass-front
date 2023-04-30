@@ -1,7 +1,9 @@
-import { Button, Flex, Grid, GridItem, Text } from '@chakra-ui/react'
+import { Box, Flex, Grid } from '@chakra-ui/react'
 import React, { useMemo, useState } from 'react'
 import RstInput from '@shared/components/Input'
 import { useAuth } from '@shared/providers/auth'
+import RstButton from '@shared/components/Button'
+import RstText from '@shared/components/Text'
 
 export interface iLogin {
   user: string
@@ -37,40 +39,42 @@ const AuthLogin = () => {
       }}
     >
       <Flex justifyContent="center" alignItems="center" minH="100vh" bg="gray.100">
-        <Grid maxW={480} w="100%" gap={4} p={8} bg="white" borderRadius={16} boxShadow="sm" m={6}>
-          {/* <GridItem>
-          <Text fontSize="xxx-large">Logo</Text>
-        </GridItem> */}
+        <Grid maxW={480} w="100%" gap={6} p={8} bg="white" borderRadius={16} boxShadow="sm" m={6}>
+          <RstText fontVariant="h3" color="blue.1100">
+            Bem vindo
+          </RstText>
+          <RstText fontVariant="body1" color="gray.1100">
+            Estamos felizes em ver vôce aqui. para acessar sua conta, primeiro realize o login.
+          </RstText>
 
-          <GridItem>
-            <Text fontSize="lg">Faça seu login</Text>
-          </GridItem>
+          <RstInput
+            placeholder="Usuário"
+            onChange={({ target }) => handleChangeValue('user', target.value)}
+            value={formValues.user}
+          />
 
-          <GridItem>
-            <RstInput
-              placeholder="Usuário"
-              onChange={({ target }) => handleChangeValue('user', target.value)}
-              value={formValues.user}
-            />
-          </GridItem>
+          <RstInput
+            placeholder="Senha"
+            onChange={({ target }) => handleChangeValue('password', target.value)}
+            type="password"
+            value={formValues.password}
+            helperText={
+              <RstText textAlign="end" color="gray.1000">
+                esqueci minha senha
+              </RstText>
+            }
+          />
 
-          <GridItem>
-            <RstInput
-              placeholder="Senha"
-              onChange={({ target }) => handleChangeValue('password', target.value)}
-              type="password"
-              value={formValues.password}
-            />
-          </GridItem>
+          <RstButton size="lg" type="submit" onClick={handleSubmit} isLoading={isLoadingLogin}>
+            Login
+          </RstButton>
 
-          <GridItem display="flex" justifyContent="space-between">
-            <Button colorScheme="gray" disabled={isLoadingLogin}>
-              Register
-            </Button>
-            <Button colorScheme="whatsapp" type="submit" onClick={handleSubmit} isLoading={isLoadingLogin}>
-              Login
-            </Button>
-          </GridItem>
+          <Box color="gray.600" w="100%" h="2px" bg="gray.600" />
+
+          <RstText color="gray.1200" fontVariant="body1" textAlign="center">
+            Não possui conta?
+            <a> Cadastre-se</a>
+          </RstText>
         </Grid>
       </Flex>
     </form>
