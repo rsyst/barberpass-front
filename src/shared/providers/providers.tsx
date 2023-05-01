@@ -6,7 +6,7 @@ import React from 'react'
 import { AuthProvider } from './auth'
 import { MobileProvider } from './isMobile'
 import { theme } from './theme'
-import { UserProvider } from './user'
+// import { UserProvider } from './user'
 const queryClient = new QueryClient({
   defaultOptions: {
     queries: {
@@ -21,10 +21,10 @@ function Providers({ children }: React.PropsWithChildren<unknown>) {
       <QueryClientProvider client={queryClient}>
         <ChakraProvider theme={theme}>
           <AuthProvider>
-            <UserProvider>
-              <ReactQueryDevtools initialIsOpen={false} />
-              {children}
-            </UserProvider>
+            {/* <UserProvider> */}
+            <ReactQueryDevtools initialIsOpen={false} />
+            {children}
+            {/* </UserProvider> */}
           </AuthProvider>
         </ChakraProvider>
       </QueryClientProvider>
