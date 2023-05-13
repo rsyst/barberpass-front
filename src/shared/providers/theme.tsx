@@ -1,6 +1,6 @@
 import { extendTheme } from '@chakra-ui/react'
 
-const themeConfig = {
+export const theme = extendTheme({
   colors: {
     brand: {
       900: '#1a365d',
@@ -78,7 +78,19 @@ const themeConfig = {
       1200: '#35290f'
     }
   },
-
+  components: {
+    Button: {
+      defaultProps: { colorScheme: 'blue' },
+      sizes: { sm: { h: 10 }, md: { h: '54px' } },
+      baseStyle: {
+        textTransform: 'initial'
+      }
+    }
+  },
+  fonts: {
+    heading: `'Poppins', sans-serif`,
+    body: `'Poppins', sans-serif`
+  },
   breakpoints: {
     base: '0em',
     sm: '576px',
@@ -92,6 +104,4 @@ const themeConfig = {
     green: ' 0 0 10px 0px #22c35e',
     gray: ' 0 0 10px 0px #718096'
   }
-}
-
-export const theme = extendTheme(themeConfig)
+})

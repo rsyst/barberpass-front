@@ -1,14 +1,20 @@
-import { Box, Flex, Grid } from '@chakra-ui/react'
+import { Box, Flex, Grid, GridItem } from '@chakra-ui/react'
 import React, { useMemo, useState } from 'react'
 import RstInput from '@shared/components/Input'
 import { useAuth } from '@shared/providers/auth'
 import RstButton from '@shared/components/Button'
 import RstText from '@shared/components/Text'
+import RstRadioButton from '@shared/components/RadioButton'
 
 export interface iLogin {
   user: string
   password: string
 }
+
+const options = [
+  { label: 'Cliente', value: 'CLIENT', id: 0 },
+  { label: 'Profissional', value: 'BARBER', id: 1 }
+]
 
 const AuthLogin = () => {
   const initialValues: iLogin = useMemo(() => {
@@ -17,6 +23,7 @@ const AuthLogin = () => {
       password: ''
     }
   }, [])
+
   const [formValues, setFormValues] = useState<iLogin>(initialValues)
 
   const { handleLogin, isLoadingLogin } = useAuth()
@@ -39,13 +46,17 @@ const AuthLogin = () => {
       }}
     >
       <Flex justifyContent="center" alignItems="center" minH="100vh" bg="gray.100">
-        <Grid maxW={480} w="100%" gap={6} p={8} bg="white" borderRadius={16} boxShadow="sm" m={6}>
-          <RstText fontVariant="h3" color="blue.1100">
-            Bem vindo
-          </RstText>
-          <RstText fontVariant="body1" color="gray.1100">
-            Estamos felizes em ver vôce aqui. para acessar sua conta, primeiro realize o login.
-          </RstText>
+        <Grid maxW={480} w="100%" gap={6} p={8} borderRadius={16} m={6}>
+          <GridItem>
+            <RstText fontVariant="h3" color="blue.1100">
+              Bem vindo
+            </RstText>
+            <RstText fontVariant="body1" color="gray.1100">
+              Estamos felizes em ver vôce aqui. para acessar sua conta, primeiro realize o login.
+            </RstText>
+          </GridItem>
+
+          <RstRadioButton options={options} />
 
           <RstInput
             placeholder="Usuário"
@@ -53,19 +64,19 @@ const AuthLogin = () => {
             value={formValues.user}
           />
 
-          <RstInput
-            placeholder="Senha"
-            onChange={({ target }) => handleChangeValue('password', target.value)}
-            type="password"
-            value={formValues.password}
-            helperText={
-              <RstText textAlign="end" color="gray.1000">
-                esqueci minha senha
-              </RstText>
-            }
-          />
+          <GridItem display="flex" flexDir="column" alignItems="end">
+            <RstInput
+              placeholder="Senha"
+              onChange={({ target }) => handleChangeValue('password', target.value)}
+              type="password"
+              value={formValues.password}
+            />
+            <RstButton variant="link" textAlign="end" color="gray.900">
+              esqueci minha senha
+            </RstButton>
+          </GridItem>
 
-          <RstButton size="lg" type="submit" onClick={handleSubmit} isLoading={isLoadingLogin}>
+          <RstButton size="md" type="submit" onClick={handleSubmit} isLoading={isLoadingLogin}>
             Login
           </RstButton>
 
@@ -73,7 +84,9 @@ const AuthLogin = () => {
 
           <RstText color="gray.1200" fontVariant="body1" textAlign="center">
             Não possui conta?
-            <a> Cadastre-se</a>
+            <RstButton ml={2} variant="link">
+              Cadastre-se
+            </RstButton>
           </RstText>
         </Grid>
       </Flex>
