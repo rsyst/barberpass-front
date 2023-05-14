@@ -94,3 +94,5 @@ export const handler = async (req: RstNextApiRequest<iAuthRequest>, res: NextApi
     throw new Error('Method not allowed')
   }
 }
+
+export default handler
