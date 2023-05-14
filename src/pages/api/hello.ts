@@ -1,10 +1,9 @@
 // Next.js API route support: https://nextjs.org/docs/api-routes/introduction
-import type { NextApiRequest, NextApiResponse } from 'next'
+import { NextApiRequest, NextApiResponse } from 'next'
+import { middleware } from '@shared/utils/middleware'
 
-type Data = {
-  name: string
+export const handler = (req: NextApiRequest, res: NextApiResponse) => {
+  res.status(200).json({ name: 'john' })
 }
 
-export default function handler(req: NextApiRequest, res: NextApiResponse<Data>) {
-  res.status(200).json({ name: 'John Doe' })
-}
+export default middleware(['GET'], handler)
