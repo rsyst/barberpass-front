@@ -1,10 +1,6 @@
 import { NextApiRequest, NextApiResponse } from 'next'
 import jwt, { JwtPayload } from 'jsonwebtoken'
 
-export interface iMiddleRequest {
-  token: string
-}
-
 const secretKey = process.env.JWT_SECRET
 
 export const middleware =
@@ -13,8 +9,6 @@ export const middleware =
     handler: (req: NextApiRequest, res: NextApiResponse) => void
   ) =>
   (req: NextApiRequest, res: NextApiResponse) => {
-    //Coisas para testar se tem um jwt se tiver guarda na variav
-
     const { cookies } = req
 
     if (cookies && cookies.token) {
