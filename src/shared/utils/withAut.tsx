@@ -1,20 +1,19 @@
-// import { useRouter } from 'next/router'
+import { useRouter } from 'next/router'
 import { ElementType, useEffect } from 'react'
-import { useAuth } from '@shared/providers/auth'
 
 export const withAuth = (WrappedComponent: ElementType) => {
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const Wrapper = (props: any) => {
-    // const router = useRouter()
-    const { auth } = useAuth()
+    const router = useRouter()
     useEffect(() => {
-      const token = auth.token
-      console.log({ token })
+      const token = localStorage.getItem('accessToken')
+
       if (!token) {
-        // router.push('/')
+        router.push('/')
       }
+
       // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [])
+    }, [router])
 
     return <WrappedComponent {...props} />
   }

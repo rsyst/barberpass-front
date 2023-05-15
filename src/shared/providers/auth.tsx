@@ -2,7 +2,8 @@ import { useToast } from '@chakra-ui/react'
 import Router from 'next/router'
 import React, { useContext, createContext, useState, useEffect } from 'react'
 import { iLogin } from '@shared/pages/Auth/Login/AuthLogin'
-import { iAuthControllerCreateResponse, useMutationAuthControllerCreate } from '@shared/service/AuthController'
+import { useMutationAuthPost } from '@shared/service/Auth'
+import { iAuthResponse } from '@pages/api/auth'
 
 export interface iCompany {
   created_at: string
@@ -16,7 +17,7 @@ export interface iCompany {
 }
 
 export interface iAuthContext {
-  auth: iAuthControllerCreateResponse
+  auth: iAuthResponse
   setAuth(item: unknown): void
   isLoadingLogin: boolean
   handleLogin(user: iLogin): void
@@ -28,15 +29,15 @@ export const Auth = createContext({} as iAuthContext)
 export const useAuth = () => useContext(Auth)
 
 export const AuthProvider = ({ children }: React.PropsWithChildren<unknown>) => {
-  const [auth, setAuth] = useState<iAuthControllerCreateResponse>({} as iAuthControllerCreateResponse)
+  const [auth, setAuth] = useState<iAuthResponse>({} as iAuthResponse)
 
   const toast = useToast()
 
-  const { mutate: postAuth, isLoading: isLoadingLogin } = useMutationAuthControllerCreate()
+  const { mutate: postAuth, isLoading: isLoadingLogin } = useMutationAuthPost()
 
   const handleLogin = (user: iLogin) => {
     postAuth(
-      { email: user.user, password: user.password },
+      { email: user.user, password: user.password, user_type: user.userType.value },
       {
         onSuccess: (data) => {
           localStorage.setItem('accessToken', data.token)
@@ -58,14 +59,14 @@ export const AuthProvider = ({ children }: React.PropsWithChildren<unknown>) => 
 
   const handleLogout = () => {
     localStorage.removeItem('accessToken')
-    setAuth({} as iAuthControllerCreateResponse)
-    Router.push('/auth/login')
+    setAuth({} as iAuthResponse)
+    Router.push('/')
   }
 
   useEffect(() => {
-    const token = localStorage.getItem('token')
+    const token = localStorage.getItem('accessToken')
     if (token && !auth.token) {
-      setAuth({ token, company: {} as iCompany })
+      setAuth({ token })
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])

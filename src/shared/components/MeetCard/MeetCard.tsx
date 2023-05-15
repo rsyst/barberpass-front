@@ -16,10 +16,10 @@ interface iRstMeetCard {
 const RstMeetCard = ({ start, end, service, status }: iRstMeetCard) => {
   return (
     <Flex flexDir="column" p={4} bg="gray.100" borderRadius={16} gap={2} minW={150}>
-      <RstText fontVariant="h5" color="gray.1200">
+      <RstText fontVariant="h4" color="gray.1200">
         {start} - {end}
       </RstText>
-      <RstText fontVariant="secondary2" color="gray.1100">
+      <RstText fontVariant="body1" color="gray.1100">
         {service?.name}
       </RstText>
       <RstBadge colorScheme="green">{status.pt}</RstBadge>
