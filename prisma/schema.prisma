@@ -58,6 +58,8 @@ model Appointments {
   client Clients @relation(fields: [client_id], references: [id])
   service_id String
   service Services @relation(fields: [service_id], references: [id])
+  status_id String
+  status Status @relation(fields: [status_id], references: [id])
    @@index([id])
 }
 
@@ -78,4 +80,11 @@ model Products {
   barber_shop_id String
   barber_shop Barber_shops @relation(fields: [barber_shop_id], references: [id])
    @@index([id])
+}
+
+model Status {
+  id String @id @default(uuid())
+  key String
+  pt String
+  appointments Appointments[]
 }
