@@ -1,6 +1,5 @@
-import React, { useContext, createContext, useState, useEffect } from 'react'
-import { iEmployesControllerResponse, useQueryEmployesController } from '@shared/service/EmployesController'
-import { useAuth } from './auth'
+import { useContext, createContext } from 'react'
+import { iEmployesControllerResponse } from '@shared/service/EmployesController'
 
 interface iUser {
   user: iEmployesControllerResponse
@@ -11,7 +10,7 @@ export const UserContext = createContext({} as iUser)
 
 export const useUserContext = () => useContext(UserContext)
 
-export const UserProvider = ({ children }: React.PropsWithChildren<unknown>) => {
+export const UserProvider = () => {
   // const { auth } = useAuth()
   // const { data: users = [] } = useQueryEmployesController({ enabled: !!auth?.company?.id })
   // const [user, setUser] = useState<iEmployesControllerResponse>({} as iEmployesControllerResponse)

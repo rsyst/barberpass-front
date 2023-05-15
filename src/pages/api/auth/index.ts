@@ -8,7 +8,7 @@ import { prisma } from '@db/prisma'
 export interface iAuthRequest {
   email: string
   password: string
-  userType: string
+  user_type: 'BARBER' | 'CLIENT'
 }
 
 export interface iAuthResponse {
@@ -19,12 +19,10 @@ const secretKey = process.env.JWT_SECRET
 
 export const handler = async (req: RstNextApiRequest<iAuthRequest>, res: NextApiResponse<iAuthResponse>) => {
   if (req.method === 'POST') {
-    const { email, password, userType } = req.body
-
+    const { email, password, user_type } = req.body
     try {
-      if (userType !== 'client') {
+      if (user_type === 'BARBER') {
         const barber = await prisma.barbers.findUnique({ where: { email: email } })
-
         if (!barber) {
           throw new Error('Invalid credentials')
         }
@@ -41,7 +39,38 @@ export const handler = async (req: RstNextApiRequest<iAuthRequest>, res: NextApi
           throw new Error('Undefined secret key')
         }
 
-        const token = jwt.sign({ userId: barberId, userType: userType }, secretKey)
+        const token = jwt.sign({ user_id: barberId, user_type: user_type }, secretKey)
+
+        const cookieSerialized = cookie.serialize('token', token, {
+          httpOnly: true,
+          path: '/',
+          sameSite: 'strict',
+          maxAge: 3600
+        })
+
+        res.setHeader('Set-Cookie', cookieSerialized)
+
+        return res.status(200).json({ token: token })
+      } else if (user_type === 'CLIENT') {
+        const client = await prisma.clients.findUnique({ where: { email: email } })
+
+        if (!client) {
+          throw new Error('Invalid credentials')
+        }
+
+        const passwordMatch = await bcrypt.compare(password, client.password)
+
+        if (!passwordMatch) {
+          throw new Error('Invalid credentials')
+        }
+
+        const clientId = client.id
+
+        if (!secretKey) {
+          throw new Error('Undefined secret key')
+        }
+
+        const token = jwt.sign({ user_id: clientId, user_type: user_type }, secretKey)
 
         const cookieSerialized = cookie.serialize('token', token, {
           httpOnly: true,
@@ -54,36 +83,6 @@ export const handler = async (req: RstNextApiRequest<iAuthRequest>, res: NextApi
 
         return res.status(200).json({ token: token })
       }
-      const client = await prisma.clients.findUnique({ where: { email: email } })
-
-      if (!client) {
-        throw new Error('Invalid credentials')
-      }
-
-      const passwordMatch = await bcrypt.compare(password, client.password)
-
-      if (!passwordMatch) {
-        throw new Error('Invalid credentials')
-      }
-
-      const clientId = client.id
-
-      if (!secretKey) {
-        throw new Error('Undefined secret key')
-      }
-
-      const token = jwt.sign({ userId: clientId, userType: userType }, secretKey)
-
-      const cookieSerialized = cookie.serialize('token', token, {
-        httpOnly: true,
-        path: '/',
-        sameSite: 'strict',
-        maxAge: 3600
-      })
-
-      res.setHeader('Set-Cookie', cookieSerialized)
-
-      return res.status(200).json({ token: token })
     } catch (error) {
       console.log('Error verifying users login', error)
       throw new Error('Error verifying users login')

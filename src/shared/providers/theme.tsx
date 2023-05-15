@@ -103,5 +103,16 @@ export const theme = extendTheme({
   shadows: {
     green: ' 0 0 10px 0px #22c35e',
     gray: ' 0 0 10px 0px #718096'
+  },
+  styles: {
+    global: {
+      'html, body': {
+        bg: 'gray.200',
+        lineHeight: 'tall'
+      },
+      a: {
+        color: 'teal.500'
+      }
+    }
   }
 })

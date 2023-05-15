@@ -33,5 +33,5 @@ export const RstText = ({ fontVariant = 'body1', ...props }: iRstTextProps) => {
     button: { fontSize: '16px', fontWeight: '500' } as TextProps
   }
 
-  return <Text {...fontVariantProps[fontVariant]} {...props} />
+  return <Text color="12000" {...fontVariantProps[fontVariant]} {...props} />
 }

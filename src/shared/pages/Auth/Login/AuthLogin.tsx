@@ -1,14 +1,20 @@
 import { Box, Flex, Grid, GridItem } from '@chakra-ui/react'
-import React, { useMemo, useState } from 'react'
+import React, { useEffect, useMemo, useState } from 'react'
 import RstInput from '@shared/components/Input'
 import { useAuth } from '@shared/providers/auth'
 import RstButton from '@shared/components/Button'
 import RstText from '@shared/components/Text'
 import RstRadioButton from '@shared/components/RadioButton'
+import { useRouter } from 'next/router'
 
 export interface iLogin {
   user: string
   password: string
+  userType: {
+    label?: string
+    value: 'BARBER' | 'CLIENT'
+    id: number
+  }
 }
 
 const options = [
@@ -20,13 +26,19 @@ const AuthLogin = () => {
   const initialValues: iLogin = useMemo(() => {
     return {
       user: '',
-      password: ''
+      password: '',
+      userType: {
+        id: 0,
+        value: 'CLIENT',
+        label: 'Cliente'
+      }
     }
   }, [])
 
   const [formValues, setFormValues] = useState<iLogin>(initialValues)
 
   const { handleLogin, isLoadingLogin } = useAuth()
+  const router = useRouter()
 
   const handleChangeValue = (fname: keyof iLogin, value: unknown) => {
     setFormValues((oldValues) => ({
@@ -38,6 +50,12 @@ const AuthLogin = () => {
   const handleSubmit = () => {
     handleLogin(formValues)
   }
+
+  //Redirect to Dashboard if is logged
+  useEffect(() => {
+    const token = localStorage.getItem('accessToken')
+    if (token) router.push('/dashboard')
+  }, [router])
 
   return (
     <form
@@ -56,7 +74,7 @@ const AuthLogin = () => {
             </RstText>
           </GridItem>
 
-          <RstRadioButton options={options} />
+          <RstRadioButton options={options} onChange={(value) => handleChangeValue('userType', value)} />
 
           <RstInput
             placeholder="Usuário"
