@@ -35,7 +35,7 @@ export async function rstApi({ url, method, payload, params, headers, newHeader 
     method,
     params,
     data: payload,
-    baseURL: 'http://' + process.env.NEXT_PUBLIC_VERCEL_URL,
+    baseURL: 'http://' + process.env.NEXT_PUBLIC_VERCEL_URL + '/api',
     headers: newHeader
       ? newHeader
       : {
