@@ -111,7 +111,7 @@ export const theme = extendTheme({
         lineHeight: 'tall'
       },
       a: {
-        color: 'teal.500'
+        color: 'gray.1100'
       }
     }
   }
