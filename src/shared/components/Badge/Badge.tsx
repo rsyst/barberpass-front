@@ -7,6 +7,7 @@ export const RstBadge = ({ ...props }: iRstBadgeProps) => {
   const defaultStyle: iRstBadgeProps = {
     borderRadius: 8,
     bg: `${props?.colorScheme}.300`,
+    color: `${props?.colorScheme}.1100`,
     w: 'max-content',
     fontWeight: 'regular',
     py: 1,
