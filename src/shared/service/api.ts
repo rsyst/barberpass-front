@@ -1,6 +1,5 @@
 /* eslint-disable @typescript-eslint/ban-types */
 /* eslint-disable @typescript-eslint/no-var-requires */
-const axios = require('axios').default
 
 interface iRstApi {
   url: string
@@ -12,9 +11,9 @@ interface iRstApi {
    * ```
    */
   payload?: Object
-  headers?: Object
+  headers?: HeadersInit
   /** Rewrite all header information */
-  newHeader?: Object
+  newHeader?: HeadersInit
 }
 
 interface iResponse {
@@ -29,25 +28,30 @@ interface iError {
   response: iResponse
 }
 
-export async function rstApi({ url, method, payload, params, headers, newHeader }: iRstApi) {
-  return axios({
-    url,
-    method,
-    params,
-    data: payload,
-    baseURL: 'http://' + process.env.NEXT_PUBLIC_VERCEL_URL + '/api',
-    headers: newHeader
-      ? newHeader
-      : {
-          'Content-Type': 'application/json;charset=UTF-8',
-          Authorization: `Bearer ${localStorage.getItem('accessToken')}`,
-          ...headers
-        }
-  })
-    .then(function (response: iResponse) {
-      if (response.status >= 200 && response.status < 300) return response.data
+export async function rstApi({ url, method, payload, headers, newHeader }: iRstApi) {
+  const convertedUrl = 'api/' + url
+  return (
+    fetch(convertedUrl, {
+      method,
+      // params,
+      body: JSON.stringify(payload),
+      // baseURL: 'http://' + process.env.NEXT_PUBLIC_VERCEL_URL + '/api',
+      headers: newHeader
+        ? newHeader
+        : {
+            'Content-Type': 'application/json;charset=UTF-8',
+            Authorization: `Bearer ${localStorage.getItem('accessToken')}`,
+            ...headers
+          }
     })
-    .catch(function (error: iError) {
-      throw error.response.data
-    })
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+      .then(function (response: any) {
+        if (response.status >= 200 && response.status < 300) return response.body
+        else throw response
+      })
+      .catch(function (error: iError) {
+        console.log({ error })
+        throw error
+      })
+  )
 }
