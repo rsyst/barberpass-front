@@ -11,7 +11,7 @@ interface iProps extends InputProps {
 const RstInput = ({ label, helperText, errorMessage, isError, ...props }: iProps) => {
   return (
     <FormControl isInvalid={isError}>
-      <FormLabel>{label}</FormLabel>
+      <FormLabel color="gray.1100">{label}</FormLabel>
       <Input
         {...props}
         h="54px"

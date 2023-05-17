@@ -1,5 +1,4 @@
 import {
-  Button,
   Modal,
   ModalBody,
   ModalCloseButton,
@@ -10,14 +9,15 @@ import {
   useToast
 } from '@chakra-ui/react'
 import React, { useState, useMemo } from 'react'
-import { iMeet } from '@shared/interface/public'
 import { useMutationMeetsControllerUpdate } from '@shared/service/MeetsController'
 import RstInput from '../Input'
+import { iRstMeetCard } from './MeetCard'
+import RstButton from '../Button'
 
 interface iProps {
   isOpen: boolean
   onClose: () => void
-  item: iMeet
+  item: iRstMeetCard
 }
 
 interface iForm {
@@ -72,7 +72,7 @@ const MeetCardSchedule = ({ isOpen, onClose, item }: iProps) => {
     <Modal isOpen={isOpen} onClose={onClose}>
       <ModalOverlay />
       <ModalContent m={2}>
-        <ModalHeader>Agendar cliente</ModalHeader>
+        <ModalHeader color="gray.1200">Agendar cliente</ModalHeader>
         <ModalCloseButton />
         <ModalBody>
           <RstInput
@@ -83,12 +83,10 @@ const MeetCardSchedule = ({ isOpen, onClose, item }: iProps) => {
         </ModalBody>
 
         <ModalFooter>
-          <Button variant="outline" mr={3} onClick={onClose}>
+          <RstButton variant="ghost" colorScheme="gray" mr={3} onClick={onClose}>
             Fechar
-          </Button>
-          <Button colorScheme="whatsapp" onClick={handleSubmit}>
-            Confirmar
-          </Button>
+          </RstButton>
+          <RstButton onClick={handleSubmit}>Confirmar</RstButton>
         </ModalFooter>
       </ModalContent>
     </Modal>

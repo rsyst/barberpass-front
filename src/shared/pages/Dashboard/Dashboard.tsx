@@ -2,6 +2,7 @@ import { Grid } from '@chakra-ui/react'
 import RstHeader from '@shared/components/Header'
 import RstInfoCard from '@shared/components/InfoCard'
 import RstMeetCard from '@shared/components/MeetCard'
+import { iRstMeetCard } from '@shared/components/MeetCard/MeetCard'
 import RstText from '@shared/components/Text'
 import React from 'react'
 
@@ -36,22 +37,78 @@ const Dashboard = () => {
 
 export default Dashboard
 
-const Appointments = [
+const Appointments: iRstMeetCard[] = [
   {
     start: '10:30',
     end: '10:30',
     status: { key: 'CONFIRMED', pt: 'confirmado' },
     service: {
       name: 'Corte de cabelo'
-    }
+    },
+    id: 'asd'
   },
   {
     start: '11:30',
     end: '10:30',
+    status: { key: 'CANCELED', pt: 'cancelado' },
+    service: {
+      name: 'Corte de cabelo'
+    },
+    id: 'asd'
+  },
+  {
+    start: '12:00',
+    end: '10:30',
+    status: { key: 'WAITING_CONFIRMATION', pt: 'aguardando' },
+    service: {
+      name: 'Corte de cabelo'
+    },
+    id: 'asd'
+  },
+  {
+    start: '12:30',
+    end: '10:30',
     status: { key: 'CONFIRMED', pt: 'confirmado' },
     service: {
       name: 'Corte de cabelo'
-    }
+    },
+    id: 'asd'
+  },
+  {
+    start: '13:00',
+    end: '10:30',
+    status: { key: 'CONFIRMED', pt: 'confirmado' },
+    service: {
+      name: 'Corte de cabelo'
+    },
+    id: 'asd'
+  },
+  {
+    start: '13:30',
+    end: '10:30',
+    status: { key: 'CONFIRMED', pt: 'confirmado' },
+    service: {
+      name: 'Corte de cabelo'
+    },
+    id: 'asd'
+  },
+  {
+    start: '14:00',
+    end: '10:30',
+    status: { key: 'EMPTY', pt: 'vazio' },
+    service: {
+      name: 'Corte de cabelo'
+    },
+    id: 'asd'
+  },
+  {
+    start: '10:30',
+    end: '10:30',
+    status: { key: 'BREAK_TIME', pt: 'intervalo' },
+    service: {
+      name: 'Corte de cabelo'
+    },
+    id: 'asd'
   },
   {
     start: '10:30',
@@ -59,7 +116,8 @@ const Appointments = [
     status: { key: 'CONFIRMED', pt: 'confirmado' },
     service: {
       name: 'Corte de cabelo'
-    }
+    },
+    id: 'asd'
   },
   {
     start: '10:30',
@@ -67,54 +125,7 @@ const Appointments = [
     status: { key: 'CONFIRMED', pt: 'confirmado' },
     service: {
       name: 'Corte de cabelo'
-    }
-  },
-  {
-    start: '10:30',
-    end: '10:30',
-    status: { key: 'CONFIRMED', pt: 'confirmado' },
-    service: {
-      name: 'Corte de cabelo'
-    }
-  },
-  {
-    start: '10:30',
-    end: '10:30',
-    status: { key: 'CONFIRMED', pt: 'confirmado' },
-    service: {
-      name: 'Corte de cabelo'
-    }
-  },
-  {
-    start: '10:30',
-    end: '10:30',
-    status: { key: 'CONFIRMED', pt: 'confirmado' },
-    service: {
-      name: 'Corte de cabelo'
-    }
-  },
-  {
-    start: '10:30',
-    end: '10:30',
-    status: { key: 'CONFIRMED', pt: 'confirmado' },
-    service: {
-      name: 'Corte de cabelo'
-    }
-  },
-  {
-    start: '10:30',
-    end: '10:30',
-    status: { key: 'CONFIRMED', pt: 'confirmado' },
-    service: {
-      name: 'Corte de cabelo'
-    }
-  },
-  {
-    start: '10:30',
-    end: '10:30',
-    status: { key: 'CONFIRMED', pt: 'confirmado' },
-    service: {
-      name: 'Corte de cabelo'
-    }
+    },
+    id: 'asd'
   }
 ]
