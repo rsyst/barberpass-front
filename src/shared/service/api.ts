@@ -1,53 +1,85 @@
-/* eslint-disable @typescript-eslint/ban-types */
-/* eslint-disable @typescript-eslint/no-var-requires */
-const axios = require('axios').default
+import { COOKIES_NAMES } from '@shared/constants/cookie-names'
+import { API_URL_BASE } from '@shared/constants/environment'
+import axios from 'axios'
+import Router from 'next/router'
 
-interface iRstApi {
-  url: string
-  method?: string
-  params?: Object
-  /** Expected payload on requisition
-   * ```
-   * rstApi(...{payload: {name:"teste"})
-   * ```
-   */
-  payload?: Object
-  headers?: Object
-  /** Rewrite all header information */
-  newHeader?: Object
+import { destroyCookie, parseCookies } from 'nookies'
+
+const URL_TYPES = {
+  BARBER: 'barber',
+  CLIENT: 'client'
 }
 
-interface iResponse {
-  data: Object
-  status: number
-  statusText: string
-  headers: Object
-  config: Object
-}
+const logout = (type: string) => {
+  if (!Object.values(URL_TYPES).includes(type)) {
+    return
+  }
 
-interface iError {
-  response: iResponse
-}
+  const cookieName = URL_TYPES.BARBER === type ? COOKIES_NAMES.BARBER_TOKEN : COOKIES_NAMES.CLIENT_TOKEN
+  const router = '/'
 
-export async function rstApi({ url, method, payload, params, headers, newHeader }: iRstApi) {
-  return axios({
-    url,
-    method,
-    params,
-    data: payload,
-    baseURL: 'http://' + process.env.NEXT_PUBLIC_VERCEL_URL + '/api',
-    headers: newHeader
-      ? newHeader
-      : {
-          'Content-Type': 'application/json;charset=UTF-8',
-          Authorization: `Bearer ${localStorage.getItem('accessToken')}`,
-          ...headers
-        }
+  destroyCookie(undefined, cookieName, {
+    path: '/'
   })
-    .then(function (response: iResponse) {
-      if (response.status >= 200 && response.status < 300) return response.data
-    })
-    .catch(function (error: iError) {
-      throw error.response.data
-    })
+  Router.push(router)
 }
+
+const getUrlType = (url: string) => {
+  const urlIsBarber = url.startsWith('barber') || url.startsWith('barber')
+  const urlIsClient = url.startsWith('client') || url.startsWith('client')
+
+  if (urlIsBarber) {
+    return URL_TYPES.BARBER
+  }
+
+  if (urlIsClient) {
+    return URL_TYPES.CLIENT
+  }
+}
+
+const api = axios.create({
+  baseURL: API_URL_BASE,
+  headers: { 'Content-type': 'application/json; charset=UTF-8' }
+})
+
+api.interceptors.request.use(
+  (config: any) => {
+    const { [COOKIES_NAMES.CLIENT_TOKEN]: clientToken, [COOKIES_NAMES.BARBER_TOKEN]: barberToken } = parseCookies()
+
+    const type = getUrlType(config.url || '')
+
+    if (URL_TYPES.CLIENT === type && clientToken) {
+      config.headers.Authorization = `Bearer ${clientToken}`
+    }
+    if (URL_TYPES.BARBER === type && barberToken) {
+      config.headers.Authorization = `Bearer ${barberToken}`
+    }
+
+    return config
+  },
+  (error) => {
+    return Promise.reject(error)
+  }
+)
+
+api.interceptors.response.use(
+  (config) => {
+    return config
+  },
+  (error) => {
+    const { message, statusCode } = error.response.data
+    const urlComplete = error.request.responseURL
+
+    const url = urlComplete.replace(API_URL_BASE, '')
+
+    const type = getUrlType(url) || ''
+
+    if (message === 'The token is malformed.' || statusCode === 401) {
+      logout(type)
+    }
+
+    return Promise.reject(error)
+  }
+)
+
+export default api

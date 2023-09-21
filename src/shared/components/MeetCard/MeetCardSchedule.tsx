@@ -10,14 +10,13 @@ import {
   useToast
 } from '@chakra-ui/react'
 import React, { useState, useMemo } from 'react'
-import { iMeet } from '@shared/interface/public'
 import { useMutationMeetsControllerUpdate } from '@shared/service/MeetsController'
 import RstInput from '../Input'
 
 interface iProps {
   isOpen: boolean
   onClose: () => void
-  item: iMeet
+  item: any
 }
 
 interface iForm {

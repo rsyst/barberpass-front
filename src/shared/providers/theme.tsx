@@ -107,8 +107,9 @@ export const theme = extendTheme({
   styles: {
     global: {
       'html, body': {
-        bg: 'gray.200',
-        lineHeight: 'tall'
+        bg: 'gray.300',
+        lineHeight: 'tall',
+        color: 'gray.1200'
       },
       a: {
         color: 'teal.500'

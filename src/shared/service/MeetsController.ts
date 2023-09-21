@@ -1,10 +1,10 @@
 import { rstApi } from './api'
 import { useMutation, useQuery } from '@tanstack/react-query'
-import { iClient, iEmploye, iMeet } from '@shared/interface/public'
+import { iClient } from '@shared/interface/public'
 
-export interface iMeetsControllerResponse extends iMeet {
+export interface iMeetsControllerResponse {
   client: iClient
-  employe: iEmploye
+  employe: any
 }
 
 interface iMeetsControllerShowParams {

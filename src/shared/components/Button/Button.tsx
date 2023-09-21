@@ -1,7 +1,9 @@
 import { Button, ButtonProps } from '@chakra-ui/react'
 import React, { useMemo } from 'react'
 
-type iRstButtonProps = ButtonProps
+interface iRstButtonProps extends ButtonProps {
+  href?: string
+}
 
 export const RstButton = ({ colorScheme = 'blue', variant = 'solid', ...props }: iRstButtonProps) => {
   const variantStyle = useMemo(() => {

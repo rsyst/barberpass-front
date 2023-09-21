@@ -6,11 +6,13 @@ import RstButton from '@shared/components/Button'
 import RstText from '@shared/components/Text'
 import RstRadioButton from '@shared/components/RadioButton'
 import { useRouter } from 'next/router'
+import { COOKIES_NAMES } from '@shared/constants/cookie-names'
+import { parseCookies } from 'nookies'
 
 export interface iLogin {
-  user: string
+  email: string
   password: string
-  userType: {
+  role: {
     label?: string
     value: 'BARBER' | 'CLIENT'
     id: number
@@ -25,9 +27,9 @@ const options = [
 const AuthLogin = () => {
   const initialValues: iLogin = useMemo(() => {
     return {
-      user: '',
-      password: '',
-      userType: {
+      email: 'teste@email.com',
+      password: '123123',
+      role: {
         id: 0,
         value: 'CLIENT',
         label: 'Cliente'
@@ -53,13 +55,20 @@ const AuthLogin = () => {
 
   //Redirect to Dashboard if is logged
   useEffect(() => {
-    const token = localStorage.getItem('accessToken')
-    if (token) router.push('/dashboard')
+    const { [COOKIES_NAMES.CLIENT_TOKEN]: clientToken, [COOKIES_NAMES.BARBER_TOKEN]: barberToken } = parseCookies()
+
+    if (barberToken) {
+      router.push('/barber/dashboard')
+    }
+    if (clientToken) {
+      router.push('/client/dashboard')
+    }
   }, [router])
 
   return (
-    <form
-      onSubmit={(e) => {
+    <Box
+      as="form"
+      onSubmit={(e: React.FormEvent<HTMLDivElement>) => {
         e.preventDefault()
       }}
     >
@@ -74,12 +83,12 @@ const AuthLogin = () => {
             </RstText>
           </GridItem>
 
-          <RstRadioButton options={options} onChange={(value) => handleChangeValue('userType', value)} />
+          <RstRadioButton options={options} onChange={(value) => handleChangeValue('role', value)} />
 
           <RstInput
-            placeholder="Usuário"
-            onChange={({ target }) => handleChangeValue('user', target.value)}
-            value={formValues.user}
+            placeholder="E-mail"
+            onChange={({ target }) => handleChangeValue('email', target.value)}
+            value={formValues.email}
           />
 
           <GridItem display="flex" flexDir="column" alignItems="end">
@@ -102,13 +111,13 @@ const AuthLogin = () => {
 
           <RstText color="gray.1200" fontVariant="body1" textAlign="center">
             Não possui conta?
-            <RstButton ml={2} variant="link">
+            <RstButton ml={2} variant="link" as="a" href="/auth/register">
               Cadastre-se
             </RstButton>
           </RstText>
         </Grid>
       </Flex>
-    </form>
+    </Box>
   )
 }
 

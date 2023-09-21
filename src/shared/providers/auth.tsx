@@ -2,8 +2,10 @@ import { useToast } from '@chakra-ui/react'
 import Router from 'next/router'
 import React, { useContext, createContext, useState, useEffect } from 'react'
 import { iLogin } from '@shared/pages/Auth/Login/AuthLogin'
-import { useMutationAuthPost } from '@shared/service/Auth'
-import { iAuthResponse } from '@pages/api/auth'
+import { usePost } from '@shared/service/use-queries'
+import { ENDPOINTS } from '@shared/constants/endpoints'
+import { destroyCookie, setCookie } from 'nookies'
+import { COOKIES_NAMES } from '@shared/constants/cookie-names'
 
 export interface iCompany {
   created_at: string
@@ -17,7 +19,7 @@ export interface iCompany {
 }
 
 export interface iAuthContext {
-  auth: iAuthResponse
+  auth: any
   setAuth(item: unknown): void
   isLoadingLogin: boolean
   handleLogin(user: iLogin): void
@@ -28,21 +30,38 @@ export const Auth = createContext({} as iAuthContext)
 
 export const useAuth = () => useContext(Auth)
 
+const EXPIRE_TOKEN_IN_SECONDS = 60 * 60 * 24 * 7 // one week
 export const AuthProvider = ({ children }: React.PropsWithChildren<unknown>) => {
-  const [auth, setAuth] = useState<iAuthResponse>({} as iAuthResponse)
+  const [auth, setAuth] = useState<any>({} as any)
 
   const toast = useToast()
 
-  const { mutate: postAuth, isLoading: isLoadingLogin } = useMutationAuthPost()
+  const { mutate: postAuth, isLoading: isLoadingLogin } = usePost(ENDPOINTS.POST_AUTH)
 
   const handleLogin = (user: iLogin) => {
     postAuth(
-      { email: user.user, password: user.password, user_type: user.userType.value },
+      { email: user.email, password: user.password, role: user.role.value },
       {
-        onSuccess: (data) => {
-          localStorage.setItem('accessToken', data.token)
+        onSuccess: ({ data }) => {
+          if (user.role.value === 'CLIENT') {
+            setCookie(undefined, COOKIES_NAMES.CLIENT_TOKEN, data.token, {
+              maxAge: EXPIRE_TOKEN_IN_SECONDS,
+              path: '/',
+              secure: true
+            })
+            Router.push('/client/dashboard')
+          }
+
+          if (user.role.value === 'BARBER') {
+            setCookie(undefined, COOKIES_NAMES.BARBER_TOKEN, data.token, {
+              maxAge: EXPIRE_TOKEN_IN_SECONDS,
+              path: '/',
+              secure: true
+            })
+            Router.push('/barber/dashboard')
+          }
+
           setAuth(data)
-          Router.push('/dashboard')
         },
         onError: () => {
           toast({
@@ -58,8 +77,13 @@ export const AuthProvider = ({ children }: React.PropsWithChildren<unknown>) => 
   }
 
   const handleLogout = () => {
-    localStorage.removeItem('accessToken')
-    setAuth({} as iAuthResponse)
+    destroyCookie(undefined, COOKIES_NAMES.CLIENT_TOKEN, {
+      path: '/'
+    })
+    destroyCookie(undefined, COOKIES_NAMES.BARBER_TOKEN, {
+      path: '/'
+    })
+    setAuth({} as any)
     Router.push('/')
   }
 

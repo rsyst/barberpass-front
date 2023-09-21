@@ -1,3 +1,1 @@
-import { RstHeader } from './Header'
-
-export default RstHeader
+export { RstHeaderBarber } from './HeaderBarber'

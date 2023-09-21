@@ -1,8 +1,7 @@
 import { rstApi } from './api'
 import { QueryOptions, useMutation, useQuery } from '@tanstack/react-query'
-import { iEmploye } from '@shared/interface/public'
 
-export type iEmployesControllerResponse = iEmploye
+export type iEmployesControllerResponse = any
 
 export const useQueryEmployesController = (config?: QueryOptions<iEmployesControllerResponse[]>) =>
   useQuery<iEmployesControllerResponse[]>(
