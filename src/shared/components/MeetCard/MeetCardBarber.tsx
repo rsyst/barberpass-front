@@ -5,7 +5,7 @@ import { iStatus } from '@shared/interface/public'
 import { FiMoreVertical } from 'react-icons/fi'
 import RstFormScheduleMeet from '../FormScheduleMeet'
 
-export interface iRstMeetCard {
+export interface iRstMeetCardBarber {
   start: string
   end: string
   status: iStatus
@@ -21,7 +21,7 @@ const statusColor = {
   EMPTY: 'gray'
 }
 
-const RstMeetCard = ({ start, end, service, status }: iRstMeetCard) => {
+export const RstMeetCardBarber = ({ start, end, service, status }: iRstMeetCardBarber) => {
   const { isOpen, onOpen, onClose } = useDisclosure()
 
   const optionsByStatus = {
@@ -82,7 +82,7 @@ const RstMeetCard = ({ start, end, service, status }: iRstMeetCard) => {
 
   return (
     <>
-      <Flex p={4} bg="gray.100" shadow="md" borderRadius={16} gap={4} justifyContent="space-between" minW={150} mx={2}>
+      <Flex p={4} bg="gray.100" shadow="md" borderRadius={16} gap={4} justifyContent="space-between" minW={150} m={2}>
         <Flex gap={4}>
           <Flex flexDir="column">
             <Text fontSize={18} fontWeight={600} color="black">
@@ -126,5 +126,3 @@ const RstMeetCard = ({ start, end, service, status }: iRstMeetCard) => {
     </>
   )
 }
-
-export default RstMeetCard

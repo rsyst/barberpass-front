@@ -1,5 +1,3 @@
-import Dashboard from '@shared/pages/Barber/Dashboard'
-// import { withAuth } from '@shared/utils/withAut'
+import ClientDashboard from '@shared/pages/Client/Dashboard'
 
-// export default withAuth(Dashboard)
-export default Dashboard
+export default ClientDashboard

@@ -3,16 +3,15 @@ import React from 'react'
 import RstAvatar from '../Avatar'
 import { FiMenu } from 'react-icons/fi'
 import { useAuth } from '@shared/providers/auth'
-import { useFetch } from '@shared/service/use-queries'
 import { iBarber } from '@shared/interface/public'
 import { QUERY_KEYS, ENDPOINTS } from '@shared/constants'
-import { useRouter } from 'next/router'
+import { useFetch } from '@shared/service/use-queries'
 
-export const RstHeaderBarber = () => {
-  const { data } = useFetch<iBarber>(QUERY_KEYS.GET_BARBER, ENDPOINTS.GET_BARBER)
+export const RstHeaderClient = () => {
   const { handleLogout } = useAuth()
-  const router = useRouter()
-  const optionsMenu = [{ label: 'Configurações', onClick: () => router.push('/barber/config') }]
+  const { data } = useFetch<iBarber>(QUERY_KEYS.GET_CLIENT, ENDPOINTS.GET_CLIENT)
+
+  const optionsMenu = [{ label: 'Configurações', onClick: () => console.log('sair') }]
   const optionsUser = [{ label: 'Sair', onClick: handleLogout }]
 
   return (

@@ -1,3 +1,2 @@
-import RstMeetCard from './MeetCard'
-
-export default RstMeetCard
+export { RstMeetCardBarber } from './MeetCardBarber'
+export { RstMeetCardClient } from './MeetCardClient'

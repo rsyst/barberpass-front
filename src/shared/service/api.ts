@@ -74,7 +74,7 @@ api.interceptors.response.use(
 
     const type = getUrlType(url) || ''
 
-    if (message === 'The token is malformed.' || statusCode === 401) {
+    if (message === 'Unauthorized.' || statusCode === 401) {
       logout(type)
     }
 

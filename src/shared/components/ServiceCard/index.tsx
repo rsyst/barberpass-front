@@ -1,0 +1,1 @@
+export { RstServiceCardBarber } from './ServiceCardBarber'

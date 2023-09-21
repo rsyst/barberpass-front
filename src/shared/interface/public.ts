@@ -57,7 +57,7 @@ export interface iAppointment {
   serviceId: string
   barberId: string
   clientId: string
-  statusId: Status
+  statusId: string
 }
 
 export interface iStatus {

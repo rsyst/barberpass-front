@@ -2,8 +2,7 @@ import { Flex, Grid, GridItem, Text } from '@chakra-ui/react'
 import RstAccordion from '@shared/components/Accordion'
 import { RstHeaderBarber } from '@shared/components/Header'
 import RstInfoCard from '@shared/components/InfoCard'
-import RstMeetCard from '@shared/components/MeetCard'
-import { iRstMeetCard } from '@shared/components/MeetCard/MeetCard'
+import { RstMeetCardBarber, iRstMeetCardBarber } from '@shared/components/MeetCard/MeetCardBarber'
 import RstText from '@shared/components/Text'
 import { ENDPOINTS } from '@shared/constants/endpoints'
 import { QUERY_KEYS } from '@shared/constants/query-keys'
@@ -24,10 +23,11 @@ const BarberDashboard = () => {
           <RstText color="gray.1200" fontVariant="h5">
             Bom dia,
           </RstText>
-          <RstText color="gray.1100" fontVariant="h5" ml={1}>
+          <RstText color="gray.1100" fontVariant="h5" ml={1} textTransform="capitalize">
             {data?.name}
           </RstText>
         </Flex>
+
         <Grid templateColumns="repeat(3, 1fr)" gap={3} overflowX="scroll">
           <RstInfoCard
             title="Faturamento do dia"
@@ -41,9 +41,9 @@ const BarberDashboard = () => {
         <Grid templateColumns="repeat(2, 1fr)" gap={4}>
           <GridItem colSpan={2}>
             <RstAccordion title="Agendamentos Seguintes">
-              <Flex flexDir="column" gap={3} overflowY="auto" h="30vh">
+              <Flex flexDir="column" overflowY="auto" h="30vh">
                 {Appointments.map((appointment, index) => (
-                  <RstMeetCard key={index} {...appointment} />
+                  <RstMeetCardBarber key={index} {...appointment} />
                 ))}
               </Flex>
             </RstAccordion>
@@ -51,9 +51,9 @@ const BarberDashboard = () => {
 
           <GridItem colSpan={2}>
             <RstAccordion title="Agenda do Dia">
-              <Flex flexDir="column" gap={3} overflowY="auto" h="30vh">
+              <Flex flexDir="column" overflowY="auto" h="30vh">
                 {Appointments.map((appointment, index) => (
-                  <RstMeetCard key={index} {...appointment} />
+                  <RstMeetCardBarber key={index} {...appointment} />
                 ))}
               </Flex>
             </RstAccordion>
@@ -78,7 +78,7 @@ const BarberDashboard = () => {
 
 export default BarberDashboard
 
-const Appointments: iRstMeetCard[] = [
+const Appointments: iRstMeetCardBarber[] = [
   {
     start: '10:30',
     end: '10:30',
