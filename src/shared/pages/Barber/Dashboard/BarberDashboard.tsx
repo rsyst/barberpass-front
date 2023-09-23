@@ -28,7 +28,7 @@ const BarberDashboard = () => {
           </RstText>
         </Flex>
 
-        <Grid templateColumns="repeat(3, 1fr)" gap={3} overflowX="scroll">
+        <Grid templateColumns="repeat(3, 1fr)" gap={3} overflowX="auto">
           <RstInfoCard
             title="Faturamento do dia"
             value="$120,80"

@@ -12,7 +12,10 @@ export const RstHeaderBarber = () => {
   const { data } = useFetch<iBarber>(QUERY_KEYS.GET_BARBER, ENDPOINTS.GET_BARBER)
   const { handleLogout } = useAuth()
   const router = useRouter()
-  const optionsMenu = [{ label: 'Configurações', onClick: () => router.push('/barber/config') }]
+  const optionsMenu = [
+    { label: 'Dashboard', onClick: () => router.push('/barber/dashboard') },
+    { label: 'Configurações', onClick: () => router.push('/barber/config') }
+  ]
   const optionsUser = [{ label: 'Sair', onClick: handleLogout }]
 
   return (

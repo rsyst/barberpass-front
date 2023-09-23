@@ -1,17 +1,18 @@
 import { FormControl, FormErrorMessage, FormHelperText, FormLabel, Input, InputProps } from '@chakra-ui/react'
 import React from 'react'
 
-interface iProps extends InputProps {
+export interface iInputProps extends InputProps {
   label?: string
   helperText?: string | JSX.Element
   errorMessage?: string
   isError?: boolean
 }
 
-const RstInput = ({ label, helperText, errorMessage, isError, ...props }: iProps) => {
+const RstInput = ({ label, helperText, errorMessage, isError, ...props }: iInputProps) => {
   return (
     <FormControl isInvalid={isError}>
       <FormLabel>{label}</FormLabel>
+
       <Input
         {...props}
         h="54px"

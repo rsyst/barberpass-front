@@ -1,39 +1,42 @@
 import { Flex, IconButton, Menu, MenuButton, MenuItem, MenuList, Text, useDisclosure } from '@chakra-ui/react'
 import React from 'react'
-import RstBadge from '../Badge'
-import { iStatus } from '@shared/interface/public'
+import { iService } from '@shared/interface/public'
 import { FiMoreVertical } from 'react-icons/fi'
-import RstFormScheduleMeet from '../FormScheduleMeet'
+import RstFormService from '../FormService'
+import { RstAlertDelete } from '../AlertDelete'
+import { useDelete } from '@shared/service/use-queries'
+import { ENDPOINTS, QUERY_KEYS } from '@shared/constants'
+import { useQueryClient } from '@tanstack/react-query'
 
-export interface iRstServiceCardBarber {
-  start: string
-  end: string
-  status: iStatus
-  service: {
-    name: string
+export type iRstServiceCardBarber = iService
+
+export const RstServiceCardBarber = ({ ...service }: iRstServiceCardBarber) => {
+  const { isOpen: isOpenEdit, onOpen: onOpenEdit, onClose: onCloseEdit } = useDisclosure()
+  const { isOpen: isOpenDelete, onOpen: onOpenDelete, onClose: onCloseDelete } = useDisclosure()
+
+  const { mutate, isLoading } = useDelete(ENDPOINTS.DELETE_BARBER_SERVICE_BY_ID(service.id))
+
+  const queryClient = useQueryClient()
+
+  const handleDelete = () => {
+    mutate(null, {
+      onSuccess: () => {
+        queryClient.invalidateQueries(QUERY_KEYS.GET_BARBER_SERVICES)
+      }
+    })
+    onCloseDelete()
   }
-}
-
-const statusColor = {
-  CONFIRMED: 'green',
-  BREAK: 'red',
-  OCCUPIED: 'yellow',
-  EMPTY: 'gray'
-}
-
-export const RstServiceCardBarber = ({ start, end, service, status }: iRstServiceCardBarber) => {
-  const { isOpen, onOpen, onClose } = useDisclosure()
 
   const options = [
     {
       label: 'Editar',
       value: 'EDIT',
-      onClick: onOpen
+      onClick: onOpenEdit
     },
     {
-      label: 'Cancelar',
-      value: 'CANCEL',
-      onClick: onOpen
+      label: 'Deletar',
+      value: 'DELETE',
+      onClick: onOpenDelete
     }
   ]
 
@@ -41,15 +44,41 @@ export const RstServiceCardBarber = ({ start, end, service, status }: iRstServic
     <>
       <Flex alignItems="center" justifyContent="space-between" p={6} bg="gray.200" borderRadius={16} shadow="md">
         <Flex flexDir="column">
-          <Text fontWeight="600">Corte de cabelo</Text>
-          <Text fontSize={14}>R$25,00</Text>
-          <Text fontSize={14}>2 horarios</Text>
+          <Text fontWeight="600">{service.name}</Text>
+          <Text fontSize={14}>{service.price},00 Reais</Text>
+          <Text fontSize={14}>{service.workAmount} horario(s)</Text>
         </Flex>
 
-        <Flex>
-          <IconButton aria-label="menu" />
-        </Flex>
+        <Menu>
+          <MenuButton
+            as={IconButton}
+            aria-label="Options"
+            icon={<FiMoreVertical />}
+            variant="ghost"
+            color="black"
+            colorScheme="gray"
+          />
+          <MenuList>
+            {options.map((option, index) => (
+              <MenuItem key={index} onClick={option.onClick}>
+                {option.label}
+              </MenuItem>
+            ))}
+          </MenuList>
+        </Menu>
       </Flex>
+
+      {isOpenDelete && (
+        <RstAlertDelete
+          isOpen={isOpenDelete}
+          onClose={onCloseDelete}
+          onSubmit={handleDelete}
+          isLoading={isLoading}
+          title="Deletar serviço"
+          label="Você tem certeza que deseja deletar este serviço?"
+        />
+      )}
+      {isOpenEdit && <RstFormService isOpen={isOpenEdit} onClose={onCloseEdit} service={service} />}
     </>
   )
 }

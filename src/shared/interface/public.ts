@@ -25,14 +25,15 @@ export interface iBarber {
   phoneNumber: string
   startWork: string
   endWork: string
-  timePerWork: string
+  timePerWork: number
   email: string
-  password: string
+  password?: string
   created_at: string
   updated_at: string
 }
 
 export interface iService {
+  id: string
   name: string
   price: string
   workAmount: string
