@@ -87,25 +87,34 @@ const Appointments: iRstMeetCardClient[] = [
     end: '2023-09-20 06:00:00',
     status: { id: 'asd', key: 'CONFIRMED', pt: 'confirmado' },
     service: {
-      name: 'Corte de cabelo'
+      name: 'Corte de cabelo',
+      id: '',
+      price: '',
+      workAmount: ''
     }
-  },
+  } as iRstMeetCardClient,
   {
     start: '2023-09-20 06:00:00',
     end: '2023-09-20 06:00:00',
     status: { id: 'asd', key: 'OCCUPIED', pt: 'Pendente' },
     service: {
-      name: 'Corte de cabelo'
+      name: 'Corte de cabelo',
+      id: '',
+      price: '',
+      workAmount: ''
     }
-  },
+  } as iRstMeetCardClient,
   {
     start: '2023-09-20 06:00:00',
     end: '2023-09-20 06:00:00',
     status: { id: 'asd', key: 'EMPTY', pt: 'Horario Vago' },
     service: {
-      name: 'Corte de cabelo'
+      name: 'Corte de cabelo',
+      id: '',
+      price: '',
+      workAmount: ''
     }
-  }
+  } as iRstMeetCardClient
   // {
   //   start: '10:30',
   //   end: '10:30',

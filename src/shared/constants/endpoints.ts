@@ -13,10 +13,14 @@ const ENDPOINTS_BARBER = {
   PUT_BARBER: 'barber/',
   GET_BARBER_APPOINTMENTS: 'barber/appointments',
   GET_BARBER_APPOINTMENTS_BY_ID: (id: string) => `barber/appointments/${id}`,
+  PUT_BARBER_APPOINTMENTS_BY_ID_OCCUPIED: (id: string) => `barber/appointments/${id}/occupied`,
+  PUT_BARBER_APPOINTMENTS_BY_ID_EMPTY: (id: string) => `barber/appointments/${id}/empty`,
+  PATCH_BARBER_APPOINTMENTS_BY_ID_CONFIRMED: (id: string) => `barber/appointments/${id}/confirmed`,
+  PATCH_BARBER_APPOINTMENTS_BY_ID_BREAK: (id: string) => `barber/appointments/${id}/break`,
   GET_BARBER_SERVICES: 'barber/services',
   POST_BARBER_SERVICE: 'barber/service',
-  PUT_BARBER_SERVICE_BY_ID: (id: string) => `barber/service/${id}`,
-  DELETE_BARBER_SERVICE_BY_ID: (id: string) => `barber/service/${id}`
+  PUT_BARBER_SERVICES_BY_ID: (id: string) => `barber/services/${id}`,
+  DELETE_BARBER_SERVICES_BY_ID: (id: string) => `barber/services/${id}`
 }
 
 const ENDPOINTS_BARBER_SHOP = {

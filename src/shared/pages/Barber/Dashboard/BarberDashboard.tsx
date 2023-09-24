@@ -2,18 +2,21 @@ import { Flex, Grid, GridItem, Text } from '@chakra-ui/react'
 import RstAccordion from '@shared/components/Accordion'
 import { RstHeaderBarber } from '@shared/components/Header'
 import RstInfoCard from '@shared/components/InfoCard'
-import { RstMeetCardBarber, iRstMeetCardBarber } from '@shared/components/MeetCard/MeetCardBarber'
+import { RstMeetCardBarber } from '@shared/components/MeetCard/MeetCardBarber'
 import RstText from '@shared/components/Text'
 import { ENDPOINTS } from '@shared/constants/endpoints'
 import { QUERY_KEYS } from '@shared/constants/query-keys'
-import { iBarber } from '@shared/interface/public'
+import { iAppointment, iBarber } from '@shared/interface/public'
 import { useFetch } from '@shared/service/use-queries'
 import React from 'react'
 
 const BarberDashboard = () => {
-  const { data, isLoading } = useFetch<iBarber>(QUERY_KEYS.GET_BARBER, ENDPOINTS.GET_BARBER)
-
-  if (isLoading) return <div>loading...</div>
+  const { data: barber, isLoading: loadingBarber } = useFetch<iBarber>(QUERY_KEYS.GET_BARBER, ENDPOINTS.GET_BARBER)
+  const { data: appointments, isLoading: loadingAppointments } = useFetch<iAppointment[]>(
+    QUERY_KEYS.GET_BARBER_APPOINTMENTS,
+    ENDPOINTS.GET_BARBER_APPOINTMENTS
+  )
+  if (loadingBarber || loadingAppointments) return <div>loading...</div>
 
   return (
     <>
@@ -24,7 +27,7 @@ const BarberDashboard = () => {
             Bom dia,
           </RstText>
           <RstText color="gray.1100" fontVariant="h5" ml={1} textTransform="capitalize">
-            {data?.name}
+            {barber?.name}
           </RstText>
         </Flex>
 
@@ -42,7 +45,7 @@ const BarberDashboard = () => {
           <GridItem colSpan={2}>
             <RstAccordion title="Agendamentos Seguintes">
               <Flex flexDir="column" overflowY="auto" h="30vh">
-                {Appointments.map((appointment, index) => (
+                {appointments?.map((appointment, index) => (
                   <RstMeetCardBarber key={index} {...appointment} />
                 ))}
               </Flex>
@@ -52,7 +55,7 @@ const BarberDashboard = () => {
           <GridItem colSpan={2}>
             <RstAccordion title="Agenda do Dia">
               <Flex flexDir="column" overflowY="auto" h="30vh">
-                {Appointments.map((appointment, index) => (
+                {appointments?.map((appointment, index) => (
                   <RstMeetCardBarber key={index} {...appointment} />
                 ))}
               </Flex>
@@ -78,85 +81,85 @@ const BarberDashboard = () => {
 
 export default BarberDashboard
 
-const Appointments: iRstMeetCardBarber[] = [
-  {
-    start: '10:30',
-    end: '10:30',
-    status: { id: 'asd', key: 'CONFIRMED', pt: 'confirmado' },
-    service: {
-      name: 'Corte de cabelo'
-    }
-  },
-  {
-    start: '11:30',
-    end: '10:30',
-    status: { id: 'asd', key: 'BREAK', pt: 'Intervalo' },
-    service: {
-      name: 'Corte de cabelo'
-    }
-  },
-  {
-    start: '10:30',
-    end: '10:30',
-    status: { id: 'asd', key: 'OCCUPIED', pt: 'Pendente' },
-    service: {
-      name: 'Corte de cabelo'
-    }
-  },
-  {
-    start: '10:30',
-    end: '10:30',
-    status: { id: 'asd', key: 'EMPTY', pt: 'Horario Vago' },
-    service: {
-      name: 'Corte de cabelo'
-    }
-  },
-  {
-    start: '10:30',
-    end: '10:30',
-    status: { id: 'asd', key: 'CONFIRMED', pt: 'confirmado' },
-    service: {
-      name: 'Corte de cabelo'
-    }
-  },
-  {
-    start: '10:30',
-    end: '10:30',
-    status: { id: 'asd', key: 'CONFIRMED', pt: 'confirmado' },
-    service: {
-      name: 'Corte de cabelo'
-    }
-  },
-  {
-    start: '10:30',
-    end: '10:30',
-    status: { id: 'asd', key: 'CONFIRMED', pt: 'confirmado' },
-    service: {
-      name: 'Corte de cabelo'
-    }
-  },
-  {
-    start: '10:30',
-    end: '10:30',
-    status: { id: 'asd', key: 'CONFIRMED', pt: 'confirmado' },
-    service: {
-      name: 'Corte de cabelo'
-    }
-  },
-  {
-    start: '10:30',
-    end: '10:30',
-    status: { id: 'asd', key: 'CONFIRMED', pt: 'confirmado' },
-    service: {
-      name: 'Corte de cabelo'
-    }
-  },
-  {
-    start: '10:30',
-    end: '10:30',
-    status: { id: 'asd', key: 'CONFIRMED', pt: 'confirmado' },
-    service: {
-      name: 'Corte de cabelo'
-    }
-  }
-]
+// const Appointments: iRstMeetCardBarber[] = [
+//   {
+//     start: '10:30',
+//     end: '10:30',
+//     status: { id: 'asd', key: 'CONFIRMED', pt: 'confirmado' },
+//     service: {
+//       name: 'Corte de cabelo'
+//     }
+//   },
+//   {
+//     start: '11:30',
+//     end: '10:30',
+//     status: { id: 'asd', key: 'BREAK', pt: 'Intervalo' },
+//     service: {
+//       name: 'Corte de cabelo'
+//     }
+//   },
+//   {
+//     start: '10:30',
+//     end: '10:30',
+//     status: { id: 'asd', key: 'OCCUPIED', pt: 'Pendente' },
+//     service: {
+//       name: 'Corte de cabelo'
+//     }
+//   },
+//   {
+//     start: '10:30',
+//     end: '10:30',
+//     status: { id: 'asd', key: 'EMPTY', pt: 'Horario Vago' },
+//     service: {
+//       name: 'Corte de cabelo'
+//     }
+//   },
+//   {
+//     start: '10:30',
+//     end: '10:30',
+//     status: { id: 'asd', key: 'CONFIRMED', pt: 'confirmado' },
+//     service: {
+//       name: 'Corte de cabelo'
+//     }
+//   },
+//   {
+//     start: '10:30',
+//     end: '10:30',
+//     status: { id: 'asd', key: 'CONFIRMED', pt: 'confirmado' },
+//     service: {
+//       name: 'Corte de cabelo'
+//     }
+//   },
+//   {
+//     start: '10:30',
+//     end: '10:30',
+//     status: { id: 'asd', key: 'CONFIRMED', pt: 'confirmado' },
+//     service: {
+//       name: 'Corte de cabelo'
+//     }
+//   },
+//   {
+//     start: '10:30',
+//     end: '10:30',
+//     status: { id: 'asd', key: 'CONFIRMED', pt: 'confirmado' },
+//     service: {
+//       name: 'Corte de cabelo'
+//     }
+//   },
+//   {
+//     start: '10:30',
+//     end: '10:30',
+//     status: { id: 'asd', key: 'CONFIRMED', pt: 'confirmado' },
+//     service: {
+//       name: 'Corte de cabelo'
+//     }
+//   },
+//   {
+//     start: '10:30',
+//     end: '10:30',
+//     status: { id: 'asd', key: 'CONFIRMED', pt: 'confirmado' },
+//     service: {
+//       name: 'Corte de cabelo'
+//     }
+//   }
+// ]

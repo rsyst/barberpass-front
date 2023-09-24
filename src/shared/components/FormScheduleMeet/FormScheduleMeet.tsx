@@ -6,19 +6,23 @@ import {
   ModalHeader,
   ModalFooter,
   ModalBody,
-  ModalCloseButton
+  ModalCloseButton,
+  useToast
 } from '@chakra-ui/react'
 import RstButton from '../Button'
 import RstInput from '../Input'
 import RstSelect from '../Select'
-import { useFetch } from '@shared/service/use-queries'
+import { useFetch, usePut } from '@shared/service/use-queries'
 import { ENDPOINTS, QUERY_KEYS } from '@shared/constants'
-import { iService } from '@shared/interface/public'
+import { iAppointment, iService } from '@shared/interface/public'
 import RstInputPhone from '../Input/InputPhone'
+import { useQueryClient } from '@tanstack/react-query'
+import { removePhoneMask } from '@shared/utils/removePhoneMask'
 
 interface iProps {
   isOpen: boolean
   onClose: () => void
+  appointment: iAppointment
 }
 
 interface iFormMeet {
@@ -27,8 +31,15 @@ interface iFormMeet {
   serviceId: string
 }
 
-const RstFormScheduleMeet = ({ isOpen, onClose }: iProps) => {
+const RstFormScheduleMeet = ({ isOpen, onClose, appointment }: iProps) => {
   const { data: services } = useFetch<iService[]>(QUERY_KEYS.GET_BARBER_SERVICES, ENDPOINTS.GET_BARBER_SERVICES)
+  const { mutate: occupiedAppointment } = usePut(
+    ENDPOINTS.PUT_BARBER_APPOINTMENTS_BY_ID_OCCUPIED(appointment?.id || '')
+  )
+
+  const queryClient = useQueryClient()
+  const toast = useToast()
+
   const [formValues, setFormValues] = useState({} as iFormMeet)
 
   const handleChangeValue = (fname: keyof iFormMeet, value: unknown) => {
@@ -36,6 +47,29 @@ const RstFormScheduleMeet = ({ isOpen, onClose }: iProps) => {
       ...oldValues,
       [fname]: value
     }))
+  }
+
+  const handleSubmit = () => {
+    occupiedAppointment(
+      {
+        name: formValues.name,
+        phoneNumber: removePhoneMask(formValues.phoneNumber),
+        serviceId: formValues.serviceId
+      },
+      {
+        onSuccess: () => {
+          queryClient.invalidateQueries(QUERY_KEYS.GET_BARBER_APPOINTMENTS)
+          toast({
+            title: 'Agendamento realizado com sucesso',
+            status: 'success',
+            position: 'top-right',
+            duration: 3000,
+            isClosable: true
+          })
+          onClose()
+        }
+      }
+    )
   }
 
   return (
@@ -75,7 +109,7 @@ const RstFormScheduleMeet = ({ isOpen, onClose }: iProps) => {
           <RstButton variant="ghost" colorScheme="gray" onClick={onClose}>
             Cancelar
           </RstButton>
-          <RstButton colorScheme="blue" onClick={onClose}>
+          <RstButton colorScheme="blue" onClick={handleSubmit}>
             Agendar
           </RstButton>
         </ModalFooter>

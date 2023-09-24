@@ -1,18 +1,15 @@
 import { Flex, IconButton, Menu, MenuButton, MenuItem, MenuList, Text, useDisclosure } from '@chakra-ui/react'
 import React from 'react'
 import RstBadge from '../Badge'
-import { iStatus } from '@shared/interface/public'
+import { iAppointment } from '@shared/interface/public'
 import { FiMoreVertical } from 'react-icons/fi'
 import RstFormScheduleMeet from '../FormScheduleMeet'
+import moment from 'moment'
+import RstMeetCardBarberAlertBreak from './MeetCardBarberAlertBreak'
+import RstMeetCardBarberAlertConfirmed from './MeetCardBarberAlertConfirmed'
+import RstMeetCardBarberAlertEmpty from './MeetCardBarberAlertEmpty'
 
-export interface iRstMeetCardBarber {
-  start: string
-  end: string
-  status: iStatus
-  service: {
-    name: string
-  }
-}
+export type iRstMeetCardBarber = iAppointment
 
 const statusColor = {
   CONFIRMED: 'green',
@@ -21,61 +18,59 @@ const statusColor = {
   EMPTY: 'gray'
 }
 
-export const RstMeetCardBarber = ({ start, end, service, status }: iRstMeetCardBarber) => {
-  const { isOpen, onOpen, onClose } = useDisclosure()
+export const RstMeetCardBarber = ({ ...appointment }: iRstMeetCardBarber) => {
+  const { isOpen: isOpenOccupied, onOpen: onOpenOccupied, onClose: onCloseOccupied } = useDisclosure()
+  const { isOpen: isOpenEmpty, onOpen: onOpenEmpty, onClose: onCloseEmpty } = useDisclosure()
+  const { isOpen: isOpenConfirmed, onOpen: onOpenConfirmed, onClose: onCloseConfirmed } = useDisclosure()
+  const { isOpen: isOpenBreak, onOpen: onOpenBreak, onClose: onCloseBreak } = useDisclosure()
 
   const optionsByStatus = {
     CONFIRMED: [
       {
         label: 'Visualizar',
-        value: 'CANCEL',
-        onClick: onOpen
+        onClick: onOpenOccupied
       },
       {
         label: 'Cancelar',
-        value: 'CANCEL',
-        onClick: onOpen
+        onClick: onOpenEmpty
       }
     ],
     BREAK: [
       {
         label: 'Cancelar',
-        value: 'CANCEL',
-        onClick: onOpen
+        onClick: onOpenEmpty
       }
     ],
     OCCUPIED: [
       {
         label: 'Visualizar',
-        value: 'CANCEL',
-        onClick: onOpen
+        onClick: onOpenOccupied
       },
       {
         label: 'Confirmar',
-        value: 'CANCEL',
-        onClick: onOpen
+        onClick: onOpenConfirmed
       },
       {
         label: 'Cancelar',
-        value: 'CANCEL',
-        onClick: onOpen
+        onClick: onOpenEmpty
       }
     ],
     EMPTY: [
       {
         label: 'Agendar',
-        value: 'CANCEL',
-        onClick: onOpen
+        onClick: onOpenOccupied
       },
       {
         label: 'Visualizar',
-        value: 'CANCEL',
-        onClick: onOpen
+        onClick: onOpenOccupied
+      },
+      {
+        label: 'Intervalo',
+        onClick: onOpenBreak
       },
       {
         label: 'Cancelar',
-        value: 'CANCEL',
-        onClick: onOpen
+        onClick: onOpenEmpty
       }
     ]
   }
@@ -86,19 +81,24 @@ export const RstMeetCardBarber = ({ start, end, service, status }: iRstMeetCardB
         <Flex gap={4}>
           <Flex flexDir="column">
             <Text fontSize={18} fontWeight={600} color="black">
-              {start}
+              {moment(appointment.start).format('HH:mm')}
             </Text>
             <Text fontSize={12} color="gray.1200">
-              {end}
+              {moment(appointment.end).format('HH:mm')}
             </Text>
           </Flex>
           <Flex flexDir="column">
             <Text color="gray.1200" fontWeight={500}>
-              {service?.name}
+              {appointment.name}
             </Text>
 
-            <RstBadge colorScheme={statusColor[status.key]} display="flex" alignItems="center" justifyContent="center">
-              {status.pt}
+            <RstBadge
+              colorScheme={statusColor[appointment.status?.key || 'EMPTY']}
+              display="flex"
+              alignItems="center"
+              justifyContent="center"
+            >
+              {appointment.status?.pt}
             </RstBadge>
           </Flex>
         </Flex>
@@ -113,7 +113,7 @@ export const RstMeetCardBarber = ({ start, end, service, status }: iRstMeetCardB
               colorScheme="gray"
             />
             <MenuList>
-              {optionsByStatus[status.key].map((option, index) => (
+              {optionsByStatus[appointment.status?.key || 'EMPTY'].map((option, index) => (
                 <MenuItem key={index} onClick={option.onClick}>
                   {option.label}
                 </MenuItem>
@@ -122,7 +122,22 @@ export const RstMeetCardBarber = ({ start, end, service, status }: iRstMeetCardB
           </Menu>
         </Flex>
       </Flex>
-      <RstFormScheduleMeet isOpen={isOpen} onClose={onClose} />
+      {isOpenOccupied && (
+        <RstFormScheduleMeet isOpen={isOpenOccupied} onClose={onCloseOccupied} appointment={appointment} />
+      )}
+      {isOpenBreak && (
+        <RstMeetCardBarberAlertBreak isOpen={isOpenBreak} onClose={onCloseBreak} appointment={appointment} />
+      )}
+      {isOpenConfirmed && (
+        <RstMeetCardBarberAlertConfirmed
+          isOpen={isOpenConfirmed}
+          onClose={onCloseConfirmed}
+          appointment={appointment}
+        />
+      )}
+      {isOpenEmpty && (
+        <RstMeetCardBarberAlertEmpty isOpen={isOpenEmpty} onClose={onCloseEmpty} appointment={appointment} />
+      )}
     </>
   )
 }

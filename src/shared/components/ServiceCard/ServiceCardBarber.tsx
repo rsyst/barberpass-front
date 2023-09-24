@@ -1,4 +1,4 @@
-import { Flex, IconButton, Menu, MenuButton, MenuItem, MenuList, Text, useDisclosure } from '@chakra-ui/react'
+import { Flex, IconButton, Menu, MenuButton, MenuItem, MenuList, Text, useDisclosure, useToast } from '@chakra-ui/react'
 import React from 'react'
 import { iService } from '@shared/interface/public'
 import { FiMoreVertical } from 'react-icons/fi'
@@ -14,17 +14,24 @@ export const RstServiceCardBarber = ({ ...service }: iRstServiceCardBarber) => {
   const { isOpen: isOpenEdit, onOpen: onOpenEdit, onClose: onCloseEdit } = useDisclosure()
   const { isOpen: isOpenDelete, onOpen: onOpenDelete, onClose: onCloseDelete } = useDisclosure()
 
-  const { mutate, isLoading } = useDelete(ENDPOINTS.DELETE_BARBER_SERVICE_BY_ID(service.id))
+  const { mutate, isLoading } = useDelete(ENDPOINTS.DELETE_BARBER_SERVICES_BY_ID(service.id))
 
   const queryClient = useQueryClient()
+  const toast = useToast()
 
   const handleDelete = () => {
     mutate(null, {
       onSuccess: () => {
         queryClient.invalidateQueries(QUERY_KEYS.GET_BARBER_SERVICES)
+        toast({
+          title: 'Serviço deletado com sucesso',
+          status: 'success',
+          duration: 3000,
+          isClosable: true
+        })
+        onCloseDelete()
       }
     })
-    onCloseDelete()
   }
 
   const options = [

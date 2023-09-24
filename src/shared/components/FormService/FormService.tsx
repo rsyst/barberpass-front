@@ -6,7 +6,8 @@ import {
   ModalHeader,
   ModalFooter,
   ModalBody,
-  ModalCloseButton
+  ModalCloseButton,
+  useToast
 } from '@chakra-ui/react'
 import RstButton from '../Button'
 import RstInput from '../Input'
@@ -34,11 +35,13 @@ const RstFormService = ({ isOpen, onClose, service }: iProps) => {
   )
 
   const queryClient = useQueryClient()
+  const toast = useToast()
   const [formValues, setFormValues] = useState(initialValues)
 
   const { mutate: createService, isLoading: loadingCreate } = usePost(ENDPOINTS.POST_BARBER_SERVICE)
-  const { mutate: editService, isLoading: loadingEdit } = usePut(ENDPOINTS.PUT_BARBER_SERVICE_BY_ID(service?.id || ''))
+  const { mutate: editService, isLoading: loadingEdit } = usePut(ENDPOINTS.PUT_BARBER_SERVICES_BY_ID(service?.id || ''))
   const isLoading = loadingCreate || loadingEdit
+  const havePrevService = !!service
 
   const handleChangeValue = (fname: keyof iFormService, value: unknown) => {
     setFormValues((oldValues) => ({
@@ -47,38 +50,48 @@ const RstFormService = ({ isOpen, onClose, service }: iProps) => {
     }))
   }
 
-  const handleSubmit = () => {
-    const havePrevService = !!service
+  const handleCreateService = () => {
+    createService(
+      {
+        name: formValues.name,
+        price: parseFloat(formValues.price as string),
+        workAmount: parseInt(formValues.workAmount as string)
+      },
+      {
+        onSuccess: () => {
+          queryClient.invalidateQueries(QUERY_KEYS.GET_BARBER_SERVICES)
+          toast({
+            title: 'Serviço criado com sucesso',
+            status: 'success',
+            duration: 3000,
+            isClosable: true
+          })
+          handleClose()
+        }
+      }
+    )
+  }
 
-    if (havePrevService) {
-      editService(
-        {
-          name: formValues.name,
-          price: parseFloat(formValues.price as string),
-          workAmount: parseInt(formValues.workAmount as string)
-        },
-        {
-          onSuccess: () => {
-            queryClient.invalidateQueries(QUERY_KEYS.GET_BARBER_SERVICES)
-            handleClose()
-          }
+  const handleEditService = () => {
+    editService(
+      {
+        name: formValues.name,
+        price: parseFloat(formValues.price as string),
+        workAmount: parseInt(formValues.workAmount as string)
+      },
+      {
+        onSuccess: () => {
+          queryClient.invalidateQueries(QUERY_KEYS.GET_BARBER_SERVICES)
+          toast({
+            title: 'Serviço editado com sucesso',
+            status: 'success',
+            duration: 3000,
+            isClosable: true
+          })
+          handleClose()
         }
-      )
-    } else {
-      createService(
-        {
-          name: formValues.name,
-          price: parseFloat(formValues.price as string),
-          workAmount: parseInt(formValues.workAmount as string)
-        },
-        {
-          onSuccess: () => {
-            queryClient.invalidateQueries(QUERY_KEYS.GET_BARBER_SERVICES)
-            handleClose()
-          }
-        }
-      )
-    }
+      }
+    )
   }
 
   const handleClose = () => {
@@ -118,9 +131,15 @@ const RstFormService = ({ isOpen, onClose, service }: iProps) => {
           <RstButton variant="ghost" colorScheme="gray" isLoading={isLoading}>
             Cancelar
           </RstButton>
-          <RstButton colorScheme="blue" onClick={handleSubmit} isLoading={isLoading}>
-            Cadastrar
-          </RstButton>
+          {havePrevService ? (
+            <RstButton colorScheme="blue" onClick={handleEditService} isLoading={isLoading} minW={120}>
+              Editar
+            </RstButton>
+          ) : (
+            <RstButton colorScheme="blue" onClick={handleCreateService} isLoading={isLoading} minW={120}>
+              Cadastrar
+            </RstButton>
+          )}
         </ModalFooter>
       </ModalContent>
     </Modal>

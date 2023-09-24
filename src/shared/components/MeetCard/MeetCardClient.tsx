@@ -75,7 +75,7 @@ export const RstMeetCardClient = ({ ...appointment }: iRstMeetCardClient) => {
           </Flex>
           <Flex flexDir="column">
             <Text color="gray.1200" fontWeight={500}>
-              {appointment?.service?.name}
+              {appointment?.name}
             </Text>
 
             <RstBadge
