@@ -1,6 +1,6 @@
-import { AppProps } from 'next/app'
-import Head from 'next/head'
-import Providers from '@shared/providers'
+import { AppProps } from "next/app";
+import Head from "next/head";
+import Providers from "@shared/providers";
 
 function App({ Component, pageProps }: AppProps) {
   return (
@@ -16,11 +16,12 @@ function App({ Component, pageProps }: AppProps) {
           content="A simple project starter to work with TypeScript, React, NextJS and Styled Components"
         />
       </Head>
+
       <Providers>
         <Component {...pageProps} />
       </Providers>
     </>
-  )
+  );
 }
 
-export default App
+export default App;
