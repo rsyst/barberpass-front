@@ -1,6 +1,6 @@
-import { AppProps } from "next/app";
-import Head from "next/head";
-import Providers from "@shared/providers";
+import { AppProps } from 'next/app'
+import Head from 'next/head'
+import Providers from '@shared/providers'
 
 function App({ Component, pageProps }: AppProps) {
   return (
@@ -20,7 +20,7 @@ function App({ Component, pageProps }: AppProps) {
         <Component {...pageProps} />
       </Providers>
     </>
-  );
+  )
 }
 
-export default App;
+export default App
