@@ -8,6 +8,7 @@ import moment from 'moment'
 import RstMeetCardBarberAlertBreak from './MeetCardBarberAlertBreak'
 import RstMeetCardBarberAlertConfirmed from './MeetCardBarberAlertConfirmed'
 import RstMeetCardBarberAlertEmpty from './MeetCardBarberAlertEmpty'
+import RstMeetCardBarberAlertView from './MeetCardBarberAlertView'
 
 export type iRstMeetCardBarber = iAppointment
 
@@ -23,12 +24,13 @@ export const RstMeetCardBarber = ({ ...appointment }: iRstMeetCardBarber) => {
   const { isOpen: isOpenEmpty, onOpen: onOpenEmpty, onClose: onCloseEmpty } = useDisclosure()
   const { isOpen: isOpenConfirmed, onOpen: onOpenConfirmed, onClose: onCloseConfirmed } = useDisclosure()
   const { isOpen: isOpenBreak, onOpen: onOpenBreak, onClose: onCloseBreak } = useDisclosure()
+  const { isOpen: isOpenView, onOpen: onOpenView, onClose: onCloseView } = useDisclosure()
 
   const optionsByStatus = {
     CONFIRMED: [
       {
         label: 'Visualizar',
-        onClick: onOpenOccupied
+        onClick: onOpenView
       },
       {
         label: 'Cancelar',
@@ -44,7 +46,7 @@ export const RstMeetCardBarber = ({ ...appointment }: iRstMeetCardBarber) => {
     OCCUPIED: [
       {
         label: 'Visualizar',
-        onClick: onOpenOccupied
+        onClick: onOpenView
       },
       {
         label: 'Confirmar',
@@ -62,7 +64,7 @@ export const RstMeetCardBarber = ({ ...appointment }: iRstMeetCardBarber) => {
       },
       {
         label: 'Visualizar',
-        onClick: onOpenOccupied
+        onClick: onOpenView
       },
       {
         label: 'Intervalo',
@@ -138,6 +140,7 @@ export const RstMeetCardBarber = ({ ...appointment }: iRstMeetCardBarber) => {
       {isOpenEmpty && (
         <RstMeetCardBarberAlertEmpty isOpen={isOpenEmpty} onClose={onCloseEmpty} appointment={appointment} />
       )}
+      {isOpenView && <RstMeetCardBarberAlertView isOpen={isOpenView} onClose={onCloseView} appointment={appointment} />}
     </>
   )
 }

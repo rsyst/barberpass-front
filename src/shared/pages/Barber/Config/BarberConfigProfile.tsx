@@ -1,4 +1,4 @@
-import { Flex, Grid, GridItem, Text } from '@chakra-ui/react'
+import { Flex, Grid, GridItem, Text, useToast } from '@chakra-ui/react'
 import RstButton from '@shared/components/Button'
 import { RstHeaderBarber } from '@shared/components/Header'
 import RstInput from '@shared/components/Input'
@@ -6,6 +6,7 @@ import RstInputPhone from '@shared/components/Input/InputPhone'
 import { ENDPOINTS, QUERY_KEYS } from '@shared/constants'
 import { iBarber } from '@shared/interface/public'
 import { useFetch, usePut } from '@shared/service/use-queries'
+import { useQueryClient } from '@tanstack/react-query'
 import moment from 'moment'
 import React, { useEffect, useState } from 'react'
 import { FiEdit2 } from 'react-icons/fi'
@@ -25,6 +26,9 @@ const BarberConfigProfile = () => {
 
   const [formValues, setFormValues] = useState({} as iFormService)
 
+  const queryClient = useQueryClient()
+  const toast = useToast()
+
   const handleChangeValue = (fname: keyof iFormService, value: unknown) => {
     setFormValues((oldValues) => ({
       ...oldValues,
@@ -41,8 +45,16 @@ const BarberConfigProfile = () => {
       timePerWork: formValues.timePerWork,
       email: formValues.email
     }
-    editProfile(payload)
-    console.log(formValues)
+    editProfile(payload, {
+      onSuccess: () => {
+        queryClient.invalidateQueries(QUERY_KEYS.GET_BARBER)
+        toast({
+          title: 'Perfil editado com sucesso',
+          status: 'success',
+          isClosable: true
+        })
+      }
+    })
   }
 
   useEffect(() => {
@@ -106,6 +118,7 @@ const BarberConfigProfile = () => {
           <RstInput
             label="Abertura de agenda*"
             placeholder="ex: Corte de cabelo"
+            isDisabled
             value={formValues.startWork}
             onChange={({ target }) => handleChangeValue('startWork', target.value)}
             type="time"
@@ -113,6 +126,7 @@ const BarberConfigProfile = () => {
           <RstInput
             label="Encerramento da agenda*"
             placeholder="ex: R$ 25:00"
+            isDisabled
             value={formValues.endWork}
             onChange={({ target }) => handleChangeValue('endWork', target.value)}
             type="time"
@@ -121,6 +135,7 @@ const BarberConfigProfile = () => {
             label="Tempo por serviço* (minutos)"
             placeholder="ex: 45"
             type="number"
+            isDisabled
             value={formValues.timePerWork}
             onChange={({ target }) => handleChangeValue('timePerWork', target.value)}
           />

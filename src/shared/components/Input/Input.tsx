@@ -26,9 +26,11 @@ const RstInput = ({ label, helperText, errorMessage, isError, ...props }: iInput
         _placeholder={{ color: 'gray.700' }}
       />
       {!isError ? (
-        <FormHelperText fontSize="md">{helperText}</FormHelperText>
+        <FormHelperText fontSize={12} color="gray.1000">
+          {helperText}
+        </FormHelperText>
       ) : (
-        <FormErrorMessage fontSize="md">{errorMessage}</FormErrorMessage>
+        <FormErrorMessage fontSize={12}>{errorMessage}</FormErrorMessage>
       )}
     </FormControl>
   )

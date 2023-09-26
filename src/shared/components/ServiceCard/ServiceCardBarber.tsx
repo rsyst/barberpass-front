@@ -7,6 +7,7 @@ import { RstAlertDelete } from '../AlertDelete'
 import { useDelete } from '@shared/service/use-queries'
 import { ENDPOINTS, QUERY_KEYS } from '@shared/constants'
 import { useQueryClient } from '@tanstack/react-query'
+import { currencyMask } from '@shared/utils/currencyMask'
 
 export type iRstServiceCardBarber = iService
 
@@ -52,7 +53,7 @@ export const RstServiceCardBarber = ({ ...service }: iRstServiceCardBarber) => {
       <Flex alignItems="center" justifyContent="space-between" p={6} bg="gray.200" borderRadius={16} shadow="md">
         <Flex flexDir="column">
           <Text fontWeight="600">{service.name}</Text>
-          <Text fontSize={14}>{service.price},00 Reais</Text>
+          <Text fontSize={14}>{currencyMask(String(service.price * 100))}</Text>
           <Text fontSize={14}>{service.workAmount} horario(s)</Text>
         </Flex>
 

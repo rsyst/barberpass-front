@@ -50,7 +50,7 @@ export const RstMeetCardBarberAlertEmpty = ({ isOpen, onClose, appointment }: iP
       <Modal isOpen={isOpen} onClose={onClose}>
         <ModalOverlay />
         <ModalContent m={4}>
-          <ModalHeader>Agendar horario</ModalHeader>
+          <ModalHeader>Cancelar horário</ModalHeader>
           <ModalCloseButton />
           <ModalBody>
             <Text>Você tem certeza que deseja cancelar este agendamento?</Text>

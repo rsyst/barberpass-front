@@ -48,7 +48,7 @@ export const RstMeetCardBarberAlertBreak = ({ isOpen, onClose, appointment }: iP
       <Modal isOpen={isOpen} onClose={onClose}>
         <ModalOverlay />
         <ModalContent m={4}>
-          <ModalHeader>Agendar horario</ModalHeader>
+          <ModalHeader>Agendamento</ModalHeader>
           <ModalCloseButton />
           <ModalBody>
             <Text>

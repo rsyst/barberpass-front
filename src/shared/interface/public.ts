@@ -36,7 +36,7 @@ export interface iBarber {
 export interface iService {
   id: string
   name: string
-  price: string
+  price: number
   workAmount: string
 }
 

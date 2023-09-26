@@ -17,7 +17,7 @@ import { ENDPOINTS, QUERY_KEYS } from '@shared/constants'
 import { iAppointment, iService } from '@shared/interface/public'
 import RstInputPhone from '../Input/InputPhone'
 import { useQueryClient } from '@tanstack/react-query'
-import { removePhoneMask } from '@shared/utils/removePhoneMask'
+import { removePhoneMask } from '@shared/utils/phoneMask'
 
 interface iProps {
   isOpen: boolean

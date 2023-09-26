@@ -15,6 +15,8 @@ import { usePost, usePut } from '@shared/service/use-queries'
 import { ENDPOINTS, QUERY_KEYS } from '@shared/constants'
 import { iService } from '@shared/interface/public'
 import { useQueryClient } from '@tanstack/react-query'
+import RstInputCurrency from '../Input/InputCurrency'
+import { currencyToNumber, floatToCurrency, removeCurrencyMask } from '@shared/utils/currencyMask'
 
 interface iProps {
   service?: iService
@@ -30,7 +32,11 @@ interface iFormService {
 
 const RstFormService = ({ isOpen, onClose, service }: iProps) => {
   const initialValues: iFormService = useMemo(
-    () => ({ name: service?.name || '', price: service?.price || '', workAmount: service?.workAmount || '' }),
+    () => ({
+      name: service?.name || '',
+      price: floatToCurrency(service?.price || 0),
+      workAmount: service?.workAmount || ''
+    }),
     [service]
   )
 
@@ -54,7 +60,7 @@ const RstFormService = ({ isOpen, onClose, service }: iProps) => {
     createService(
       {
         name: formValues.name,
-        price: parseFloat(formValues.price as string),
+        price: currencyToNumber(formValues.price as string),
         workAmount: parseInt(formValues.workAmount as string)
       },
       {
@@ -73,10 +79,11 @@ const RstFormService = ({ isOpen, onClose, service }: iProps) => {
   }
 
   const handleEditService = () => {
+    const priceToFloat = parseInt(removeCurrencyMask(String(formValues.price))) / 100
     editService(
       {
         name: formValues.name,
-        price: parseFloat(formValues.price as string),
+        price: priceToFloat,
         workAmount: parseInt(formValues.workAmount as string)
       },
       {
@@ -112,9 +119,9 @@ const RstFormService = ({ isOpen, onClose, service }: iProps) => {
             value={formValues.name}
             onChange={({ target }) => handleChangeValue('name', target.value)}
           />
-          <RstInput
+          <RstInputCurrency
             label="Preço *"
-            placeholder="ex: R$ 25:00"
+            placeholder="ex: R$ 25,00"
             value={formValues.price}
             onChange={({ target }) => handleChangeValue('price', target.value)}
           />
