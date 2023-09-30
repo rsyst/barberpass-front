@@ -5,7 +5,7 @@ interface iRstButtonProps extends ButtonProps {
   href?: string
 }
 
-export const RstButton = ({ colorScheme = 'blue', variant = 'solid', ...props }: iRstButtonProps) => {
+export const RstButton = ({ colorScheme = 'newBlue', variant = 'solid', ...props }: iRstButtonProps) => {
   const variantStyle = useMemo(() => {
     if (variant === 'solid') {
       return {

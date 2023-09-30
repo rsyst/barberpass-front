@@ -47,7 +47,7 @@ export const RstMeetCardClientAlertSchedule = ({ isOpen, onClose, appointment }:
             <RstButton variant="ghost" colorScheme="gray" color="gray.1100" onClick={onClose}>
               Cancelar
             </RstButton>
-            <RstButton colorScheme="blue">Agendar</RstButton>
+            <RstButton>Agendar</RstButton>
           </ModalFooter>
         </ModalContent>
       </Modal>

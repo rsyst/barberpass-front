@@ -139,11 +139,11 @@ const RstFormService = ({ isOpen, onClose, service }: iProps) => {
             Cancelar
           </RstButton>
           {havePrevService ? (
-            <RstButton colorScheme="blue" onClick={handleEditService} isLoading={isLoading} minW={120}>
+            <RstButton onClick={handleEditService} isLoading={isLoading} minW={120}>
               Editar
             </RstButton>
           ) : (
-            <RstButton colorScheme="blue" onClick={handleCreateService} isLoading={isLoading} minW={120}>
+            <RstButton onClick={handleCreateService} isLoading={isLoading} minW={120}>
               Cadastrar
             </RstButton>
           )}

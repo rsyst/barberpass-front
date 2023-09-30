@@ -32,7 +32,7 @@ export const RstAlertDelete = ({ isOpen, onClose, onSubmit, isLoading, label, ti
           <RstButton variant="ghost" colorScheme="gray" isLoading={isLoading}>
             Cancelar
           </RstButton>
-          <RstButton colorScheme="red" onClick={onSubmit} isLoading={isLoading}>
+          <RstButton colorScheme="newRed" onClick={onSubmit} isLoading={isLoading}>
             Deletar
           </RstButton>
         </ModalFooter>

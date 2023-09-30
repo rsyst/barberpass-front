@@ -7,7 +7,7 @@ export const theme = extendTheme({
       800: '#153e75',
       700: '#2a69ac'
     },
-    blue: {
+    newBlue: {
       100: '#fbfdff',
       200: '#f5faff',
       300: '#edf6ff',
@@ -35,7 +35,7 @@ export const theme = extendTheme({
       1100: '#6f6f6f',
       1200: '#171717'
     },
-    green: {
+    newGreen: {
       100: '#fbfefc',
       200: '#f2fcf5',
       300: '#e9f9ee',
@@ -49,7 +49,7 @@ export const theme = extendTheme({
       1100: '#18794e',
       1200: '#153226'
     },
-    red: {
+    newRed: {
       100: '#fffcfc',
       200: '#fff8f8',
       300: '#ffefef',
@@ -63,7 +63,7 @@ export const theme = extendTheme({
       1100: '#cd2b31',
       1200: '#381316'
     },
-    yellow: {
+    newYellow: {
       100: '#fdfdf9',
       200: '#fffce8',
       300: '#fffbd1',
@@ -80,7 +80,7 @@ export const theme = extendTheme({
   },
   components: {
     Button: {
-      defaultProps: { colorScheme: 'blue' },
+      defaultProps: { colorScheme: 'newBlue' },
       sizes: { sm: { h: 10 }, md: { h: '54px' } },
       baseStyle: {
         textTransform: 'initial'

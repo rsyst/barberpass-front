@@ -6,6 +6,8 @@ const QUERY_KEYS_CLIENT = {
 const QUERY_KEYS_BARBER = {
   GET_BARBER: ['get_barber'],
   GET_BARBER_APPOINTMENTS: ['get_barber_appointments'],
+  GET_BARBER_APPOINTMENTS_DAY: ['get_barber_appointments_day'],
+  GET_BARBER_APPOINTMENTS_WEEK: ['get_barber_appointments_week'],
   GET_BARBER_APPOINTMENTS_BY_ID: (id: string) => ['get_barber_appointments_by_id', id],
   GET_BARBER_SERVICES: ['get_barber_services']
 }

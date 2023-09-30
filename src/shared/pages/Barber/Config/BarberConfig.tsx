@@ -11,13 +11,13 @@ const BarberConfig = () => {
           Configurações
         </Text>
         <Grid gap={2}>
-          <GridItem as="a" href="/barber/config/services" color="blue.1000">
+          <GridItem as="a" href="/barber/config/services" color="newBlue.1000">
             <Flex p={6} bg="white" display="flex" justifyContent="space-between" alignItems="center" borderRadius={16}>
               <Text fontWeight="600">Gerenciar Serviços</Text>
             </Flex>
           </GridItem>
 
-          <GridItem as="a" href="/barber/config/profile" color="blue.1000">
+          <GridItem as="a" href="/barber/config/profile" color="newBlue.1000">
             <Flex p={6} bg="white" display="flex" justifyContent="space-between" alignItems="center" borderRadius={16}>
               <Text fontWeight="600">Editar usuario</Text>
             </Flex>

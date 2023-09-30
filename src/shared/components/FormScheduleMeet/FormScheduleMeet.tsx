@@ -33,7 +33,7 @@ interface iFormMeet {
 
 const RstFormScheduleMeet = ({ isOpen, onClose, appointment }: iProps) => {
   const { data: services } = useFetch<iService[]>(QUERY_KEYS.GET_BARBER_SERVICES, ENDPOINTS.GET_BARBER_SERVICES)
-  const { mutate: occupiedAppointment } = usePut(
+  const { mutate: occupiedAppointment, isLoading: loadingMutate } = usePut(
     ENDPOINTS.PUT_BARBER_APPOINTMENTS_BY_ID_OCCUPIED(appointment?.id || '')
   )
 
@@ -53,7 +53,7 @@ const RstFormScheduleMeet = ({ isOpen, onClose, appointment }: iProps) => {
     occupiedAppointment(
       {
         name: formValues.name,
-        phoneNumber: removePhoneMask(formValues.phoneNumber),
+        phoneNumber: removePhoneMask(formValues.phoneNumber || ''),
         serviceId: formValues.serviceId
       },
       {
@@ -62,11 +62,19 @@ const RstFormScheduleMeet = ({ isOpen, onClose, appointment }: iProps) => {
           toast({
             title: 'Agendamento realizado com sucesso',
             status: 'success',
-            position: 'top-right',
             duration: 3000,
             isClosable: true
           })
           onClose()
+        },
+        onError: (error) => {
+          toast({
+            title: 'Erro ao realizar agendamento',
+            description: error?.response?.data?.message,
+            status: 'error',
+            duration: 3000,
+            isClosable: true
+          })
         }
       }
     )
@@ -84,6 +92,7 @@ const RstFormScheduleMeet = ({ isOpen, onClose, appointment }: iProps) => {
             placeholder="ex: João Pedro"
             value={formValues.name}
             onChange={({ target }) => handleChangeValue('name', target.value)}
+            isRequired
           />
           <RstInputPhone
             label="Telefone"
@@ -96,6 +105,7 @@ const RstFormScheduleMeet = ({ isOpen, onClose, appointment }: iProps) => {
             placeholder="Selecione um serviço"
             value={formValues.serviceId}
             onChange={({ target }) => handleChangeValue('serviceId', target.value)}
+            isRequired
           >
             {services?.map((service) => (
               <option key={service.id} value={service.id}>
@@ -109,7 +119,7 @@ const RstFormScheduleMeet = ({ isOpen, onClose, appointment }: iProps) => {
           <RstButton variant="ghost" colorScheme="gray" onClick={onClose}>
             Cancelar
           </RstButton>
-          <RstButton colorScheme="blue" onClick={handleSubmit}>
+          <RstButton onClick={handleSubmit} isLoading={loadingMutate}>
             Agendar
           </RstButton>
         </ModalFooter>

@@ -60,7 +60,7 @@ export const RstMeetCardBarberAlertEmpty = ({ isOpen, onClose, appointment }: iP
             <RstButton variant="ghost" colorScheme="gray" color="gray.1100" onClick={onClose}>
               Cancelar
             </RstButton>
-            <RstButton colorScheme="red" onClick={handleSubmit}>
+            <RstButton colorScheme="newRed" onClick={handleSubmit}>
               Confirmar
             </RstButton>
           </ModalFooter>

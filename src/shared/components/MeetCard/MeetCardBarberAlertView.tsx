@@ -14,6 +14,7 @@ import React from 'react'
 import { iAppointment } from '@shared/interface/public'
 import moment from 'moment'
 import { phoneMask } from '@shared/utils/phoneMask'
+import { floatToCurrency } from '@shared/utils/currencyMask'
 
 interface iProps {
   isOpen: boolean
@@ -60,12 +61,14 @@ export const RstMeetCardBarberAlertView = ({ isOpen, onClose, appointment }: iPr
               <Text>Serviço:</Text>
               <Text fontWeight={600}>{appointment.service?.name}</Text>
             </Flex>
+            <Flex gap={2}>
+              <Text>Valor cobrado:</Text>
+              <Text fontWeight={600}>{appointment?.price ? floatToCurrency(appointment.price) : ''}</Text>
+            </Flex>
           </ModalBody>
 
           <ModalFooter display="flex" gap={2} justifyContent="end">
-            <RstButton colorScheme="blue" onClick={handleSubmit}>
-              Fechar
-            </RstButton>
+            <RstButton onClick={handleSubmit}>Fechar</RstButton>
           </ModalFooter>
         </ModalContent>
       </Modal>

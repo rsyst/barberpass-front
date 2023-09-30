@@ -12,11 +12,15 @@ import React from 'react'
 
 const BarberDashboard = () => {
   const { data: barber, isLoading: loadingBarber } = useFetch<iBarber>(QUERY_KEYS.GET_BARBER, ENDPOINTS.GET_BARBER)
-  const { data: appointments, isLoading: loadingAppointments } = useFetch<iAppointment[]>(
+  const { data: nextAppointments, isLoading: loadingNextAppointments } = useFetch<iAppointment[]>(
     QUERY_KEYS.GET_BARBER_APPOINTMENTS,
     ENDPOINTS.GET_BARBER_APPOINTMENTS
   )
-  if (loadingBarber || loadingAppointments) return <div>loading...</div>
+  const { data: dailyAppointments, isLoading: loadingDailyAppointments } = useFetch<iAppointment[]>(
+    QUERY_KEYS.GET_BARBER_APPOINTMENTS_DAY,
+    ENDPOINTS.GET_BARBER_APPOINTMENTS_DAY
+  )
+  if (loadingBarber || loadingNextAppointments || loadingDailyAppointments) return <div>loading...</div>
 
   return (
     <>
@@ -35,17 +39,17 @@ const BarberDashboard = () => {
           <RstInfoCard
             title="Faturamento do dia"
             value="$120,80"
-            badge={{ colorScheme: 'green', children: '+5,6% maior (ultima semana)' }}
+            badge={{ colorScheme: 'newGreen', children: '+5,6% maior (ultima semana)' }}
           />
-          <RstInfoCard title="Atendimentos" value="23" badge={{ colorScheme: 'red', children: '-3 essa semana' }} />
-          <RstInfoCard title="Clientes" value="63" badge={{ colorScheme: 'green', children: '2 novos cliente' }} />
+          <RstInfoCard title="Atendimentos" value="23" badge={{ colorScheme: 'newRed', children: '-3 essa semana' }} />
+          <RstInfoCard title="Clientes" value="63" badge={{ colorScheme: 'newGreen', children: '2 novos cliente' }} />
         </Grid>
 
         <Grid templateColumns="repeat(2, 1fr)" gap={4}>
           <GridItem colSpan={2}>
             <RstAccordion title="Agendamentos Seguintes">
               <Flex flexDir="column" overflowY="auto" h="30vh">
-                {appointments?.map((appointment, index) => (
+                {nextAppointments?.map((appointment, index) => (
                   <RstMeetCardBarber key={index} {...appointment} />
                 ))}
               </Flex>
@@ -55,22 +59,26 @@ const BarberDashboard = () => {
           <GridItem colSpan={2}>
             <RstAccordion title="Agenda do Dia">
               <Flex flexDir="column" overflowY="auto" h="30vh">
-                {appointments?.map((appointment, index) => (
+                {dailyAppointments?.map((appointment, index) => (
                   <RstMeetCardBarber key={index} {...appointment} />
                 ))}
               </Flex>
             </RstAccordion>
           </GridItem>
 
-          <GridItem colSpan={1}>
+          <GridItem colSpan={1} as="a" href="/barber/appointments/weekly">
             <Flex p={6} bg="white" display="flex" justifyContent="space-between" alignItems="center" borderRadius={16}>
-              <Text fontWeight="600">Agenda da Semana</Text>
+              <Text color="black" fontWeight="600">
+                Agenda da Semana
+              </Text>
             </Flex>
           </GridItem>
 
-          <GridItem colSpan={1}>
+          <GridItem colSpan={1} as="a" href="/barber/appointments/all">
             <Flex p={6} bg="white" display="flex" justifyContent="space-between" alignItems="center" borderRadius={16}>
-              <Text fontWeight="600">Agenda Completa</Text>
+              <Text color="black" fontWeight="600">
+                Agenda Completa
+              </Text>
             </Flex>
           </GridItem>
         </Grid>
@@ -80,86 +88,3 @@ const BarberDashboard = () => {
 }
 
 export default BarberDashboard
-
-// const Appointments: iRstMeetCardBarber[] = [
-//   {
-//     start: '10:30',
-//     end: '10:30',
-//     status: { id: 'asd', key: 'CONFIRMED', pt: 'confirmado' },
-//     service: {
-//       name: 'Corte de cabelo'
-//     }
-//   },
-//   {
-//     start: '11:30',
-//     end: '10:30',
-//     status: { id: 'asd', key: 'BREAK', pt: 'Intervalo' },
-//     service: {
-//       name: 'Corte de cabelo'
-//     }
-//   },
-//   {
-//     start: '10:30',
-//     end: '10:30',
-//     status: { id: 'asd', key: 'OCCUPIED', pt: 'Pendente' },
-//     service: {
-//       name: 'Corte de cabelo'
-//     }
-//   },
-//   {
-//     start: '10:30',
-//     end: '10:30',
-//     status: { id: 'asd', key: 'EMPTY', pt: 'Horario Vago' },
-//     service: {
-//       name: 'Corte de cabelo'
-//     }
-//   },
-//   {
-//     start: '10:30',
-//     end: '10:30',
-//     status: { id: 'asd', key: 'CONFIRMED', pt: 'confirmado' },
-//     service: {
-//       name: 'Corte de cabelo'
-//     }
-//   },
-//   {
-//     start: '10:30',
-//     end: '10:30',
-//     status: { id: 'asd', key: 'CONFIRMED', pt: 'confirmado' },
-//     service: {
-//       name: 'Corte de cabelo'
-//     }
-//   },
-//   {
-//     start: '10:30',
-//     end: '10:30',
-//     status: { id: 'asd', key: 'CONFIRMED', pt: 'confirmado' },
-//     service: {
-//       name: 'Corte de cabelo'
-//     }
-//   },
-//   {
-//     start: '10:30',
-//     end: '10:30',
-//     status: { id: 'asd', key: 'CONFIRMED', pt: 'confirmado' },
-//     service: {
-//       name: 'Corte de cabelo'
-//     }
-//   },
-//   {
-//     start: '10:30',
-//     end: '10:30',
-//     status: { id: 'asd', key: 'CONFIRMED', pt: 'confirmado' },
-//     service: {
-//       name: 'Corte de cabelo'
-//     }
-//   },
-//   {
-//     start: '10:30',
-//     end: '10:30',
-//     status: { id: 'asd', key: 'CONFIRMED', pt: 'confirmado' },
-//     service: {
-//       name: 'Corte de cabelo'
-//     }
-//   }
-// ]

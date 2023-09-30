@@ -75,7 +75,7 @@ const AuthLogin = () => {
       <Flex justifyContent="center" alignItems="center" minH="100vh" bg="gray.100">
         <Grid maxW={480} w="100%" gap={6} p={8} borderRadius={16} m={6}>
           <GridItem>
-            <RstText fontVariant="h3" color="blue.1100">
+            <RstText fontVariant="h3" color="newBlue.1100">
               Bem vindo
             </RstText>
             <RstText fontVariant="body1" color="gray.1100">

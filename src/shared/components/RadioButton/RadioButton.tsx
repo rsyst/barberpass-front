@@ -18,7 +18,7 @@ export const RstRadioButton = ({ options, onChange, ...props }: iRadioButtonProp
 
   const selectedRadio = (index: number) => {
     if (index === selected) {
-      return { color: 'blue.1000', bg: 'blue.300' }
+      return { color: 'newBlue.1000', bg: 'newBlue.300' }
     }
   }
 
@@ -28,7 +28,7 @@ export const RstRadioButton = ({ options, onChange, ...props }: iRadioButtonProp
   }
 
   return (
-    <Flex bg={'blue.200'} p={2} gap={2} borderRadius={16} {...props}>
+    <Flex bg={'newBlue.200'} p={2} gap={2} borderRadius={16} {...props}>
       {options.map((item, index) => (
         <Flex
           key={item.id}

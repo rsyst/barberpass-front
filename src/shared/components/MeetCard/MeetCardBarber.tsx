@@ -13,9 +13,9 @@ import RstMeetCardBarberAlertView from './MeetCardBarberAlertView'
 export type iRstMeetCardBarber = iAppointment
 
 const statusColor = {
-  CONFIRMED: 'green',
-  BREAK: 'red',
-  OCCUPIED: 'yellow',
+  CONFIRMED: 'newGreen',
+  BREAK: 'newRed',
+  OCCUPIED: 'newYellow',
   EMPTY: 'gray'
 }
 
