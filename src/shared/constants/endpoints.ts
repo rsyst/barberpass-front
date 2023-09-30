@@ -16,7 +16,7 @@ const ENDPOINTS_BARBER = {
   GET_BARBER_APPOINTMENTS_WEEK: 'barber/appointments/week',
   GET_BARBER_APPOINTMENTS_BY_ID: (id: string) => `barber/appointments/${id}`,
   PUT_BARBER_APPOINTMENTS_BY_ID_OCCUPIED: (id: string) => `barber/appointments/${id}/occupied`,
-  PUT_BARBER_APPOINTMENTS_BY_ID_EMPTY: (id: string) => `barber/appointments/${id}/empty`,
+  PUT_BARBER_APPOINTMENTS_BY_GROUP_INDEX_EMPTY: (groupIndex: string) => `barber/appointments/${groupIndex}/empty`,
   PATCH_BARBER_APPOINTMENTS_BY_ID_CONFIRMED: (id: string) => `barber/appointments/${id}/confirmed`,
   PATCH_BARBER_APPOINTMENTS_BY_ID_BREAK: (id: string) => `barber/appointments/${id}/break`,
   GET_BARBER_SERVICES: 'barber/services',

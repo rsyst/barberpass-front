@@ -23,7 +23,10 @@ interface iProps {
 }
 
 export const RstMeetCardBarberAlertEmpty = ({ isOpen, onClose, appointment }: iProps) => {
-  const { mutate: emptyAppointment } = usePut(ENDPOINTS.PUT_BARBER_APPOINTMENTS_BY_ID_EMPTY(appointment?.id || ''))
+  console.log(appointment)
+  const { mutate: emptyAppointment } = usePut(
+    ENDPOINTS.PUT_BARBER_APPOINTMENTS_BY_GROUP_INDEX_EMPTY(appointment?.groupIndex || '')
+  )
 
   const queryClient = useQueryClient()
   const toast = useToast()

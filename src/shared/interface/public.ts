@@ -59,6 +59,8 @@ export interface iAppointment {
   name: string
   phoneNumber: string
   price?: number
+  index: number
+  groupIndex: string
   serviceId: string
   service?: iService
   barberId: string
