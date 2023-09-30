@@ -69,10 +69,6 @@ export const RstMeetCardBarber = ({ ...appointment }: iRstMeetCardBarber) => {
       {
         label: 'Intervalo',
         onClick: onOpenBreak
-      },
-      {
-        label: 'Cancelar',
-        onClick: onOpenEmpty
       }
     ]
   }

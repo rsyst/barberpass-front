@@ -26,7 +26,7 @@ interface iProps {
 
 export const RstMeetCardBarberAlertConfirmed = ({ isOpen, onClose, appointment }: iProps) => {
   const { mutate: confirmedAppointment } = usePatch(
-    ENDPOINTS.PATCH_BARBER_APPOINTMENTS_BY_ID_CONFIRMED(appointment?.id || '')
+    ENDPOINTS.PATCH_BARBER_APPOINTMENTS_BY_ID_CONFIRMED(appointment?.groupIndex || '')
   )
 
   const [price, setPrice] = React.useState(floatToCurrency(appointment.service?.price || 0))
