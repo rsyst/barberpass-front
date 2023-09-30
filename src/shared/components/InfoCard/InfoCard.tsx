@@ -6,7 +6,7 @@ import RstText from '../Text'
 
 interface iRstInfoCardProps {
   title: string
-  value: string
+  value: string | number
   badge: iRstBadgeProps
 }
 

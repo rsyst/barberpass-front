@@ -8,19 +8,40 @@ import { ENDPOINTS } from '@shared/constants/endpoints'
 import { QUERY_KEYS } from '@shared/constants/query-keys'
 import { iAppointment, iBarber } from '@shared/interface/public'
 import { useFetch } from '@shared/service/use-queries'
+import { floatToCurrency } from '@shared/utils/currencyMask'
 import React from 'react'
+
+interface GetBarberDashboard {
+  dailyAmount: number
+  dailyAppointments: number
+  dailyTime: number
+  weeklyAmount: number
+  weeklyAppointments: number
+  weeklyTime: number
+  monthlyAmount: number
+  monthlyAppointments: number
+  monthlyTime: number
+  yearlyAmount: number
+  yearlyAppointments: number
+  yearlyTime: number
+}
 
 const BarberDashboard = () => {
   const { data: barber, isLoading: loadingBarber } = useFetch<iBarber>(QUERY_KEYS.GET_BARBER, ENDPOINTS.GET_BARBER)
+  const { data: dashboard, isLoading: loadingDashboard } = useFetch<GetBarberDashboard>(
+    QUERY_KEYS.GET_BARBER_DASHBOARD,
+    ENDPOINTS.GET_BARBER_DASHBOARD
+  )
   const { data: nextAppointments, isLoading: loadingNextAppointments } = useFetch<iAppointment[]>(
-    QUERY_KEYS.GET_BARBER_APPOINTMENTS,
-    ENDPOINTS.GET_BARBER_APPOINTMENTS
+    QUERY_KEYS.GET_BARBER_APPOINTMENTS_NEXT,
+    ENDPOINTS.GET_BARBER_APPOINTMENTS_NEXT
   )
   const { data: dailyAppointments, isLoading: loadingDailyAppointments } = useFetch<iAppointment[]>(
     QUERY_KEYS.GET_BARBER_APPOINTMENTS_DAY,
     ENDPOINTS.GET_BARBER_APPOINTMENTS_DAY
   )
-  if (loadingBarber || loadingNextAppointments || loadingDailyAppointments) return <div>loading...</div>
+  if (loadingBarber || loadingNextAppointments || loadingDailyAppointments || loadingDashboard)
+    return <div>loading...</div>
 
   return (
     <>
@@ -38,11 +59,19 @@ const BarberDashboard = () => {
         <Grid templateColumns="repeat(3, 1fr)" gap={3} overflowX="auto">
           <RstInfoCard
             title="Faturamento do dia"
-            value="$120,80"
+            value={floatToCurrency(dashboard?.dailyAmount as number)}
             badge={{ colorScheme: 'newGreen', children: '+5,6% maior (ultima semana)' }}
           />
-          <RstInfoCard title="Atendimentos" value="23" badge={{ colorScheme: 'newRed', children: '-3 essa semana' }} />
-          <RstInfoCard title="Clientes" value="63" badge={{ colorScheme: 'newGreen', children: '2 novos cliente' }} />
+          <RstInfoCard
+            title="Atendimentos"
+            value={dashboard?.dailyAppointments as number}
+            badge={{ colorScheme: 'newRed', children: '-3 essa semana' }}
+          />
+          <RstInfoCard
+            title="Clientes"
+            value={dashboard?.dailyTime as number}
+            badge={{ colorScheme: 'newGreen', children: '2 novos cliente' }}
+          />
         </Grid>
 
         <Grid templateColumns="repeat(2, 1fr)" gap={4}>
