@@ -27,12 +27,12 @@ const options = [
 const AuthLogin = () => {
   const initialValues: iLogin = useMemo(() => {
     return {
-      email: 'teste@email.com',
-      password: '123123',
+      email: '',
+      password: '',
       role: {
-        id: 0,
-        value: 'CLIENT',
-        label: 'Cliente'
+        id: 1,
+        value: 'BARBER',
+        label: 'Profissional'
       }
     }
   }, [])
