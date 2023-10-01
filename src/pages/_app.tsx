@@ -12,6 +12,7 @@ function App({ Component, pageProps }: AppProps) {
         <link rel="manifest" href="/manifest.json" />
         <meta name="theme-color" content="#06092B" />
         <meta name="description" content="Gerencie de forma fácil e rápida seus agendamentos." />
+        <link rel="manifest" href="/manifest.json" />
       </Head>
       <Providers>
         <Component {...pageProps} />
