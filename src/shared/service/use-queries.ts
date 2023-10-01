@@ -26,7 +26,7 @@ export const useFetch = <T>(
   return useQuery<T>(
     queryKey,
     async () => {
-      const stringParams = params ? `&${paramsToQuery(params)}` : ''
+      const stringParams = params ? `?${paramsToQuery(params)}` : ''
       const url = `${path}${stringParams}`
 
       const { data } = await api.get(url)

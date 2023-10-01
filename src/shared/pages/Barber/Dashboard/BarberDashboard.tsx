@@ -32,14 +32,16 @@ const BarberDashboard = () => {
     QUERY_KEYS.GET_BARBER_DASHBOARD,
     ENDPOINTS.GET_BARBER_DASHBOARD
   )
-  const { data: nextAppointments, isLoading: loadingNextAppointments } = useFetch<iAppointment[]>(
-    QUERY_KEYS.GET_BARBER_APPOINTMENTS_NEXT,
-    ENDPOINTS.GET_BARBER_APPOINTMENTS_NEXT
-  )
-  const { data: dailyAppointments, isLoading: loadingDailyAppointments } = useFetch<iAppointment[]>(
-    QUERY_KEYS.GET_BARBER_APPOINTMENTS_DAY,
-    ENDPOINTS.GET_BARBER_APPOINTMENTS_DAY
-  )
+  const {
+    data: nextAppointments,
+    isLoading: loadingNextAppointments,
+    isRefetching: refetchingNextAppointments
+  } = useFetch<iAppointment[]>(QUERY_KEYS.GET_BARBER_APPOINTMENTS_NEXT, ENDPOINTS.GET_BARBER_APPOINTMENTS_NEXT)
+  const {
+    data: dailyAppointments,
+    isLoading: loadingDailyAppointments,
+    isRefetching: refetchingDailyAppointments
+  } = useFetch<iAppointment[]>(QUERY_KEYS.GET_BARBER_APPOINTMENTS_DAY, ENDPOINTS.GET_BARBER_APPOINTMENTS_DAY)
   if (loadingBarber || loadingNextAppointments || loadingDailyAppointments || loadingDashboard)
     return <div>loading...</div>
 
@@ -60,23 +62,23 @@ const BarberDashboard = () => {
           <RstInfoCard
             title="Faturamento do dia"
             value={floatToCurrency(dashboard?.dailyAmount as number)}
-            badge={{ colorScheme: 'newGreen', children: '+5,6% maior (ultima semana)' }}
+            badge={{ colorScheme: 'gray', children: 'Sem dados anteriores' }}
           />
           <RstInfoCard
             title="Atendimentos"
             value={dashboard?.dailyAppointments as number}
-            badge={{ colorScheme: 'newRed', children: '-3 essa semana' }}
+            badge={{ colorScheme: 'gray', children: 'Sem dados anteriores' }}
           />
           <RstInfoCard
-            title="Clientes"
+            title="Horarios agendados"
             value={dashboard?.dailyTime as number}
-            badge={{ colorScheme: 'newGreen', children: '2 novos cliente' }}
+            badge={{ colorScheme: 'gray', children: 'Sem dados anteriores' }}
           />
         </Grid>
 
         <Grid templateColumns="repeat(2, 1fr)" gap={4}>
           <GridItem colSpan={2}>
-            <RstAccordion title="Agendamentos Seguintes">
+            <RstAccordion title="Agendamentos Seguintes" isLoading={refetchingNextAppointments}>
               <Flex flexDir="column" overflowY="auto" h="30vh">
                 {nextAppointments?.map((appointment, index) => (
                   <RstMeetCardBarber key={index} {...appointment} />
@@ -86,7 +88,7 @@ const BarberDashboard = () => {
           </GridItem>
 
           <GridItem colSpan={2}>
-            <RstAccordion title="Agenda do Dia">
+            <RstAccordion title="Agenda do Dia" isLoading={refetchingDailyAppointments}>
               <Flex flexDir="column" overflowY="auto" h="30vh">
                 {dailyAppointments?.map((appointment, index) => (
                   <RstMeetCardBarber key={index} {...appointment} />

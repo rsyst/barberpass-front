@@ -3,7 +3,7 @@ import React from 'react'
 import RstBadge from '../Badge'
 import { iAppointment } from '@shared/interface/public'
 import { FiMoreVertical } from 'react-icons/fi'
-import RstFormScheduleMeet from '../FormScheduleMeet'
+import RstFormScheduleAppointment from '../FormScheduleAppointment'
 import moment from 'moment'
 import RstMeetCardBarberAlertBreak from './MeetCardBarberAlertBreak'
 import RstMeetCardBarberAlertConfirmed from './MeetCardBarberAlertConfirmed'
@@ -112,7 +112,7 @@ export const RstMeetCardBarber = ({ ...appointment }: iRstMeetCardBarber) => {
             />
             <MenuList>
               {optionsByStatus[appointment.status?.key || 'EMPTY'].map((option, index) => (
-                <MenuItem key={index} onClick={option.onClick}>
+                <MenuItem key={index} onClick={option.onClick} fontSize={18}>
                   {option.label}
                 </MenuItem>
               ))}
@@ -121,7 +121,7 @@ export const RstMeetCardBarber = ({ ...appointment }: iRstMeetCardBarber) => {
         </Flex>
       </Flex>
       {isOpenOccupied && (
-        <RstFormScheduleMeet isOpen={isOpenOccupied} onClose={onCloseOccupied} appointment={appointment} />
+        <RstFormScheduleAppointment isOpen={isOpenOccupied} onClose={onCloseOccupied} appointment={appointment} />
       )}
       {isOpenBreak && (
         <RstMeetCardBarberAlertBreak isOpen={isOpenBreak} onClose={onCloseBreak} appointment={appointment} />

@@ -8,12 +8,12 @@ import moment from 'moment'
 import React from 'react'
 
 const BarberAppointmentsAll = () => {
-  const { data: appointments } = useFetch<iAppointment[]>(
-    QUERY_KEYS.GET_BARBER_APPOINTMENTS,
-    ENDPOINTS.GET_BARBER_APPOINTMENTS
-  )
-
   const [date, setDate] = React.useState(moment().format('YYYY-MM-DD') as string)
+
+  const { data: appointments } = useFetch<iAppointment[]>(
+    QUERY_KEYS.GET_BARBER_APPOINTMENTS_DAY_BY_DATE(date),
+    ENDPOINTS.GET_BARBER_APPOINTMENTS_DAY_BY_DATE(date)
+  )
 
   return (
     <>

@@ -13,7 +13,7 @@ interface iRstInfoCardProps {
 export const RstInfoCard = ({ title, value, badge }: iRstInfoCardProps) => {
   return (
     <Flex flexDir="column" p={4} bg="gray.100" borderRadius={16} gap={2}>
-      <RstText fontVariant="body1" color="gray.1100">
+      <RstText fontVariant="body1" color="gray.1100" w="max-content">
         {title}
       </RstText>
       <RstText fontVariant="h3" color="gray.1200">

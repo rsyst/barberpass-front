@@ -25,7 +25,7 @@ interface iProps {
 }
 
 export const RstMeetCardBarberAlertConfirmed = ({ isOpen, onClose, appointment }: iProps) => {
-  const { mutate: confirmedAppointment } = usePatch(
+  const { mutate: confirmedAppointment, isLoading } = usePatch(
     ENDPOINTS.PATCH_BARBER_APPOINTMENTS_BY_ID_CONFIRMED(appointment?.groupIndex || '')
   )
 
@@ -40,6 +40,9 @@ export const RstMeetCardBarberAlertConfirmed = ({ isOpen, onClose, appointment }
       {
         onSuccess: () => {
           queryClient.invalidateQueries(QUERY_KEYS.GET_BARBER_APPOINTMENTS)
+          queryClient.invalidateQueries(QUERY_KEYS.GET_BARBER_APPOINTMENTS_DAY)
+          queryClient.invalidateQueries(QUERY_KEYS.GET_BARBER_APPOINTMENTS_NEXT)
+          queryClient.invalidateQueries(QUERY_KEYS.GET_BARBER_DASHBOARD)
           toast({
             title: 'Agendamento confirmado com sucesso',
             status: 'success',
@@ -70,10 +73,12 @@ export const RstMeetCardBarberAlertConfirmed = ({ isOpen, onClose, appointment }
           </ModalBody>
 
           <ModalFooter display="flex" gap={2} justifyContent="end">
-            <RstButton variant="ghost" colorScheme="gray" color="gray.1100" onClick={onClose}>
+            <RstButton variant="ghost" colorScheme="gray" color="gray.1100" onClick={onClose} isLoading={isLoading}>
               Cancelar
             </RstButton>
-            <RstButton onClick={handleSubmit}>Confirmar</RstButton>
+            <RstButton onClick={handleSubmit} isLoading={isLoading}>
+              Confirmar
+            </RstButton>
           </ModalFooter>
         </ModalContent>
       </Modal>

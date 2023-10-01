@@ -15,6 +15,7 @@ const ENDPOINTS_BARBER = {
   GET_BARBER_APPOINTMENTS: 'barber/appointments',
   GET_BARBER_APPOINTMENTS_NEXT: 'barber/appointments/next',
   GET_BARBER_APPOINTMENTS_DAY: 'barber/appointments/day',
+  GET_BARBER_APPOINTMENTS_DAY_BY_DATE: (date: string) => `barber/appointments/day/${date}`,
   GET_BARBER_APPOINTMENTS_WEEK: 'barber/appointments/week',
   GET_BARBER_APPOINTMENTS_BY_ID: (id: string) => `barber/appointments/${id}`,
   PUT_BARBER_APPOINTMENTS_BY_ID_OCCUPIED: (id: string) => `barber/appointments/${id}/occupied`,

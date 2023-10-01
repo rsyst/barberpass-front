@@ -59,6 +59,9 @@ const RstFormScheduleMeet = ({ isOpen, onClose, appointment }: iProps) => {
       {
         onSuccess: () => {
           queryClient.invalidateQueries(QUERY_KEYS.GET_BARBER_APPOINTMENTS)
+          queryClient.invalidateQueries(QUERY_KEYS.GET_BARBER_APPOINTMENTS_DAY)
+          queryClient.invalidateQueries(QUERY_KEYS.GET_BARBER_APPOINTMENTS_NEXT)
+          queryClient.invalidateQueries(QUERY_KEYS.GET_BARBER_DASHBOARD)
           toast({
             title: 'Agendamento realizado com sucesso',
             status: 'success',
