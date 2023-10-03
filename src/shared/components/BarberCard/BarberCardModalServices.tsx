@@ -1,6 +1,6 @@
 import { Modal, ModalOverlay, ModalContent, ModalHeader, ModalBody, ModalCloseButton } from '@chakra-ui/react'
 import React from 'react'
-import { iBarber } from '@shared/interface/public'
+import { iBarber, iService } from '@shared/interface/public'
 import { useFetch } from '@shared/service/use-queries'
 import { ENDPOINTS, QUERY_KEYS } from '@shared/constants'
 import { RstServiceCardClient } from '../ServiceCard/ServiceCardClient'
@@ -12,10 +12,14 @@ interface iProps {
 }
 
 export const RstBarberCardModalServices = ({ isOpen, onClose, barber }: iProps) => {
-  const { data: services, isLoading: loadingServices } = useFetch<iBarber[]>(
+  const { data: services, isLoading: loadingServices } = useFetch<iService[]>(
     QUERY_KEYS.GET_CLIENT_BARBERS_BY_ID_SERVICES(barber.id),
     ENDPOINTS.GET_CLIENT_BARBERS_BY_ID_SERVICES(barber.id)
   )
+
+  if (loadingServices) {
+    return <></>
+  }
 
   return (
     <>

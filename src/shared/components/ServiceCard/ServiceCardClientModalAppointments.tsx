@@ -17,6 +17,8 @@ export const RstServiceCardClientModalAppointments = ({ isOpen, onClose, barber,
     ENDPOINTS.GET_CLIENT_BARBERS_BY_BARBERID_SERVICES_BY_SERVICEID_APPOINTMENTS(barber.id, service.id)
   )
 
+  console.log(appointments, loadingAppointments)
+
   return (
     <>
       <Modal isOpen={isOpen} onClose={onClose}>

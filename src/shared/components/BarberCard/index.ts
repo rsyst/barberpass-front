@@ -1,3 +1,3 @@
-import { RstBarbershopCard } from './BarbershopCard'
+import { RstBarberCard } from './BarberCard'
 
-export default RstBarbershopCard
+export default RstBarberCard
