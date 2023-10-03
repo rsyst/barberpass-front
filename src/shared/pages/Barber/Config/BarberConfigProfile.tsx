@@ -77,7 +77,7 @@ const BarberConfigProfile = () => {
       <RstHeaderBarber />
       <Flex flexDir="column" px={5} gap={4} mb={12}>
         <Text fontWeight={600} fontSize={18}>
-          Editar Usuario
+          Editar usuário
         </Text>
         <Grid gap={2} bg="gray.100" p={6} borderRadius={24}>
           <GridItem>

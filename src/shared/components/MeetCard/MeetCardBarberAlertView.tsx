@@ -43,7 +43,7 @@ export const RstMeetCardBarberAlertView = ({ isOpen, onClose, appointment }: iPr
             <Flex gap={2}>
               <Text>Hora:</Text>
               <Text fontWeight={600}>
-                {moment(appointment.start).format('hh:mm')} - {moment(appointment.start).format('hh:mm')}
+                {moment(appointment.start).format('hh:mm')} - {moment(appointment.end).format('hh:mm')}
               </Text>
             </Flex>
 

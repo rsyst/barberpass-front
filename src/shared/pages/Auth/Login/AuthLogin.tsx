@@ -76,7 +76,7 @@ const AuthLogin = () => {
         <Grid maxW={480} w="100%" gap={6} p={8} borderRadius={16} m={6}>
           <GridItem>
             <RstText fontVariant="h3" color="newBlue.1100">
-              Bem vindo
+              Bem-vindo
             </RstText>
             <RstText fontVariant="body1" color="gray.1100">
               Estamos felizes em ver vôce aqui. para acessar sua conta, primeiro realize o login.

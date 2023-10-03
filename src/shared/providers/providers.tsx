@@ -10,6 +10,7 @@ import { theme } from './theme'
 const queryClient = new QueryClient({
   defaultOptions: {
     queries: {
+      refetchOnWindowFocus: false,
       retry: false
     }
   }

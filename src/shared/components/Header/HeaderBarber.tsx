@@ -13,8 +13,10 @@ export const RstHeaderBarber = () => {
   const { handleLogout } = useAuth()
   const router = useRouter()
   const optionsMenu = [
-    { label: 'Dashboard', onClick: () => router.push('/barber/dashboard') },
-    { label: 'Configurações', onClick: () => router.push('/barber/config') }
+    { label: 'Home', onClick: () => router.push('/barber/dashboard') },
+    { label: 'Configurações', onClick: () => router.push('/barber/config') },
+    { label: 'Agenda da semana', onClick: () => router.push('/barber/appointments/weekly') },
+    { label: 'Agenda completa', onClick: () => router.push('/barber/appointments/all') }
   ]
   const optionsUser = [{ label: 'Sair', onClick: handleLogout }]
 

@@ -19,7 +19,7 @@ const BarberConfig = () => {
 
           <GridItem as="a" href="/barber/config/profile" color="newBlue.1000">
             <Flex p={6} bg="white" display="flex" justifyContent="space-between" alignItems="center" borderRadius={16}>
-              <Text fontWeight="600">Editar usuario</Text>
+              <Text fontWeight="600">Editar usuário</Text>
             </Flex>
           </GridItem>
         </Grid>
