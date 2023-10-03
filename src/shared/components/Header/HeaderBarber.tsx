@@ -19,7 +19,7 @@ export const RstHeaderBarber = () => {
   const optionsUser = [{ label: 'Sair', onClick: handleLogout }]
 
   return (
-    <Flex justifyContent="space-between" alignItems="center" p={4}>
+    <Flex justifyContent="space-between" alignItems="center" px={4} py={2} shadow="md" mb={6} bg="white">
       <Menu>
         <MenuButton
           as={IconButton}

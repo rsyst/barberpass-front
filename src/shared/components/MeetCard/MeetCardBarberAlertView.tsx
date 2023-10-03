@@ -30,7 +30,7 @@ export const RstMeetCardBarberAlertView = ({ isOpen, onClose, appointment }: iPr
     <>
       <Modal isOpen={isOpen} onClose={onClose}>
         <ModalOverlay />
-        <ModalContent m={4}>
+        <ModalContent mx={4}>
           <ModalHeader>Agendamento</ModalHeader>
           <ModalCloseButton />
           <ModalBody>

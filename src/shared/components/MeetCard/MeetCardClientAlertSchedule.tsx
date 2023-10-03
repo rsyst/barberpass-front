@@ -25,7 +25,7 @@ export const RstMeetCardClientAlertSchedule = ({ isOpen, onClose, appointment }:
     <>
       <Modal isOpen={isOpen} onClose={onClose}>
         <ModalOverlay />
-        <ModalContent m={4}>
+        <ModalContent mx={4}>
           <ModalHeader>Agendar horario</ModalHeader>
           <ModalCloseButton />
           <ModalBody>

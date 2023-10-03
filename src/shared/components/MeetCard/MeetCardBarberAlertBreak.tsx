@@ -36,6 +36,7 @@ export const RstMeetCardBarberAlertBreak = ({ isOpen, onClose, appointment }: iP
         onSuccess: () => {
           queryClient.invalidateQueries(QUERY_KEYS.GET_BARBER_APPOINTMENTS)
           queryClient.invalidateQueries(QUERY_KEYS.GET_BARBER_APPOINTMENTS_DAY)
+          queryClient.invalidateQueries(QUERY_KEYS.GET_BARBER_APPOINTMENTS_WEEK)
           queryClient.invalidateQueries(QUERY_KEYS.GET_BARBER_APPOINTMENTS_NEXT)
           queryClient.invalidateQueries(QUERY_KEYS.GET_BARBER_DASHBOARD)
           toast({
@@ -53,7 +54,7 @@ export const RstMeetCardBarberAlertBreak = ({ isOpen, onClose, appointment }: iP
     <>
       <Modal isOpen={isOpen} onClose={onClose}>
         <ModalOverlay />
-        <ModalContent m={4}>
+        <ModalContent mx={4}>
           <ModalHeader>Agendar intervalo</ModalHeader>
           <ModalCloseButton />
           <ModalBody>

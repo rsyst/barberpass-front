@@ -2,6 +2,7 @@ import { Flex, Grid, GridItem, Text } from '@chakra-ui/react'
 import RstAccordion from '@shared/components/Accordion'
 import { RstHeaderBarber } from '@shared/components/Header'
 import RstInfoCard from '@shared/components/InfoCard'
+import { RstLoading } from '@shared/components/Loading'
 import { RstMeetCardBarber } from '@shared/components/MeetCard/MeetCardBarber'
 import RstText from '@shared/components/Text'
 import { ENDPOINTS } from '@shared/constants/endpoints'
@@ -14,16 +15,16 @@ import React from 'react'
 interface GetBarberDashboard {
   dailyAmount: number
   dailyAppointments: number
-  dailyTime: number
+  dailyConfirmedAppointments: number
   weeklyAmount: number
   weeklyAppointments: number
-  weeklyTime: number
+  weeklyConfirmedAppointments: number
   monthlyAmount: number
   monthlyAppointments: number
-  monthlyTime: number
+  monthlyConfirmedAppointments: number
   yearlyAmount: number
   yearlyAppointments: number
-  yearlyTime: number
+  yearlyConfirmedAppointments: number
 }
 
 const BarberDashboard = () => {
@@ -42,8 +43,8 @@ const BarberDashboard = () => {
     isLoading: loadingDailyAppointments,
     isRefetching: refetchingDailyAppointments
   } = useFetch<iAppointment[]>(QUERY_KEYS.GET_BARBER_APPOINTMENTS_DAY, ENDPOINTS.GET_BARBER_APPOINTMENTS_DAY)
-  if (loadingBarber || loadingNextAppointments || loadingDailyAppointments || loadingDashboard)
-    return <div>loading...</div>
+
+  if (loadingBarber || loadingNextAppointments || loadingDailyAppointments || loadingDashboard) return <RstLoading />
 
   return (
     <>
@@ -70,8 +71,8 @@ const BarberDashboard = () => {
             badge={{ colorScheme: 'gray', children: 'Sem dados anteriores' }}
           />
           <RstInfoCard
-            title="Horarios agendados"
-            value={dashboard?.dailyTime as number}
+            title="Horarios concluidos"
+            value={dashboard?.dailyConfirmedAppointments as number}
             badge={{ colorScheme: 'gray', children: 'Sem dados anteriores' }}
           />
         </Grid>

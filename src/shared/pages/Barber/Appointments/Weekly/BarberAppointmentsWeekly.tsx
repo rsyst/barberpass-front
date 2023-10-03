@@ -8,6 +8,7 @@ import moment from 'moment'
 import React from 'react'
 import { getWeekDays } from './utils'
 import RstSelect from '@shared/components/Select'
+import { RstLoading } from '@shared/components/Loading'
 
 interface FetchAppointment {
   [key: string]: iAppointment[]
@@ -23,7 +24,7 @@ const BarberAppointmentsWeekly = () => {
   const weekDays = getWeekDays()
 
   if (loadingAppointments) {
-    return <div>loading...</div>
+    return <RstLoading />
   }
   return (
     <>

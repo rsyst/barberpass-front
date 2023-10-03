@@ -109,7 +109,7 @@ const RstFormService = ({ isOpen, onClose, service }: iProps) => {
   return (
     <Modal isOpen={isOpen} onClose={handleClose}>
       <ModalOverlay />
-      <ModalContent m={4}>
+      <ModalContent mx={4}>
         <ModalHeader>Cadastrar serviço</ModalHeader>
         <ModalCloseButton />
         <ModalBody>

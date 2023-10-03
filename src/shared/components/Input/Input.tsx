@@ -17,13 +17,13 @@ const RstInput = ({ label, helperText, errorMessage, isError, ...props }: iInput
         {...props}
         h="54px"
         color="gray.1100"
-        borderColor="gray.600"
+        borderColor="gray.700"
         fontSize="16px"
         fontWeight="500"
         borderRadius={16}
-        _hover={{ borderColor: 'gray.700' }}
+        _hover={{ borderColor: 'gray.800' }}
         _focus={{ borderColor: 'newBlue.800', borderWidth: '2px' }}
-        _placeholder={{ color: 'gray.700' }}
+        _placeholder={{ color: 'gray.800' }}
       />
       {!isError ? (
         <FormHelperText fontSize={12} color="gray.1000">

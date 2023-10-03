@@ -30,9 +30,9 @@ const AuthLogin = () => {
       email: '',
       password: '',
       role: {
-        id: 1,
-        value: 'BARBER',
-        label: 'Profissional'
+        id: 0,
+        value: 'CLIENT',
+        label: 'Cliente'
       }
     }
   }, [])

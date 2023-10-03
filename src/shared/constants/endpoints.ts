@@ -4,6 +4,11 @@ const ENDPOINTS_AUTH = {
 
 const ENDPOINTS_CLIENT = {
   GET_CLIENT: 'client/',
+  GET_CLIENT_BARBERSHOPS: 'client/barbershops',
+  GET_CLIENT_BARBERSHOPS_BY_ID_BARBERS: (id: string) => `client/barbershops/${id}/barbers`,
+  GET_CLIENT_BARBERS_BY_ID_SERVICES: (id: string) => `client/barbers/${id}/services`,
+  GET_CLIENT_BARBERS_BY_BARBERID_SERVICES_BY_SERVICEID_APPOINTMENTS: (barberId: string, serviceId: string) =>
+    `client/barbers/${barberId}/services/${serviceId}/appointments`,
   GET_CLIENT_APPOINTMENTS: 'client/appointments',
   GET_CLIENT_APPOINTMENTS_BY_ID: (id: string) => `client/appointments/${id}`
 }

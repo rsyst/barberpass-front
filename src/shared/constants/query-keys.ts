@@ -1,5 +1,13 @@
 const QUERY_KEYS_CLIENT = {
   GET_CLIENT: ['get_client'],
+  GET_CLIENT_BARBERSHOPS: ['get_client_barbershop'],
+  GET_CLIENT_BARBERSHOPS_BY_ID_BARBERS: (id: string) => ['get_client_by_barbershop_id_barbers', id],
+  GET_CLIENT_BARBERS_BY_ID_SERVICES: (id: string) => ['get_client_barbers_by_id_services', id],
+  GET_CLIENT_BARBERS_BY_BARBERID_SERVICES_BY_SERVICEID_APPOINTMENTS: (barberId: string, serviceId: string) => [
+    'get_client_barbers_by_barberid_services_by_serviceid_appointments',
+    barberId,
+    serviceId
+  ],
   GET_CLIENT_APPOINTMENTS: ['get_client_appointments'],
   GET_CLIENT_APPOINTMENTS_BY_ID: (id: string) => ['get_client_appointments_by_id', id]
 }

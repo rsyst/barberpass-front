@@ -1,5 +1,7 @@
-import { Flex, Grid, GridItem, Input, Text } from '@chakra-ui/react'
+import { Flex, Grid, GridItem, Text } from '@chakra-ui/react'
 import { RstHeaderBarber } from '@shared/components/Header'
+import RstInput from '@shared/components/Input'
+import { RstLoading } from '@shared/components/Loading'
 import { RstMeetCardBarber } from '@shared/components/MeetCard'
 import { ENDPOINTS, QUERY_KEYS } from '@shared/constants'
 import { iAppointment } from '@shared/interface/public'
@@ -10,10 +12,14 @@ import React from 'react'
 const BarberAppointmentsAll = () => {
   const [date, setDate] = React.useState(moment().format('YYYY-MM-DD') as string)
 
-  const { data: appointments } = useFetch<iAppointment[]>(
+  const { data: appointments, isLoading } = useFetch<iAppointment[]>(
     QUERY_KEYS.GET_BARBER_APPOINTMENTS_DAY_BY_DATE(date),
     ENDPOINTS.GET_BARBER_APPOINTMENTS_DAY_BY_DATE(date)
   )
+
+  if (isLoading) {
+    return <RstLoading />
+  }
 
   return (
     <>
@@ -25,8 +31,8 @@ const BarberAppointmentsAll = () => {
 
         <Grid gap={2} bg="gray.100" p={4} borderRadius={24}>
           <GridItem>
-            <Flex p={6} alignItems="center">
-              <Input type="date" value={date} onChange={(e) => setDate(e.target.value)} />
+            <Flex p={2} alignItems="center">
+              <RstInput type="date" value={date} onChange={(e) => setDate(e.target.value)} />
             </Flex>
           </GridItem>
 
