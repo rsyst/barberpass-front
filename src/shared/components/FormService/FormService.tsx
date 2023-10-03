@@ -109,7 +109,13 @@ const RstFormService = ({ isOpen, onClose, service }: iProps) => {
   return (
     <Modal isOpen={isOpen} onClose={handleClose}>
       <ModalOverlay />
-      <ModalContent mx={4}>
+      <ModalContent
+        mx={4}
+        as="form"
+        onSubmit={(e: React.FormEvent<HTMLDivElement>) => {
+          e.preventDefault()
+        }}
+      >
         <ModalHeader>Cadastrar serviço</ModalHeader>
         <ModalCloseButton />
         <ModalBody>
@@ -143,7 +149,7 @@ const RstFormService = ({ isOpen, onClose, service }: iProps) => {
               Editar
             </RstButton>
           ) : (
-            <RstButton onClick={handleCreateService} isLoading={isLoading} minW={120}>
+            <RstButton onClick={handleCreateService} isLoading={isLoading} minW={120} type="submit">
               Cadastrar
             </RstButton>
           )}
