@@ -71,7 +71,7 @@ const BarberDashboard = () => {
             badge={{ colorScheme: 'gray', children: 'Sem dados anteriores' }}
           />
           <RstInfoCard
-            title="Horarios concluidos"
+            title="Horários concluidos"
             value={dashboard?.dailyConfirmedAppointments as number}
             badge={{ colorScheme: 'gray', children: 'Sem dados anteriores' }}
           />

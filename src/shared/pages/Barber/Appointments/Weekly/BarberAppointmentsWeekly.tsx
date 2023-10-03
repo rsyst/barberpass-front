@@ -37,7 +37,7 @@ const BarberAppointmentsWeekly = () => {
         <Grid gap={2} p={6} bg="gray.100" borderRadius={24}>
           <GridItem>
             <Flex alignItems="center">
-              <RstSelect placeholder="Selecione o dia da semana" value={date} onChange={(e) => setDate(e.target.value)}>
+              <RstSelect value={date} onChange={(e) => setDate(e.target.value)}>
                 {weekDays?.map((day) => (
                   <option key={day.date} value={day.date}>
                     {day.name}

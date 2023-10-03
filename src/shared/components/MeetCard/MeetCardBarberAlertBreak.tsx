@@ -59,7 +59,7 @@ export const RstMeetCardBarberAlertBreak = ({ isOpen, onClose, appointment }: iP
           <ModalCloseButton />
           <ModalBody>
             <Text>
-              Você tem certeza que deseja agendar este horario como seu <b>Intervalo</b>?
+              Você tem certeza que deseja agendar este horário como seu <b>Intervalo</b>?
             </Text>
           </ModalBody>
 

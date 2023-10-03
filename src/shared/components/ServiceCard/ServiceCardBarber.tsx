@@ -54,7 +54,7 @@ export const RstServiceCardBarber = ({ ...service }: iRstServiceCardBarber) => {
         <Flex flexDir="column">
           <Text fontWeight="600">{service.name}</Text>
           <Text fontSize={14}>{currencyMask(String(service.price * 100))}</Text>
-          <Text fontSize={14}>{service.workAmount} horario(s)</Text>
+          <Text fontSize={14}>{service.workAmount} horário(s)</Text>
         </Flex>
 
         <Menu>

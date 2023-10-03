@@ -34,7 +34,7 @@ const RstFormService = ({ isOpen, onClose, service }: iProps) => {
   const initialValues: iFormService = useMemo(
     () => ({
       name: service?.name || '',
-      price: floatToCurrency(service?.price || 0),
+      price: service?.price ? floatToCurrency(service.price) : '',
       workAmount: service?.workAmount || ''
     }),
     [service]
@@ -126,7 +126,7 @@ const RstFormService = ({ isOpen, onClose, service }: iProps) => {
             onChange={({ target }) => handleChangeValue('price', target.value)}
           />
           <RstInput
-            label="Quantidade de horario(s) *"
+            label="Quantidade de horário(s) *"
             placeholder="ex: 2"
             type="number"
             value={formValues.workAmount}

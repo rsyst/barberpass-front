@@ -26,10 +26,10 @@ export const RstMeetCardClientAlertSchedule = ({ isOpen, onClose, appointment }:
       <Modal isOpen={isOpen} onClose={onClose}>
         <ModalOverlay />
         <ModalContent mx={4}>
-          <ModalHeader>Agendar horario</ModalHeader>
+          <ModalHeader>Agendar horário</ModalHeader>
           <ModalCloseButton />
           <ModalBody>
-            <Text>Você tem certeza que deseja agendar este horario? </Text>
+            <Text>Você tem certeza que deseja agendar este horário? </Text>
             <Flex gap={2}>
               <Text>Dia:</Text>
               <Text fontWeight={600}>{moment(appointment.start).format('DD/MM/YYYY')}</Text>

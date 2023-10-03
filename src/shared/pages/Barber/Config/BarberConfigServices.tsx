@@ -35,7 +35,7 @@ const BarberConfigServices = () => {
             <Flex flexDir="column" justifyContent="center" alignItems="center" gap={2} h="full" color="gray.1000">
               <Icon as={FiFrown} fontSize="5xl" />
               <Text w={60} textAlign="center">
-                Nenhum serviço cadastrado ainda
+                Você ainda não possui serviços cadastrados
               </Text>
             </Flex>
           ) : (
