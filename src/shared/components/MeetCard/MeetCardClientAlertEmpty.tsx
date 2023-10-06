@@ -23,9 +23,8 @@ interface iProps {
 }
 
 export const RstMeetCardClientAlertEmpty = ({ isOpen, onClose, appointment }: iProps) => {
-  console.log(appointment)
   const { mutate: emptyAppointment, isLoading } = usePut(
-    ENDPOINTS.PUT_BARBER_APPOINTMENTS_BY_GROUP_INDEX_EMPTY(appointment?.groupIndex || '')
+    ENDPOINTS.PUT_CLIENT_APPOINTMENTS_BY_GROUP_INDEX_EMPTY(appointment?.groupIndex || '')
   )
 
   const queryClient = useQueryClient()
@@ -36,11 +35,7 @@ export const RstMeetCardClientAlertEmpty = ({ isOpen, onClose, appointment }: iP
       {},
       {
         onSuccess: () => {
-          queryClient.invalidateQueries(QUERY_KEYS.GET_BARBER_APPOINTMENTS)
-          queryClient.invalidateQueries(QUERY_KEYS.GET_BARBER_APPOINTMENTS_DAY)
-          queryClient.invalidateQueries(QUERY_KEYS.GET_BARBER_APPOINTMENTS_WEEK)
-          queryClient.invalidateQueries(QUERY_KEYS.GET_BARBER_APPOINTMENTS_NEXT)
-          queryClient.invalidateQueries(QUERY_KEYS.GET_BARBER_DASHBOARD)
+          queryClient.invalidateQueries(QUERY_KEYS.GET_CLIENT_APPOINTMENTS)
           toast({
             title: 'Agendamento cancelado com sucesso',
             status: 'success',

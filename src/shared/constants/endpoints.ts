@@ -14,7 +14,8 @@ const ENDPOINTS_CLIENT = {
   ) => `client/barbers/${barberId}/services/${serviceId}/appointments/${date}`,
   GET_CLIENT_APPOINTMENTS: 'client/appointments',
   GET_CLIENT_APPOINTMENTS_BY_ID: (id: string) => `client/appointments/${id}`,
-  PUT_CLIENT_APPOINTMENTS_BY_ID_OCCUPIED: (id: string) => `client/appointments/${id}/occupied`
+  PUT_CLIENT_APPOINTMENTS_BY_ID_OCCUPIED: (id: string) => `client/appointments/${id}/occupied`,
+  PUT_CLIENT_APPOINTMENTS_BY_GROUP_INDEX_EMPTY: (groupIndex: string) => `client/appointments/${groupIndex}/empty`
 }
 
 const ENDPOINTS_BARBER = {
