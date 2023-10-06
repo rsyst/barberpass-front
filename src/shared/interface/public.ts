@@ -16,6 +16,8 @@ export interface iBarberShop {
   phoneNumber: string
   email: string
   password: string
+  address: string
+  logo: string
 }
 
 export interface iBarber {
@@ -37,7 +39,7 @@ export interface iService {
   id: string
   name: string
   price: number
-  workAmount: string
+  workAmount: number
 }
 
 export interface iCompany {
@@ -62,7 +64,7 @@ export interface iAppointment {
   index: number
   groupIndex: string
   serviceId: string
-  service?: iService
+  service: iService
   barberId: string
   barber?: iBarber
   clientId: string

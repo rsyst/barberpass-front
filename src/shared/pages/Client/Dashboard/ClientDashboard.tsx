@@ -4,11 +4,10 @@ import RstBarbershopCard from '@shared/components/BarbershopCard'
 import { RstHeaderClient } from '@shared/components/Header'
 import { RstLoading } from '@shared/components/Loading'
 import { RstMeetCardClient } from '@shared/components/MeetCard'
-import { iRstMeetCardClient } from '@shared/components/MeetCard/MeetCardClient'
 import RstText from '@shared/components/Text'
 import { ENDPOINTS } from '@shared/constants/endpoints'
 import { QUERY_KEYS } from '@shared/constants/query-keys'
-import { iBarber, iBarberShop } from '@shared/interface/public'
+import { iAppointment, iBarber, iBarberShop } from '@shared/interface/public'
 import { useFetch } from '@shared/service/use-queries'
 
 import React from 'react'
@@ -16,12 +15,16 @@ import { FiFrown } from 'react-icons/fi'
 
 const ClientDashboard = () => {
   const { data: client, isLoading: loadingClient } = useFetch<iBarber>(QUERY_KEYS.GET_CLIENT, ENDPOINTS.GET_CLIENT)
+  const { data: appointments, isLoading: loadingAppointments } = useFetch<iAppointment[]>(
+    QUERY_KEYS.GET_CLIENT_APPOINTMENTS,
+    ENDPOINTS.GET_CLIENT_APPOINTMENTS
+  )
   const { data: barbershops, isLoading: loadingBarbershops } = useFetch<iBarberShop[]>(
     QUERY_KEYS.GET_CLIENT_BARBERSHOPS,
     ENDPOINTS.GET_CLIENT_BARBERSHOPS
   )
 
-  if (loadingClient || loadingBarbershops) return <RstLoading />
+  if (loadingClient || loadingBarbershops || loadingAppointments) return <RstLoading />
 
   return (
     <>
@@ -40,11 +43,11 @@ const ClientDashboard = () => {
           <GridItem colSpan={2}>
             <Flex flexDir="column" gap={2} bg="white" display="flex" borderRadius={16}>
               <Flex px={6} pt={6}>
-                <Text fontWeight="600">Meus agendamentos</Text>
+                <Text fontWeight="600">Meus agendamentos do mês</Text>
               </Flex>
 
               <Flex flexDir="column" overflowY="auto" p={2} maxH="30vh">
-                {Appointments.length <= 0 ? (
+                {!appointments || appointments.length <= 0 ? (
                   <Flex flexDir="column" justifyContent="center" alignItems="center" gap={2} h="full" color="gray.1000">
                     <Icon as={FiFrown} fontSize="5xl" />
                     <Text w={60} textAlign="center">
@@ -52,7 +55,7 @@ const ClientDashboard = () => {
                     </Text>
                   </Flex>
                 ) : (
-                  Appointments.map((appointment, index) => <RstMeetCardClient key={index} {...appointment} />)
+                  appointments.map((appointment, index) => <RstMeetCardClient key={index} {...appointment} />)
                 )}
               </Flex>
             </Flex>
@@ -74,17 +77,3 @@ const ClientDashboard = () => {
 }
 
 export default ClientDashboard
-
-const Appointments: iRstMeetCardClient[] = [
-  // {
-  //   start: '2023-09-20 06:00:00',
-  //   end: '2023-09-20 06:00:00',
-  //   status: { id: 'asd', key: 'CONFIRMED', pt: 'confirmado' },
-  //   service: {
-  //     name: 'Corte de cabelo',
-  //     id: '',
-  //     price: '',
-  //     workAmount: ''
-  //   }
-  // } as iRstMeetCardClient
-]

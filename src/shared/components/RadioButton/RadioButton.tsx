@@ -4,6 +4,7 @@ import RstText from '../Text'
 
 interface iRadioButtonProps extends FlexProps {
   name?: string
+  colorScheme?: string
   options: Array<iRadioButtonPropsOptions>
   onChange: (item: iRadioButtonPropsOptions | FormEvent<HTMLDivElement>) => void
 }
@@ -13,12 +14,14 @@ interface iRadioButtonPropsOptions {
   id: string | number
 }
 
-export const RstRadioButton = ({ options, onChange, ...props }: iRadioButtonProps) => {
+export const RstRadioButton = ({ options, onChange, colorScheme = 'newBlue', ...props }: iRadioButtonProps) => {
   const [selected, setSelected] = useState<number>(0)
 
   const selectedRadio = (index: number) => {
     if (index === selected) {
-      return { color: 'newBlue.1000', bg: 'newBlue.300' }
+      return { color: `${colorScheme}.100`, bg: `${colorScheme}.1100` }
+    } else {
+      return { color: `${colorScheme}.1100`, bg: `${colorScheme}.300` }
     }
   }
 
@@ -28,7 +31,15 @@ export const RstRadioButton = ({ options, onChange, ...props }: iRadioButtonProp
   }
 
   return (
-    <Flex bg={'newBlue.200'} p={2} gap={2} borderRadius={16} {...props}>
+    <Flex
+      bg={`${colorScheme}.300`}
+      p={2}
+      gap={2}
+      borderRadius={16}
+      border="1px solid"
+      borderColor="gray.500"
+      {...props}
+    >
       {options.map((item, index) => (
         <Flex
           key={item.id}

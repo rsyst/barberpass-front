@@ -21,7 +21,7 @@ export interface iLogin {
 
 const options = [
   { label: 'Cliente', value: 'CLIENT', id: 0 },
-  { label: 'Profissional', value: 'BARBER', id: 1 }
+  { label: 'Barbeiro', value: 'BARBER', id: 1 }
 ]
 
 const AuthLogin = () => {
@@ -53,6 +53,11 @@ const AuthLogin = () => {
     handleLogin(formValues)
   }
 
+  const colorByUserType = useMemo(() => {
+    if (formValues.role.value === 'CLIENT') return 'newBlue'
+    else return 'newRed'
+  }, [formValues.role])
+
   //Redirect to Dashboard if is logged
   useEffect(() => {
     const { [COOKIES_NAMES.CLIENT_TOKEN]: clientToken, [COOKIES_NAMES.BARBER_TOKEN]: barberToken } = parseCookies()
@@ -75,7 +80,7 @@ const AuthLogin = () => {
       <Flex justifyContent="center" alignItems="start" minH="100vh" bg="gray.100">
         <Grid maxW={480} w="100%" gap={6} p={8} borderRadius={16} m={6}>
           <GridItem>
-            <RstText fontVariant="h3" color="newBlue.1100">
+            <RstText fontVariant="h3" color={`${colorByUserType}.1100`}>
               Bem-vindo
             </RstText>
             <RstText fontVariant="body1" color="gray.1100">
@@ -83,7 +88,11 @@ const AuthLogin = () => {
             </RstText>
           </GridItem>
 
-          <RstRadioButton options={options} onChange={(value) => handleChangeValue('role', value)} />
+          <RstRadioButton
+            options={options}
+            onChange={(value) => handleChangeValue('role', value)}
+            colorScheme={`${colorByUserType}`}
+          />
 
           <RstInput
             placeholder="E-mail"
@@ -103,18 +112,26 @@ const AuthLogin = () => {
             </RstButton>
           </GridItem>
 
-          <RstButton size="md" type="submit" onClick={handleSubmit} isLoading={isLoadingLogin}>
+          <RstButton
+            size="md"
+            type="submit"
+            onClick={handleSubmit}
+            isLoading={isLoadingLogin}
+            colorScheme={`${colorByUserType}`}
+          >
             Login
           </RstButton>
 
           <Box color="gray.600" w="100%" h="2px" bg="gray.600" />
 
-          <RstText color="gray.1200" fontVariant="body1" textAlign="center">
-            Não possui conta?
-            <RstButton ml={2} variant="link" as="a" href="/auth/register">
-              Cadastre-se
-            </RstButton>
-          </RstText>
+          {formValues.role.value === 'CLIENT' && (
+            <RstText color="gray.1200" fontVariant="body1" textAlign="center">
+              Não possui conta?
+              <RstButton ml={2} variant="link" as="a" href="/auth/register">
+                Cadastre-se
+              </RstButton>
+            </RstText>
+          )}
         </Grid>
       </Flex>
     </Box>

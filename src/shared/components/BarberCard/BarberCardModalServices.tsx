@@ -1,4 +1,4 @@
-import { Modal, ModalOverlay, ModalContent, ModalHeader, ModalBody, ModalCloseButton } from '@chakra-ui/react'
+import { Modal, ModalOverlay, ModalContent, ModalHeader, ModalBody, ModalCloseButton, Flex } from '@chakra-ui/react'
 import React from 'react'
 import { iBarber, iService } from '@shared/interface/public'
 import { useFetch } from '@shared/service/use-queries'
@@ -25,13 +25,15 @@ export const RstBarberCardModalServices = ({ isOpen, onClose, barber }: iProps) 
     <>
       <Modal isOpen={isOpen} onClose={onClose}>
         <ModalOverlay />
-        <ModalContent mx={4}>
-          <ModalHeader>Agendar intervalo</ModalHeader>
+        <ModalContent m={4} h="90vh">
+          <ModalHeader>Serviços disponíveis</ModalHeader>
           <ModalCloseButton />
           <ModalBody>
-            {services?.map((service) => (
-              <RstServiceCardClient key={barber.id} service={service} barber={barber} />
-            ))}
+            <Flex flexDir="column" gap={2}>
+              {services?.map((service) => (
+                <RstServiceCardClient key={barber.id} service={service} barber={barber} />
+              ))}
+            </Flex>
           </ModalBody>
         </ModalContent>
       </Modal>

@@ -1,62 +1,60 @@
 import { Flex, IconButton, Menu, MenuButton, MenuItem, MenuList, Text, useDisclosure } from '@chakra-ui/react'
 import React from 'react'
 import RstBadge from '../Badge'
-import { iAppointment, iService, iStatus } from '@shared/interface/public'
+import { iAppointment, iStatus } from '@shared/interface/public'
 import { FiMoreVertical } from 'react-icons/fi'
 import RstMeetCardClientAlertSchedule from './MeetCardClientAlertSchedule'
 import moment from 'moment'
+import RstMeetCardClientAlertEmpty from './MeetCardClientAlertEmpty'
+import RstMeetCardClientAlertView from './MeetCardClientAlertView'
 
 export interface iRstMeetCardClient extends iAppointment {
-  status: iStatus
-  service: iService
+  status?: iStatus
 }
 
 const statusColor = {
-  CONFIRMED: 'green',
-  BREAK: 'red',
-  OCCUPIED: 'yellow',
+  CONFIRMED: 'newGreen',
+  BREAK: 'newRed',
+  OCCUPIED: 'newYellow',
   EMPTY: 'gray'
 }
 
 export const RstMeetCardClient = ({ ...appointment }: iRstMeetCardClient) => {
-  const { isOpen, onOpen, onClose } = useDisclosure()
+  const { isOpen: isOpenOccupied, onOpen: onOpenOccupied, onClose: onCloseOccupied } = useDisclosure()
+  const { isOpen: isOpenEmpty, onOpen: onOpenEmpty, onClose: onCloseEmpty } = useDisclosure()
+  const { isOpen: isOpenView, onOpen: onOpenView, onClose: onCloseView } = useDisclosure()
 
   const optionsByStatus = {
     CONFIRMED: [
       {
         label: 'Visualizar',
-        value: 'CANCEL',
-        onClick: onOpen
+        value: 'VIEW',
+        onClick: onOpenView
       },
       {
         label: 'Cancelar',
         value: 'CANCEL',
-        onClick: onOpen
+        onClick: onOpenEmpty
       }
     ],
     BREAK: [],
     OCCUPIED: [
       {
         label: 'Visualizar',
-        value: 'CANCEL',
-        onClick: onOpen
+        value: 'VIEW',
+        onClick: onOpenView
       },
       {
         label: 'Cancelar',
         value: 'CANCEL',
-        onClick: onOpen
+        onClick: onOpenEmpty
       }
     ],
     EMPTY: [
       {
         label: 'Agendar',
-        value: 'CANCEL',
-        onClick: onOpen
-      },
-      {
-        label: 'Cancelar',
-        value: 'CANCEL',
-        onClick: onOpen
+        value: 'SCHEDULE',
+        onClick: onOpenOccupied
       }
     ]
   }
@@ -67,24 +65,24 @@ export const RstMeetCardClient = ({ ...appointment }: iRstMeetCardClient) => {
         <Flex gap={4}>
           <Flex flexDir="column">
             <Text fontSize={18} fontWeight={600} color="black">
-              {moment(appointment.start).format('hh:mm')}
+              {moment(appointment.start).format('HH:mm')}
             </Text>
             <Text fontSize={12} color="gray.1200">
-              {moment(appointment.end).format('hh:mm')}
+              {moment(appointment.end).format('HH:mm')}
             </Text>
           </Flex>
           <Flex flexDir="column">
             <Text color="gray.1200" fontWeight={500}>
-              {appointment?.name}
+              {appointment?.service.name}
             </Text>
 
             <RstBadge
-              colorScheme={statusColor[appointment.status.key]}
+              colorScheme={statusColor[appointment.status?.key || 'EMPTY']}
               display="flex"
               alignItems="center"
               justifyContent="center"
             >
-              {appointment.status.pt}
+              {appointment.status?.pt}
             </RstBadge>
           </Flex>
         </Flex>
@@ -99,7 +97,7 @@ export const RstMeetCardClient = ({ ...appointment }: iRstMeetCardClient) => {
               colorScheme="gray"
             />
             <MenuList>
-              {optionsByStatus[appointment.status.key].map((option, index) => (
+              {optionsByStatus[appointment.status?.key || 'EMPTY'].map((option, index) => (
                 <MenuItem key={index} onClick={option.onClick}>
                   {option.label}
                 </MenuItem>
@@ -108,7 +106,13 @@ export const RstMeetCardClient = ({ ...appointment }: iRstMeetCardClient) => {
           </Menu>
         </Flex>
       </Flex>
-      <RstMeetCardClientAlertSchedule isOpen={isOpen} onClose={onClose} appointment={appointment} />
+      {isOpenOccupied && (
+        <RstMeetCardClientAlertSchedule isOpen={isOpenOccupied} onClose={onCloseOccupied} appointment={appointment} />
+      )}
+      {isOpenEmpty && (
+        <RstMeetCardClientAlertEmpty isOpen={isOpenEmpty} onClose={onCloseEmpty} appointment={appointment} />
+      )}
+      {isOpenView && <RstMeetCardClientAlertView isOpen={isOpenView} onClose={onCloseView} appointment={appointment} />}
     </>
   )
 }

@@ -3,12 +3,12 @@ import React from 'react'
 import RstBadge from '../Badge'
 import { iAppointment } from '@shared/interface/public'
 import { FiMoreVertical } from 'react-icons/fi'
-import RstFormScheduleAppointment from '../FormScheduleAppointment'
 import moment from 'moment'
 import RstMeetCardBarberAlertBreak from './MeetCardBarberAlertBreak'
 import RstMeetCardBarberAlertConfirmed from './MeetCardBarberAlertConfirmed'
 import RstMeetCardBarberAlertEmpty from './MeetCardBarberAlertEmpty'
 import RstMeetCardBarberAlertView from './MeetCardBarberAlertView'
+import RstMeetCardBarberAlertSchedule from './MeetCardBarberAlertSchedule'
 
 export type iRstMeetCardBarber = iAppointment
 
@@ -121,7 +121,7 @@ export const RstMeetCardBarber = ({ ...appointment }: iRstMeetCardBarber) => {
         </Flex>
       </Flex>
       {isOpenOccupied && (
-        <RstFormScheduleAppointment isOpen={isOpenOccupied} onClose={onCloseOccupied} appointment={appointment} />
+        <RstMeetCardBarberAlertSchedule isOpen={isOpenOccupied} onClose={onCloseOccupied} appointment={appointment} />
       )}
       {isOpenBreak && (
         <RstMeetCardBarberAlertBreak isOpen={isOpenBreak} onClose={onCloseBreak} appointment={appointment} />

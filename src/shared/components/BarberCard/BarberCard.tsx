@@ -1,8 +1,8 @@
-import { Flex, Icon, Text, useDisclosure } from '@chakra-ui/react'
+import { Avatar, Flex, Text, useDisclosure } from '@chakra-ui/react'
 import React from 'react'
 import { iBarber } from '@shared/interface/public'
 import RstBarberCardModalServices from './BarberCardModalServices'
-import { FiUser } from 'react-icons/fi'
+import { phoneMask } from '@shared/utils/phoneMask'
 
 export type iRstBarberCard = iBarber
 
@@ -24,17 +24,22 @@ export const RstBarberCard = ({ ...barber }: iRstBarberCard) => {
         onClick={onOpenBarberCard}
       >
         <Flex gap={4}>
-          <Flex w={16} h={16} bg="gray.500" justifyContent="center" alignItems="center" borderRadius={12}>
-            <Icon as={FiUser} fontSize={32} />
-          </Flex>
+          <Avatar
+            w={16}
+            h={16}
+            bg="gray.500"
+            justifyContent="center"
+            alignItems="center"
+            borderRadius={12}
+            name={barber.name}
+          />
           <Flex flexDir="column">
             <Text color="gray.1200" fontWeight={500} fontSize={20} textTransform="capitalize">
               {barber?.name}
             </Text>
 
             <Text color="gray.1200" fontWeight={500} fontSize={14}>
-              {/* //! TODO: Change to address */}
-              {barber?.phoneNumber}
+              {phoneMask(barber?.phoneNumber)}
             </Text>
           </Flex>
         </Flex>

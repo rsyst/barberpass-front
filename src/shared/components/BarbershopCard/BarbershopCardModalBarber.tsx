@@ -25,7 +25,7 @@ export const RstBarbershopCardModalBarber = ({ isOpen, onClose, barbershop }: iP
     <>
       <Modal isOpen={isOpen} onClose={onClose}>
         <ModalOverlay />
-        <ModalContent mx={4}>
+        <ModalContent m={4} h="90vh">
           <ModalHeader>Profissionais</ModalHeader>
           <ModalCloseButton />
           <ModalBody px={3}>
