@@ -4,7 +4,6 @@ import RstInput from '@shared/components/Input'
 import { useAuth } from '@shared/providers/auth'
 import RstButton from '@shared/components/Button'
 import RstText from '@shared/components/Text'
-import RstRadioButton from '@shared/components/RadioButton'
 import { useRouter } from 'next/router'
 import { COOKIES_NAMES } from '@shared/constants/cookie-names'
 import { parseCookies } from 'nookies'
@@ -14,25 +13,20 @@ export interface iLogin {
   password: string
   role: {
     label?: string
-    value: 'BARBER' | 'CLIENT' | 'BARBERSHOP'
+    value: 'BARBERSHOP'
     id: number
   }
 }
 
-const options = [
-  { label: 'Cliente', value: 'CLIENT', id: 0 },
-  { label: 'Profissional', value: 'BARBER', id: 1 }
-]
-
-const AuthLogin = () => {
+const BarbershopLogin = () => {
   const initialValues: iLogin = useMemo(() => {
     return {
       email: '',
       password: '',
       role: {
         id: 0,
-        value: 'CLIENT',
-        label: 'Cliente'
+        value: 'BARBERSHOP',
+        label: 'Barbearia'
       }
     }
   }, [])
@@ -83,8 +77,6 @@ const AuthLogin = () => {
             </RstText>
           </GridItem>
 
-          <RstRadioButton options={options} onChange={(value) => handleChangeValue('role', value)} />
-
           <RstInput
             placeholder="E-mail"
             onChange={({ target }) => handleChangeValue('email', target.value)}
@@ -98,9 +90,6 @@ const AuthLogin = () => {
               type="password"
               value={formValues.password}
             />
-            <RstButton variant="link" textAlign="end" color="gray.900">
-              esqueci minha senha
-            </RstButton>
           </GridItem>
 
           <RstButton size="md" type="submit" onClick={handleSubmit} isLoading={isLoadingLogin}>
@@ -111,7 +100,7 @@ const AuthLogin = () => {
 
           <RstText color="gray.1200" fontVariant="body1" textAlign="center">
             Não possui conta?
-            <RstButton ml={2} variant="link" as="a" href="/auth/register">
+            <RstButton ml={2} variant="link" as="a" href="/barbershop/register">
               Cadastre-se
             </RstButton>
           </RstText>
@@ -121,4 +110,4 @@ const AuthLogin = () => {
   )
 }
 
-export default AuthLogin
+export default BarbershopLogin
