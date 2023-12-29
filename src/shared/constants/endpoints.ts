@@ -39,9 +39,11 @@ const ENDPOINTS_BARBER = {
 }
 
 const ENDPOINTS_BARBER_SHOP = {
-  GET_BARBER_SHOP: 'barber-shop/',
-  GET_BARBER_SHOP_BARBERS: 'barber-shop/barbers',
-  GET_BARBER_SHOP_BARBERS_BY_ID: (id: string) => `barber-shop/barbers/${id}`
+  GET_BARBER_SHOP: 'barberShop/',
+  GET_BARBER_SHOP_BARBERS: 'barberShop/barbers',
+  POST_BARBER_SHOP_BARBERS: 'barberShop/createBarber',
+  GET_BARBER_SHOP_BARBERS_BY_ID: (id: string) => `barberShop/barber/${id}`,
+  DELETE_BARBER_SHOP_BARBERS_BY_ID: (id: string) => `barberShop/barber/${id}`
 }
 
 export const ENDPOINTS = {

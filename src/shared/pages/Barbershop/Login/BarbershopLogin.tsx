@@ -49,13 +49,10 @@ const BarbershopLogin = () => {
 
   //Redirect to Dashboard if is logged
   useEffect(() => {
-    const { [COOKIES_NAMES.CLIENT_TOKEN]: clientToken, [COOKIES_NAMES.BARBER_TOKEN]: barberToken } = parseCookies()
+    const { [COOKIES_NAMES.BARBER_SHOP_TOKEN]: barbershopToken } = parseCookies()
 
-    if (barberToken) {
-      router.push('/barber/dashboard')
-    }
-    if (clientToken) {
-      router.push('/client/dashboard')
+    if (barbershopToken) {
+      router.push('/barbershop/dashboard')
     }
   }, [router])
 
@@ -73,7 +70,7 @@ const BarbershopLogin = () => {
               Bem-vindo
             </RstText>
             <RstText fontVariant="body1" color="gray.1100">
-              Estamos felizes em ver vôce aqui. para acessar sua conta, primeiro realize o login.
+              Estamos felizes em ver você aqui. para acessar sua conta, primeiro realize o login.
             </RstText>
           </GridItem>
 

@@ -6,44 +6,11 @@ import RstButton from '@shared/components/Button'
 import { iBarber } from '@shared/interface/public'
 import { RstBarberInfosCard } from '@shared/components/BarberInfosCard/BarberInfosCard'
 import RstFormBarber from '@shared/components/FormBarber'
+import { QUERY_KEYS, ENDPOINTS } from '@shared/constants'
+import { useFetch } from '@shared/service/use-queries'
 
 const BarbershopDashboard = () => {
-  // const { data, isLoading } = useFetch<iService[]>(QUERY_KEYS.GET_BARBER_SERVICES, ENDPOINTS.GET_BARBER_SERVICES)
-  const data = [
-    {
-      id: '1',
-      name: 'João Silva',
-      phoneNumber: '+55 123456789',
-      startWork: '2023-01-01T08:00:00Z',
-      endWork: '2023-01-01T18:00:00Z',
-      timePerWork: 30,
-      email: 'joao.silva@example.com',
-      password: 'hashed_password_123',
-      barberShopId: 'A1'
-    },
-    {
-      id: '2',
-      name: 'Maria Oliveira',
-      phoneNumber: '+55 987654321',
-      startWork: '2023-01-01T09:00:00Z',
-      endWork: '2023-01-01T17:00:00Z',
-      timePerWork: 45,
-      email: 'maria.oliveira@example.com',
-      password: 'hashed_password_456',
-      barberShopId: 'B1'
-    },
-    {
-      id: '3',
-      name: 'Carlos Santos',
-      phoneNumber: '+55 111223344',
-      startWork: '2023-01-01T10:30:00Z',
-      endWork: '2023-01-01T19:30:00Z',
-      timePerWork: 60,
-      email: 'carlos.santos@example.com',
-      password: 'hashed_password_789',
-      barberShopId: 'C1'
-    }
-  ] as iBarber[]
+  const { data, isLoading } = useFetch<iBarber[]>(QUERY_KEYS.GET_BARBER_SHOP_BARBERS, ENDPOINTS.GET_BARBER_SHOP_BARBERS)
 
   const { isOpen, onOpen, onClose } = useDisclosure()
 
@@ -58,7 +25,7 @@ const BarbershopDashboard = () => {
           <GridItem>
             <Flex p={6} alignItems="center">
               <Text fontWeight="600" fontSize={18}>
-                barbeiros
+                Barbeiros
               </Text>
             </Flex>
           </GridItem>

@@ -33,6 +33,7 @@ interface iFormBarber {
   endWork: string
   timePerWork: number
   email: string
+  password: string
 }
 
 const RstFormBarber = ({ isOpen, onClose, barber }: iProps) => {
@@ -42,8 +43,9 @@ const RstFormBarber = ({ isOpen, onClose, barber }: iProps) => {
       phoneNumber: barber?.phoneNumber || '',
       startWork: moment(barber?.startWork).format('HH:mm') || '',
       endWork: moment(barber?.endWork).format('HH:mm') || '',
-      timePerWork: barber?.timePerWork || 0,
-      email: barber?.email || ''
+      timePerWork: barber?.timePerWork || 30,
+      email: barber?.email || '',
+      password: barber?.password || ''
     }),
     [barber]
   )
@@ -52,10 +54,8 @@ const RstFormBarber = ({ isOpen, onClose, barber }: iProps) => {
   const toast = useToast()
   const [formValues, setFormValues] = useState(initialValues)
 
-  const { mutate: createService, isLoading: loadingCreate } = usePost(ENDPOINTS.POST_BARBER_SERVICE)
-  const { mutate: editService, isLoading: loadingEdit } = usePut(ENDPOINTS.PUT_BARBER_SERVICES_BY_ID(barber?.id || ''))
-  const isLoading = loadingCreate || loadingEdit
-  const havePrevService = !!barber
+  const { mutate: createBarber, isLoading: loadingCreate } = usePost(ENDPOINTS.POST_BARBER_SHOP_BARBERS)
+  const isLoading = loadingCreate
 
   const handleChangeValue = (fname: keyof iFormBarber, value: unknown) => {
     setFormValues((oldValues) => ({
@@ -64,27 +64,12 @@ const RstFormBarber = ({ isOpen, onClose, barber }: iProps) => {
     }))
   }
 
-  const handleCreateService = () => {
-    createService(formValues, {
+  const handleCreateBarber = () => {
+    createBarber(formValues, {
       onSuccess: () => {
         queryClient.invalidateQueries(QUERY_KEYS.GET_BARBER_SERVICES)
         toast({
-          title: 'Serviço criado com sucesso',
-          status: 'success',
-          duration: 3000,
-          isClosable: true
-        })
-        handleClose()
-      }
-    })
-  }
-
-  const handleEditService = () => {
-    editService(formValues, {
-      onSuccess: () => {
-        queryClient.invalidateQueries(QUERY_KEYS.GET_BARBER_SERVICES)
-        toast({
-          title: 'Serviço editado com sucesso',
+          title: 'Barbeiro criado com sucesso',
           status: 'success',
           duration: 3000,
           isClosable: true
@@ -109,7 +94,7 @@ const RstFormBarber = ({ isOpen, onClose, barber }: iProps) => {
           e.preventDefault()
         }}
       >
-        <ModalHeader>Cadastrar serviço</ModalHeader>
+        <ModalHeader>Cadastrar Barbeiro</ModalHeader>
         <ModalCloseButton />
         <ModalBody>
           <Flex py={4} alignItems="center">
@@ -136,6 +121,13 @@ const RstFormBarber = ({ isOpen, onClose, barber }: iProps) => {
             value={formValues.email}
             onChange={({ target }) => handleChangeValue('email', target.value)}
           />
+          <RstInput
+            label="Senha*"
+            placeholder="Senha"
+            onChange={({ target }) => handleChangeValue('password', target.value)}
+            type="password"
+            value={formValues.password}
+          />
 
           <Flex py={6} alignItems="center">
             <Text fontWeight="600" fontSize={18}>
@@ -145,16 +137,14 @@ const RstFormBarber = ({ isOpen, onClose, barber }: iProps) => {
 
           <RstInput
             label="Abertura de agenda*"
-            placeholder="ex: Corte de cabelo"
-            isDisabled
+            placeholder="ex: 08:00"
             value={formValues.startWork}
             onChange={({ target }) => handleChangeValue('startWork', target.value)}
             type="time"
           />
           <RstInput
             label="Encerramento da agenda*"
-            placeholder="ex: R$ 25:00"
-            isDisabled
+            placeholder="ex: 20:00"
             value={formValues.endWork}
             onChange={({ target }) => handleChangeValue('endWork', target.value)}
             type="time"
@@ -173,15 +163,9 @@ const RstFormBarber = ({ isOpen, onClose, barber }: iProps) => {
           <RstButton variant="ghost" colorScheme="gray" isLoading={isLoading}>
             Cancelar
           </RstButton>
-          {havePrevService ? (
-            <RstButton onClick={handleEditService} isLoading={isLoading} minW={120}>
-              Editar
-            </RstButton>
-          ) : (
-            <RstButton onClick={handleCreateService} isLoading={isLoading} minW={120} type="submit">
-              Cadastrar
-            </RstButton>
-          )}
+          <RstButton onClick={handleCreateBarber} isLoading={isLoading} minW={120} type="submit">
+            Cadastrar
+          </RstButton>
         </ModalFooter>
       </ModalContent>
     </Modal>

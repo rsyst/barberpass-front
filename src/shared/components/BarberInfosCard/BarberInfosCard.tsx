@@ -14,7 +14,7 @@ export const RstBarberInfosCard = ({ ...barber }: iRstBarberInfosCard) => {
   const { isOpen: isOpenEdit, onOpen: onOpenEdit, onClose: onCloseEdit } = useDisclosure()
   const { isOpen: isOpenDelete, onOpen: onOpenDelete, onClose: onCloseDelete } = useDisclosure()
 
-  const { mutate, isLoading } = useDelete(ENDPOINTS.DELETE_BARBER_SERVICES_BY_ID(barber.id))
+  const { mutate, isLoading } = useDelete(ENDPOINTS.DELETE_BARBER_SHOP_BARBERS_BY_ID(barber.id))
 
   const queryClient = useQueryClient()
   const toast = useToast()
@@ -22,9 +22,9 @@ export const RstBarberInfosCard = ({ ...barber }: iRstBarberInfosCard) => {
   const handleDelete = () => {
     mutate(null, {
       onSuccess: () => {
-        queryClient.invalidateQueries(QUERY_KEYS.GET_BARBER_SERVICES)
+        queryClient.invalidateQueries(QUERY_KEYS.GET_BARBER_SHOP_BARBERS)
         toast({
-          title: 'Serviço deletado com sucesso',
+          title: 'Barbeiro deletado com sucesso',
           status: 'success',
           duration: 3000,
           isClosable: true
@@ -80,8 +80,8 @@ export const RstBarberInfosCard = ({ ...barber }: iRstBarberInfosCard) => {
           onClose={onCloseDelete}
           onSubmit={handleDelete}
           isLoading={isLoading}
-          title="Deletar serviço"
-          label="Você tem certeza que deseja deletar este serviço?"
+          title="Deletar barbeiro"
+          label="Você tem certeza que deseja deletar este barbeiro?"
         />
       )}
       {isOpenEdit && <RstFormBarber isOpen={isOpenEdit} onClose={onCloseEdit} barber={barber} />}

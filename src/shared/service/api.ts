@@ -7,7 +7,8 @@ import { destroyCookie, parseCookies } from 'nookies'
 
 const URL_TYPES = {
   BARBER: 'barber',
-  CLIENT: 'client'
+  CLIENT: 'client',
+  BARBERSHOP: 'barbershop'
 }
 
 const logout = (type: string) => {
@@ -15,7 +16,13 @@ const logout = (type: string) => {
     return
   }
 
-  const cookieName = URL_TYPES.BARBER === type ? COOKIES_NAMES.BARBER_TOKEN : COOKIES_NAMES.CLIENT_TOKEN
+  const cookieName =
+    URL_TYPES.BARBER === type
+      ? COOKIES_NAMES.BARBER_TOKEN
+      : URL_TYPES.BARBERSHOP === type
+      ? COOKIES_NAMES.BARBER_SHOP_TOKEN
+      : COOKIES_NAMES.CLIENT_TOKEN
+
   const router = '/'
 
   destroyCookie(undefined, cookieName, {
@@ -25,8 +32,10 @@ const logout = (type: string) => {
 }
 
 const getUrlType = (url: string) => {
-  const urlIsBarber = url.startsWith('barber') || url.startsWith('barber')
-  const urlIsClient = url.startsWith('client') || url.startsWith('client')
+  url = url.split('/')[0]
+  const urlIsBarber = url === 'barber' || url === 'barber'
+  const urlIsClient = url === 'client' || url === 'client'
+  const urlIsBarberShop = url === 'barberShop' || url === 'barberShop'
 
   if (urlIsBarber) {
     return URL_TYPES.BARBER
@@ -34,6 +43,10 @@ const getUrlType = (url: string) => {
 
   if (urlIsClient) {
     return URL_TYPES.CLIENT
+  }
+
+  if (urlIsBarberShop) {
+    return URL_TYPES.BARBERSHOP
   }
 }
 
@@ -44,7 +57,11 @@ const api = axios.create({
 
 api.interceptors.request.use(
   (config: any) => {
-    const { [COOKIES_NAMES.CLIENT_TOKEN]: clientToken, [COOKIES_NAMES.BARBER_TOKEN]: barberToken } = parseCookies()
+    const {
+      [COOKIES_NAMES.CLIENT_TOKEN]: clientToken,
+      [COOKIES_NAMES.BARBER_TOKEN]: barberToken,
+      [COOKIES_NAMES.BARBER_SHOP_TOKEN]: barberShopToken
+    } = parseCookies()
 
     const type = getUrlType(config.url || '')
 
@@ -53,6 +70,9 @@ api.interceptors.request.use(
     }
     if (URL_TYPES.BARBER === type && barberToken) {
       config.headers.Authorization = `Bearer ${barberToken}`
+    }
+    if (URL_TYPES.BARBERSHOP === type && barberShopToken) {
+      config.headers.Authorization = `Bearer ${barberShopToken}`
     }
 
     return config

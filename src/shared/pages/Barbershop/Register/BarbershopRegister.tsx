@@ -17,7 +17,7 @@ export interface iLogin {
 }
 
 const BarbershopRegister = () => {
-  const { mutate } = usePost('/client')
+  const { mutate } = usePost('/barbershop/dashboard')
 
   const initialValues: iLogin = useMemo(() => {
     return {
@@ -45,7 +45,7 @@ const BarbershopRegister = () => {
   const handleSubmit = () => {
     mutate(formValues, {
       onSuccess: () => {
-        handleLogin({ email: formValues.email, password: formValues.password, role: { id: 0, value: 'CLIENT' } })
+        handleLogin({ email: formValues.email, password: formValues.password, role: { id: 0, value: 'BARBERSHOP' } })
       }
     })
     // router.push('/dashboard')

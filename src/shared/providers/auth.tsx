@@ -61,6 +61,15 @@ export const AuthProvider = ({ children }: React.PropsWithChildren<unknown>) => 
             Router.push('/barber/dashboard')
           }
 
+          if (user.role.value === 'BARBERSHOP') {
+            setCookie(undefined, COOKIES_NAMES.BARBER_SHOP_TOKEN, data.token, {
+              maxAge: EXPIRE_TOKEN_IN_SECONDS,
+              path: '/',
+              secure: true
+            })
+            Router.push('/barbershop/dashboard')
+          }
+
           setAuth(data)
         },
         onError: () => {
@@ -81,6 +90,9 @@ export const AuthProvider = ({ children }: React.PropsWithChildren<unknown>) => 
       path: '/'
     })
     destroyCookie(undefined, COOKIES_NAMES.BARBER_TOKEN, {
+      path: '/'
+    })
+    destroyCookie(undefined, COOKIES_NAMES.BARBER_SHOP_TOKEN, {
       path: '/'
     })
     setAuth({} as any)
