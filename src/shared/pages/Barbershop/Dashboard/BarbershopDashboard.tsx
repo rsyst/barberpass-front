@@ -1,13 +1,12 @@
-import { RstHeaderBarbershop } from '@shared/components/Header/HeaderBarbershop'
-import React from 'react'
 import { Flex, Grid, GridItem, Icon, Text, useDisclosure } from '@chakra-ui/react'
-import { FiFrown, FiPlus } from 'react-icons/fi'
-import RstButton from '@shared/components/Button'
-import { iBarber } from '@shared/interface/public'
 import { RstBarberInfosCard } from '@shared/components/BarberInfosCard/BarberInfosCard'
+import RstButton from '@shared/components/Button'
 import RstFormBarber from '@shared/components/FormBarber'
-import { QUERY_KEYS, ENDPOINTS } from '@shared/constants'
+import { RstHeaderBarbershop } from '@shared/components/Header/HeaderBarbershop'
+import { ENDPOINTS, QUERY_KEYS } from '@shared/constants'
+import { iBarber } from '@shared/interface/public'
 import { useFetch } from '@shared/service/use-queries'
+import { FiFrown, FiPlus } from 'react-icons/fi'
 
 const BarbershopDashboard = () => {
   const { data, isLoading } = useFetch<iBarber[]>(QUERY_KEYS.GET_BARBER_SHOP_BARBERS, ENDPOINTS.GET_BARBER_SHOP_BARBERS)

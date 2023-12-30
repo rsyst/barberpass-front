@@ -1,23 +1,23 @@
-import React, { useMemo, useState } from 'react'
 import {
+  Flex,
   Modal,
-  ModalOverlay,
-  ModalContent,
-  ModalHeader,
-  ModalFooter,
   ModalBody,
   ModalCloseButton,
-  useToast,
-  Flex,
-  Text
+  ModalContent,
+  ModalFooter,
+  ModalHeader,
+  ModalOverlay,
+  Text,
+  useToast
 } from '@chakra-ui/react'
-import RstButton from '../Button'
-import RstInput from '../Input'
 import { ENDPOINTS, QUERY_KEYS } from '@shared/constants'
 import { iBarber } from '@shared/interface/public'
+import { usePost } from '@shared/service/use-queries'
 import { useQueryClient } from '@tanstack/react-query'
 import moment from 'moment'
-import { usePost, usePut } from '@shared/service/use-queries'
+import React, { useMemo, useState } from 'react'
+import RstButton from '../Button'
+import RstInput from '../Input'
 import RstInputPhone from '../Input/InputPhone'
 
 interface iProps {
@@ -65,7 +65,12 @@ const RstFormBarber = ({ isOpen, onClose, barber }: iProps) => {
   }
 
   const handleCreateBarber = () => {
-    createBarber(formValues, {
+    const payload = {
+      ...formValues,
+      startWork: moment(formValues.startWork, 'HH:mm').format(),
+      endWork: moment(formValues.endWork, 'HH:mm').format()
+    }
+    createBarber(payload, {
       onSuccess: () => {
         queryClient.invalidateQueries(QUERY_KEYS.GET_BARBER_SERVICES)
         toast({
