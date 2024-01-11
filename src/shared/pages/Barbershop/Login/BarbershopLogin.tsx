@@ -7,6 +7,7 @@ import RstText from '@shared/components/Text'
 import { useRouter } from 'next/router'
 import { COOKIES_NAMES } from '@shared/constants/cookie-names'
 import { parseCookies } from 'nookies'
+import RstRadioButton from '@shared/components/RadioButton'
 
 export interface iLogin {
   email: string
@@ -17,6 +18,8 @@ export interface iLogin {
     id: number
   }
 }
+
+const options = [{ label: 'Barbearia', value: 'BARBERSHOP', id: 0 }]
 
 const BarbershopLogin = () => {
   const initialValues: iLogin = useMemo(() => {
@@ -66,13 +69,19 @@ const BarbershopLogin = () => {
       <Flex justifyContent="center" alignItems="start" minH="100vh" bg="gray.100">
         <Grid maxW={480} w="100%" gap={6} p={8} borderRadius={16} m={6}>
           <GridItem>
-            <RstText fontVariant="h3" color="newBlue.1100">
+            <RstText fontVariant="h3" color="newYellow.1100">
               Bem-vindo
             </RstText>
             <RstText fontVariant="body1" color="gray.1100">
               Estamos felizes em ver você aqui. para acessar sua conta, primeiro realize o login.
             </RstText>
           </GridItem>
+
+          <RstRadioButton
+            options={options}
+            onChange={(value) => handleChangeValue('role', value)}
+            colorScheme={`newYellow`}
+          />
 
           <RstInput
             placeholder="E-mail"
@@ -89,7 +98,13 @@ const BarbershopLogin = () => {
             />
           </GridItem>
 
-          <RstButton size="md" type="submit" onClick={handleSubmit} isLoading={isLoadingLogin}>
+          <RstButton
+            size="md"
+            type="submit"
+            onClick={handleSubmit}
+            isLoading={isLoadingLogin}
+            colorScheme={`newYellow`}
+          >
             Login
           </RstButton>
 
@@ -97,7 +112,7 @@ const BarbershopLogin = () => {
 
           <RstText color="gray.1200" fontVariant="body1" textAlign="center">
             Não possui conta?
-            <RstButton ml={2} variant="link" as="a" href="/barbershop/register">
+            <RstButton ml={2} variant="link" as="a" href="/barbershop/register" colorScheme={`newYellow`}>
               Cadastre-se
             </RstButton>
           </RstText>

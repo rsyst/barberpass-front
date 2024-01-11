@@ -7,17 +7,6 @@ import { ENDPOINTS } from '@shared/constants/endpoints'
 import { destroyCookie, setCookie } from 'nookies'
 import { COOKIES_NAMES } from '@shared/constants/cookie-names'
 
-export interface iCompany {
-  created_at: string
-  document: string
-  email: string
-  id: string
-  nome: string
-  nome_empresa: string
-  password: string
-  updated_at: string
-}
-
 export interface iAuthContext {
   auth: any
   setAuth(item: unknown): void

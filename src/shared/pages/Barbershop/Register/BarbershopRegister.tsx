@@ -17,7 +17,7 @@ export interface iLogin {
 }
 
 const BarbershopRegister = () => {
-  const { mutate } = usePost('/barbershop/dashboard')
+  const { mutate } = usePost('/barberShop')
 
   const initialValues: iLogin = useMemo(() => {
     return {
@@ -61,7 +61,7 @@ const BarbershopRegister = () => {
       <Flex justifyContent="center" alignItems="center" minH="100vh" bg="gray.100">
         <Grid maxW={480} w="100%" gap={4} p={8} borderRadius={16} m={6}>
           <GridItem>
-            <RstText fontVariant="h3" color="newBlue.1100">
+            <RstText fontVariant="h3" color="newYellow.1100">
               Cadastro de Barberaria
             </RstText>
             <RstText fontVariant="body1" color="gray.1100">
@@ -106,7 +106,13 @@ const BarbershopRegister = () => {
             value={formValues.password}
           />
 
-          <RstButton size="md" type="submit" onClick={handleSubmit} isLoading={isLoadingLogin}>
+          <RstButton
+            size="md"
+            type="submit"
+            onClick={handleSubmit}
+            isLoading={isLoadingLogin}
+            colorScheme={`newYellow`}
+          >
             Cadastrar
           </RstButton>
 
@@ -114,7 +120,7 @@ const BarbershopRegister = () => {
 
           <RstText color="gray.1200" fontVariant="body1" textAlign="center">
             Já possui conta?
-            <RstButton ml={2} variant="link" as="a" href="/barbershop/login">
+            <RstButton ml={2} variant="link" as="a" href="/barbershop/login" colorScheme={`newYellow`}>
               Entrar
             </RstButton>
           </RstText>

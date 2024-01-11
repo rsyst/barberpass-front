@@ -7,7 +7,6 @@ export type iRstBarbershopCard = iBarberShop
 
 export const RstBarbershopCard = ({ ...barbershop }: iRstBarbershopCard) => {
   const { isOpen: isOpenBarberCard, onOpen: onOpenBarberCard, onClose: onCloseBarberCard } = useDisclosure()
-  console.log(barbershop)
   return (
     <>
       <Flex

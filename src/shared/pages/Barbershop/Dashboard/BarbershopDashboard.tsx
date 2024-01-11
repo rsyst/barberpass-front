@@ -41,7 +41,7 @@ const BarbershopDashboard = () => {
           )}
 
           <GridItem mt={2}>
-            <RstButton w="full" leftIcon={<FiPlus />} onClick={onOpen}>
+            <RstButton w="full" leftIcon={<FiPlus />} onClick={onOpen} colorScheme={'newYellow'}>
               Cadastrar barbeiro
             </RstButton>
           </GridItem>
