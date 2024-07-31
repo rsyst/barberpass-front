@@ -10,12 +10,11 @@ import { QUERY_KEYS } from '@shared/constants/query-keys'
 import { iAppointment, iBarber, iBarberShop } from '@shared/interface/public'
 import { useFetch } from '@shared/service/use-queries'
 
-import React from 'react'
 import { FiFrown } from 'react-icons/fi'
 
 const ClientDashboard = () => {
   // const { data: client, isLoading: loadingClient } = useFetch<iBarber>(QUERY_KEYS.GET_CLIENT, ENDPOINTS.GET_CLIENT)
-  const client = {}
+  const client = {} as iBarber
   const { data: appointments, isLoading: loadingAppointments } = useFetch<iAppointment[]>(
     QUERY_KEYS.GET_CLIENT_APPOINTMENTS,
     ENDPOINTS.GET_CLIENT_APPOINTMENTS
@@ -25,7 +24,7 @@ const ClientDashboard = () => {
     ENDPOINTS.GET_CLIENT_BARBERSHOPS
   )
 
-  if (loadingClient || loadingBarbershops || loadingAppointments) return <RstLoading />
+  if (loadingBarbershops || loadingAppointments) return <RstLoading />
 
   return (
     <>

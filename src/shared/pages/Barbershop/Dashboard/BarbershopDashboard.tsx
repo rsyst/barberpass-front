@@ -9,7 +9,7 @@ import { useFetch } from '@shared/service/use-queries'
 import { FiFrown, FiPlus } from 'react-icons/fi'
 
 const BarbershopDashboard = () => {
-  const { data, isLoading } = useFetch<iBarber[]>(QUERY_KEYS.GET_BARBER_SHOP_BARBERS, ENDPOINTS.GET_BARBER_SHOP_BARBERS)
+  const { data } = useFetch<iBarber[]>(QUERY_KEYS.GET_BARBER_SHOP_BARBERS, ENDPOINTS.GET_BARBER_SHOP_BARBERS)
 
   const { isOpen, onOpen, onClose } = useDisclosure()
 

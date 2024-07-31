@@ -1,12 +1,10 @@
 import { Flex, IconButton, Menu, MenuButton, MenuItem, MenuList, Text, useDisclosure, useToast } from '@chakra-ui/react'
-import React from 'react'
+import { ENDPOINTS, QUERY_KEYS } from '@shared/constants'
 import { iBarber } from '@shared/interface/public'
+import { useDelete } from '@shared/service/use-queries'
+import { useQueryClient } from '@tanstack/react-query'
 import { FiMoreVertical } from 'react-icons/fi'
 import { RstAlertDelete } from '../AlertDelete'
-import { ENDPOINTS, QUERY_KEYS } from '@shared/constants'
-import { useQueryClient } from '@tanstack/react-query'
-import RstFormBarber from '../FormBarber'
-import { useDelete } from '@shared/service/use-queries'
 
 export type iRstBarberInfosCard = iBarber
 
