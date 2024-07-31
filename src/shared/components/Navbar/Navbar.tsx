@@ -1,13 +1,24 @@
-import { Box, Divider, Flex, Icon, Image, Text } from '@chakra-ui/react'
+import {
+  Box,
+  Divider,
+  Drawer,
+  DrawerContent,
+  DrawerOverlay,
+  Flex,
+  Icon,
+  IconButton,
+  Image,
+  Text,
+  useMediaQuery
+} from '@chakra-ui/react'
 import Link from 'next/link'
 import { useRouter } from 'next/router'
-import { FiPower } from 'react-icons/fi'
-import { HiOutlineChartBar } from 'react-icons/hi'
-import { IoMdTimer } from 'react-icons/io'
-// import { LiaUser } from 'react-icons/lia';
+import { FaBars, FaCalendarWeek } from 'react-icons/fa'
+import { FaCalendarDays } from 'react-icons/fa6'
+import { FiLogOut } from 'react-icons/fi'
+import { IoSettingsSharp } from 'react-icons/io5'
 import { IconType } from 'react-icons/lib'
-import { RiWaterPercentLine } from 'react-icons/ri'
-import { useAuth } from '@shared/providers/auth'
+import { MdSpaceDashboard } from 'react-icons/md'
 import { useLayoutUserContext } from '../LayoutUser'
 
 export interface iRoutes {
@@ -17,55 +28,100 @@ export interface iRoutes {
 }
 ;[]
 
-export const Navbar = () => {
-  const routes = [
-    {
-      name: 'Dashboard',
-      path: '/dashboard',
-      icon: IoMdTimer
-    },
-    // {
-    //   name: 'Team',
-    //   path: '/team',
-    //   icon: LiaUser,
-    // },
-    {
-      name: 'Fermentation list',
-      path: '/fermentation',
-      icon: HiOutlineChartBar
-    },
-    {
-      name: 'Quality',
-      path: '/quality',
-      icon: IoMdTimer
-    },
-    {
-      name: 'Moisture',
-      path: '/moisture',
-      icon: RiWaterPercentLine
-    }
-  ]
-  const router = useRouter()
-  const { isOpenMenu } = useLayoutUserContext()
-  const { handleLogout } = useAuth()
-  const selectedRoute = routes.find((route) => route.path === router.pathname) as (typeof routes)[0]
+const routes = [
+  {
+    name: 'Home',
+    path: '/barber/dashboard',
+    icon: MdSpaceDashboard
+  },
+  {
+    name: 'Agenda da semana',
+    path: '/barber/appointments/weekly',
+    icon: FaCalendarWeek
+  },
+  {
+    name: 'Agenda completa',
+    path: '/barber/appointments/all',
+    icon: FaCalendarDays
+  },
+  {
+    name: 'Configurações',
+    path: '/barber/config',
+    icon: IoSettingsSharp
+  }
+]
 
-  const isSelected = (route: (typeof routes)[0]) => route.name === selectedRoute?.name
+export const Navbar = () => {
+  const router = useRouter()
+  const { isOpenMenu, toggleMenu } = useLayoutUserContext()
+
+  const [isDesktop] = useMediaQuery('(min-width: 800px)', {
+    ssr: true,
+    fallback: false
+  })
+
+  const handleLogout = async (event: any) => {
+    event.preventDefault()
+  }
+  const selectedRoute = routes.find((route) => route.path === router.pathname) as iRoutes
+  const isSelected = (route: iRoutes) => route.name === selectedRoute?.name
+
+  return (
+    <>
+      {!isDesktop && (
+        <IconButton
+          right={-14}
+          top={3}
+          position={'absolute'}
+          aria-label="menu"
+          icon={<FaBars />}
+          colorScheme="gray"
+          onClick={toggleMenu}
+        />
+      )}
+
+      {isDesktop ? (
+        <Flex p={4}>
+          <NavBarContent isSelected={isSelected} handleLogout={handleLogout} />
+        </Flex>
+      ) : (
+        <Drawer onClose={toggleMenu} isOpen={isOpenMenu} size="xs" placement="left">
+          <DrawerOverlay />
+          <DrawerContent w="fit-content">
+            <NavBarContent isSelected={isSelected} handleLogout={handleLogout} />
+          </DrawerContent>
+        </Drawer>
+      )}
+    </>
+  )
+}
+
+const NavBarContent = ({
+  isSelected,
+  handleLogout
+}: {
+  isSelected: (route: iRoutes) => boolean
+  handleLogout: any
+}) => {
+  const { isOpenMenu } = useLayoutUserContext()
+
   return (
     <Flex
       transition="width 0.1s ease-in-out"
       flexDir="column"
       justifyContent="space-between"
-      w={isOpenMenu ? 240 : 16}
+      w={{ base: 'full', lg: isOpenMenu ? 260 : 0 }}
       gap={2}
-      bg="white"
-      h="100vh"
-      borderRight="2px solid"
+      bg="blackAlpha.50"
+      h="calc(100dvh - 32px)"
+      p={isOpenMenu ? 2 : 0}
+      border="2px solid"
       borderColor="gray.200"
+      borderRadius={16}
     >
-      <Flex flexDir="column">
-        <Flex p={isOpenMenu ? 6 : 2}>
-          <Image h={isOpenMenu ? 30 : 10} src={isOpenMenu ? '/Logo.png' : '/Logo-mini.png'} />
+      <Flex flexDir="column" position="relative">
+        <Flex pb={2} display={isOpenMenu ? 'flex' : 'none'} justifyContent="center" p={4}>
+          <Image h={8} src={'/logo.png'} objectFit="contain" alt="logo" />
         </Flex>
         <Flex flexDir="column" gap={1}>
           {routes.map((route, index) => (
@@ -73,24 +129,15 @@ export const Navbar = () => {
           ))}
         </Flex>
       </Flex>
-      <Flex flexDir="column" gap={2} w="full" pb={4}>
-        <Divider borderColor="gray.300" />
-        {/* <Box >
-          <NavbarButton
-            route={{
-              name: 'Settings',
-              path: '/',
-              icon: FiSettings,
-            }}
-            isSelected={false}
-          />
-        </Box> */}
+
+      <Flex flexDir="column" gap={2} w="full" pb={{ base: 16, lg: 4 }}>
+        <Divider borderColor="gray.900" />
         <Box onClick={handleLogout}>
           <NavbarButton
             route={{
-              name: 'Logout',
+              name: 'Sair',
               path: '/',
-              icon: FiPower
+              icon: FiLogOut
             }}
             isSelected={false}
           />
@@ -101,48 +148,38 @@ export const Navbar = () => {
 }
 
 const NavbarButton = ({ route, isSelected }: { isSelected: boolean; route: iRoutes }) => {
-  const { isOpenMenu } = useLayoutUserContext()
+  const { isOpenMenu, setIsOpenMenu } = useLayoutUserContext()
+  const [isDesktop] = useMediaQuery('(min-width: 800px)', {
+    ssr: true,
+    fallback: false
+  })
 
   if (!isOpenMenu && isSelected) {
-    return (
-      <Flex key={route.path} gap={1} pr={2} cursor="pointer">
-        <Box bg="brand.500" borderEndRadius={6} w={1} />
-
-        <Flex py={3} px={4} bg="brand.500" color="white" borderRadius={6} alignItems="center" gap={4} w="full">
-          <Icon as={route.icon} />
-        </Flex>
-      </Flex>
-    )
+    return null
   }
 
   if (!isOpenMenu && !isSelected) {
-    return (
-      <Flex as={Link} href={route.path} key={route.path} gap={1} pr={2} cursor="pointer">
-        <Box borderEndRadius={6} w={1} />
-
-        <Flex
-          py={3}
-          px={4}
-          color="black"
-          borderRadius={6}
-          alignItems="center"
-          gap={4}
-          w="full"
-          _hover={{ bg: 'gray.100' }}
-          _active={{ bg: 'gray.200' }}
-        >
-          <Icon as={route.icon} />
-        </Flex>
-      </Flex>
-    )
+    return null
   }
 
   if (isSelected) {
     return (
-      <Flex key={route.path} gap={4} pr={5} cursor="pointer">
-        <Box bg="brand.500" borderEndRadius={6} w={1} />
-        <Flex py={3} px={4} bg="brand.500" color="white" borderRadius={6} alignItems="center" gap={4} w="full">
-          <Icon as={route.icon} />
+      <Flex key={route.path} cursor="pointer">
+        <Flex
+          py={2}
+          px={2}
+          bg="blue.100"
+          color="gray.900"
+          borderRadius={8}
+          alignItems="center"
+          gap={2.5}
+          w="full"
+          borderRight="4px solid"
+          borderColor={'blue.500'}
+        >
+          <Flex p={0.5}>
+            <Icon as={route.icon} fontSize={20} />
+          </Flex>
           <Text fontSize={14}>{route.name}</Text>
         </Flex>
       </Flex>
@@ -150,20 +187,27 @@ const NavbarButton = ({ route, isSelected }: { isSelected: boolean; route: iRout
   }
 
   return (
-    <Flex key={route.path} as="a" href={route.path} gap={4} pr={5} cursor="pointer">
-      <Box borderEndRadius={6} w={1} />
+    <Flex
+      key={route.path}
+      as={Link}
+      href={route.path}
+      cursor="pointer"
+      onClick={() => (isDesktop ? () => null : setIsOpenMenu(false))}
+    >
       <Flex
-        py={3}
-        px={4}
-        color="black"
-        borderRadius={6}
+        py={2}
+        px={2}
+        color="gray.900"
+        borderRadius={8}
         alignItems="center"
-        gap={4}
+        gap={2.5}
         w="full"
-        _hover={{ bg: 'gray.100' }}
-        _active={{ bg: 'gray.200' }}
+        _hover={{ bg: 'blue.50' }}
+        _active={{ bg: 'gray.50' }}
       >
-        <Icon as={route.icon} />
+        <Flex p={0.5}>
+          <Icon as={route.icon} fontSize={20} />
+        </Flex>
         <Text fontSize={14}>{route.name}</Text>
       </Flex>
     </Flex>

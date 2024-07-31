@@ -1,6 +1,5 @@
 import { Flex, Grid, GridItem, Text } from '@chakra-ui/react'
 import RstAccordion from '@shared/components/Accordion'
-import { RstHeaderBarber } from '@shared/components/Header'
 import RstInfoCard from '@shared/components/InfoCard'
 import { RstLoading } from '@shared/components/Loading'
 import { RstMeetCardBarber } from '@shared/components/MeetCard/MeetCardBarber'
@@ -10,7 +9,6 @@ import { QUERY_KEYS } from '@shared/constants/query-keys'
 import { iAppointment, iBarber } from '@shared/interface/public'
 import { useFetch } from '@shared/service/use-queries'
 import { floatToCurrency } from '@shared/utils/currencyMask'
-import React from 'react'
 
 interface GetBarberDashboard {
   dailyAmount: number
@@ -48,10 +46,18 @@ const BarberDashboard = () => {
 
   return (
     <>
-      <RstHeaderBarber />
-      <Flex flexDir="column" px={5} gap={4}>
+      <Flex
+        flexDir="column"
+        px={5}
+        gap={4}
+        p={4}
+        bg="blackAlpha.50"
+        border="2px solid"
+        borderColor="gray.200"
+        borderRadius={16}
+      >
         <Flex>
-          <RstText color="gray.1200" fontVariant="h5">
+          <RstText color="gray.1200" fontSize="lg" fontWeight="bold">
             Bom dia,
           </RstText>
           <RstText color="gray.1100" fontVariant="h5" ml={1} textTransform="capitalize">
@@ -63,17 +69,23 @@ const BarberDashboard = () => {
           <RstInfoCard
             title="Faturamento do dia"
             value={floatToCurrency(dashboard?.dailyAmount as number)}
-            badge={{ colorScheme: 'gray', children: 'Sem dados anteriores' }}
+            badge={{ colorScheme: 'whiteAlpha', children: 'Sem dados anteriores' }}
+            bg="yellow.400"
+            color="white"
           />
           <RstInfoCard
             title="Atendimentos"
             value={dashboard?.dailyAppointments as number}
-            badge={{ colorScheme: 'gray', children: 'Sem dados anteriores' }}
+            badge={{ colorScheme: 'whiteAlpha', children: 'Sem dados anteriores' }}
+            bg="teal.400"
+            color="white"
           />
           <RstInfoCard
             title="Horários concluidos"
             value={dashboard?.dailyConfirmedAppointments as number}
-            badge={{ colorScheme: 'gray', children: 'Sem dados anteriores' }}
+            badge={{ colorScheme: 'whiteAlpha', children: 'Sem dados anteriores' }}
+            bg="blue.500"
+            color="white"
           />
         </Grid>
 

@@ -32,7 +32,8 @@ export const LayoutUserWithouProvider = ({ children }: iProps) => {
         }}
         overflowY="auto"
       >
-        <Flex flexDir="column" pt={2} px={{ base: 5, lg: 8 }} w="full" h="100dvh">
+        <Box h={16} display={{ base: 'block', lg: 'none' }} />
+        <Flex flexDir="column" pt={4} px={{ base: 5, lg: 8 }} w="full" h="calc(100dvh - 64px)">
           {children}
         </Flex>
       </Box>

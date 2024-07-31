@@ -21,20 +21,6 @@ export const theme = extendTheme({
       1100: '#006adc',
       1200: '#00254d'
     },
-    gray: {
-      100: '#fcfcfc',
-      200: '#f8f8f8',
-      300: '#f3f3f3',
-      400: '#ededed',
-      500: '#e8e8e8',
-      600: '#e2e2e2',
-      700: '#dbdbdb',
-      800: '#c7c7c7',
-      900: '#8f8f8f',
-      1000: '#858585',
-      1100: '#6f6f6f',
-      1200: '#171717'
-    },
     newGreen: {
       100: '#fbfefc',
       200: '#f2fcf5',
@@ -76,11 +62,13 @@ export const theme = extendTheme({
       1000: '#f7ce00',
       1100: '#946800',
       1200: '#35290f'
+    },
+    blackAlpha: {
+      50: 'rgba(0, 0, 0, 0.01)'
     }
   },
   components: {
     Button: {
-      defaultProps: { colorScheme: 'newBlue' },
       sizes: { sm: { h: 10 }, md: { h: '54px' } },
       baseStyle: {
         textTransform: 'initial'
@@ -107,12 +95,8 @@ export const theme = extendTheme({
   styles: {
     global: {
       'html, body': {
-        bg: 'gray.300',
-        lineHeight: 'tall',
-        color: 'gray.1200'
-      },
-      a: {
-        color: 'teal.500'
+        bg: 'whote',
+        lineHeight: 'tall'
       }
     }
   }

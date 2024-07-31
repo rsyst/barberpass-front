@@ -13,9 +13,9 @@ import RstMeetCardBarberAlertSchedule from './MeetCardBarberAlertSchedule'
 export type iRstMeetCardBarber = iAppointment
 
 const statusColor = {
-  CONFIRMED: 'newGreen',
-  BREAK: 'newRed',
-  OCCUPIED: 'newYellow',
+  CONFIRMED: 'green',
+  BREAK: 'red',
+  OCCUPIED: 'yellow',
   EMPTY: 'gray'
 }
 
@@ -75,16 +75,18 @@ export const RstMeetCardBarber = ({ ...appointment }: iRstMeetCardBarber) => {
 
   return (
     <>
-      <Flex p={4} bg="gray.100" shadow="md" borderRadius={16} gap={4} justifyContent="space-between" minW={150} m={2}>
-        <Flex gap={4}>
-          <Flex flexDir="column">
-            <Text fontSize={18} fontWeight={600} color="black">
-              {moment(appointment.start).format('HH:mm')}
-            </Text>
-            <Text fontSize={12} color="gray.1200">
-              {moment(appointment.end).format('HH:mm')}
-            </Text>
-          </Flex>
+      <Flex
+        p={4}
+        bg={`${statusColor[appointment.status?.key || 'EMPTY']}.50`}
+        border="3px solid"
+        borderColor={`${statusColor[appointment.status?.key || 'EMPTY']}.200`}
+        borderRadius={16}
+        gap={4}
+        justifyContent="space-between"
+        minW={150}
+        m={2}
+      >
+        <Flex gap={4} flexDir="column">
           <Flex flexDir="column">
             <Text color="gray.1200" fontWeight={500}>
               {appointment.name}
@@ -95,9 +97,20 @@ export const RstMeetCardBarber = ({ ...appointment }: iRstMeetCardBarber) => {
               display="flex"
               alignItems="center"
               justifyContent="center"
+              variant="solid"
             >
               {appointment.status?.pt}
             </RstBadge>
+          </Flex>
+
+          <Flex alignItems="end" gap={1}>
+            <Text fontSize={18} fontWeight={600} color="black">
+              {moment(appointment.start).format('HH:mm')}
+            </Text>
+
+            <Text fontSize={12} color="gray.1200">
+              / {moment(appointment.end).format('HH:mm')}
+            </Text>
           </Flex>
         </Flex>
         <Flex>

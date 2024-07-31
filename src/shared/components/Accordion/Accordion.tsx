@@ -12,15 +12,7 @@ export const RstAccordion = ({ title, isLoading, children }: iProps) => {
   const { isOpen, onToggle } = useDisclosure()
   return (
     <Flex flexDir="column" gap={2}>
-      <Box
-        p={6}
-        bg="white"
-        display="flex"
-        justifyContent="space-between"
-        alignItems="center"
-        borderRadius={16}
-        onClick={onToggle}
-      >
+      <Box p={6} display="flex" justifyContent="space-between" alignItems="center" borderRadius={16} onClick={onToggle}>
         <Flex gap={2} alignItems="center">
           <Text fontWeight="600">{title}</Text>
           {isLoading && <Spinner size="sm" color="gray.800" />}
@@ -32,7 +24,7 @@ export const RstAccordion = ({ title, isLoading, children }: iProps) => {
         )}
       </Box>
       {isOpen && (
-        <Box p={2} bg="white" borderRadius={16} overflow="visible">
+        <Box p={2} bg="blackAlpha.50" border="2px solid" borderColor="gray.200" borderRadius={16} overflow="visible">
           {children}
         </Box>
       )}
