@@ -1,5 +1,5 @@
 const ENDPOINTS_AUTH = {
-  POST_AUTH: 'auth/'
+  POST_AUTH: 'users/authenticate'
 }
 
 const ENDPOINTS_CLIENT = {
@@ -19,23 +19,23 @@ const ENDPOINTS_CLIENT = {
 }
 
 const ENDPOINTS_BARBER = {
-  GET_BARBER: 'barber/',
-  PUT_BARBER: 'barber/',
-  GET_BARBER_DASHBOARD: 'barber/dashboard',
-  GET_BARBER_APPOINTMENTS: 'barber/appointments',
-  GET_BARBER_APPOINTMENTS_NEXT: 'barber/appointments/next',
-  GET_BARBER_APPOINTMENTS_DAY: 'barber/appointments/day',
-  GET_BARBER_APPOINTMENTS_DAY_BY_DATE: (date: string) => `barber/appointments/day/${date}`,
-  GET_BARBER_APPOINTMENTS_WEEK: 'barber/appointments/week',
-  GET_BARBER_APPOINTMENTS_BY_ID: (id: string) => `barber/appointments/${id}`,
-  PUT_BARBER_APPOINTMENTS_BY_ID_OCCUPIED: (id: string) => `barber/appointments/${id}/occupied`,
-  PUT_BARBER_APPOINTMENTS_BY_GROUP_INDEX_EMPTY: (groupIndex: string) => `barber/appointments/${groupIndex}/empty`,
-  PATCH_BARBER_APPOINTMENTS_BY_ID_CONFIRMED: (id: string) => `barber/appointments/${id}/confirmed`,
-  PATCH_BARBER_APPOINTMENTS_BY_ID_BREAK: (id: string) => `barber/appointments/${id}/break`,
-  GET_BARBER_SERVICES: 'barber/services',
-  POST_BARBER_SERVICE: 'barber/service',
-  PUT_BARBER_SERVICES_BY_ID: (id: string) => `barber/services/${id}`,
-  DELETE_BARBER_SERVICES_BY_ID: (id: string) => `barber/services/${id}`
+  GET_BARBER: 'barbers/',
+  PUT_BARBER: 'barbers/',
+  GET_BARBER_DASHBOARD: 'barbers/dashboard',
+  GET_BARBER_APPOINTMENTS: 'barbers/appointments',
+  GET_BARBER_APPOINTMENTS_NEXT: 'barbers/appointments/next',
+  GET_BARBER_APPOINTMENTS_DAY: 'barbers/appointments/day',
+  GET_BARBER_APPOINTMENTS_DAY_BY_DATE: (date: string) => `barbers/appointments/day/${date}`,
+  GET_BARBER_APPOINTMENTS_WEEK: 'barbers/appointments/week',
+  GET_BARBER_APPOINTMENTS_BY_ID: (id: string) => `barbers/appointments/${id}`,
+  PUT_BARBER_APPOINTMENTS_BY_ID_OCCUPIED: (id: string) => `barbers/appointments/${id}/occupied`,
+  PUT_BARBER_APPOINTMENTS_BY_GROUP_INDEX_EMPTY: (groupIndex: string) => `barbers/appointments/${groupIndex}/empty`,
+  PATCH_BARBER_APPOINTMENTS_BY_ID_CONFIRMED: (id: string) => `barbers/appointments/${id}/confirmed`,
+  PUT_BARBER_APPOINTMENTS_BY_ID_BREAK: (id: string) => `barbers/appointments/${id}/break`,
+  GET_BARBER_SERVICES: 'barbers/services',
+  POST_BARBER_SERVICE: 'barbers/service',
+  PUT_BARBER_SERVICES_BY_ID: (id: string) => `barbers/services/${id}`,
+  DELETE_BARBER_SERVICES_BY_ID: (id: string) => `barbers/services/${id}`
 }
 
 const ENDPOINTS_BARBER_SHOP = {

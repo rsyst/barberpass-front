@@ -14,7 +14,8 @@ import React from 'react'
 import { FiFrown } from 'react-icons/fi'
 
 const ClientDashboard = () => {
-  const { data: client, isLoading: loadingClient } = useFetch<iBarber>(QUERY_KEYS.GET_CLIENT, ENDPOINTS.GET_CLIENT)
+  // const { data: client, isLoading: loadingClient } = useFetch<iBarber>(QUERY_KEYS.GET_CLIENT, ENDPOINTS.GET_CLIENT)
+  const client = {}
   const { data: appointments, isLoading: loadingAppointments } = useFetch<iAppointment[]>(
     QUERY_KEYS.GET_CLIENT_APPOINTMENTS,
     ENDPOINTS.GET_CLIENT_APPOINTMENTS

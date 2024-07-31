@@ -10,6 +10,7 @@ import {
   Text,
   useToast
 } from '@chakra-ui/react'
+
 import { ENDPOINTS, QUERY_KEYS } from '@shared/constants'
 import { iBarber } from '@shared/interface/public'
 import { usePost } from '@shared/service/use-queries'

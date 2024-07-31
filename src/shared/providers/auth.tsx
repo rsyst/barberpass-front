@@ -29,10 +29,11 @@ export const AuthProvider = ({ children }: React.PropsWithChildren<unknown>) => 
 
   const handleLogin = (user: iLogin) => {
     postAuth(
-      { email: user.email, password: user.password, role: user.role.value },
+      { phoneNumber: user.phoneNumber, password: user.password },
       {
         onSuccess: ({ data }) => {
-          if (user.role.value === 'CLIENT') {
+          console.log(data)
+          if (data.role === 'CLIENT') {
             setCookie(undefined, COOKIES_NAMES.CLIENT_TOKEN, data.token, {
               maxAge: EXPIRE_TOKEN_IN_SECONDS,
               path: '/',
@@ -41,7 +42,7 @@ export const AuthProvider = ({ children }: React.PropsWithChildren<unknown>) => 
             Router.push('/client/dashboard')
           }
 
-          if (user.role.value === 'BARBER') {
+          if (data.role === 'BARBER') {
             setCookie(undefined, COOKIES_NAMES.BARBER_TOKEN, data.token, {
               maxAge: EXPIRE_TOKEN_IN_SECONDS,
               path: '/',
@@ -50,7 +51,7 @@ export const AuthProvider = ({ children }: React.PropsWithChildren<unknown>) => 
             Router.push('/barber/dashboard')
           }
 
-          if (user.role.value === 'BARBERSHOP') {
+          if (data.role === 'OWNER') {
             setCookie(undefined, COOKIES_NAMES.BARBER_SHOP_TOKEN, data.token, {
               maxAge: EXPIRE_TOKEN_IN_SECONDS,
               path: '/',

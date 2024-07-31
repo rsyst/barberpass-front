@@ -4,36 +4,20 @@ import RstInput from '@shared/components/Input'
 import { useAuth } from '@shared/providers/auth'
 import RstButton from '@shared/components/Button'
 import RstText from '@shared/components/Text'
-import RstRadioButton from '@shared/components/RadioButton'
 import { useRouter } from 'next/router'
 import { COOKIES_NAMES } from '@shared/constants/cookie-names'
 import { parseCookies } from 'nookies'
 
 export interface iLogin {
-  email: string
+  phoneNumber: string
   password: string
-  role: {
-    label?: string
-    value: 'BARBER' | 'CLIENT' | 'BARBERSHOP'
-    id: number
-  }
 }
-
-const options = [
-  { label: 'Cliente', value: 'CLIENT', id: 0 },
-  { label: 'Barbeiro', value: 'BARBER', id: 1 }
-]
 
 const AuthLogin = () => {
   const initialValues: iLogin = useMemo(() => {
     return {
-      email: '',
-      password: '',
-      role: {
-        id: 0,
-        value: 'CLIENT',
-        label: 'Cliente'
-      }
+      phoneNumber: '',
+      password: ''
     }
   }, [])
 
@@ -52,11 +36,6 @@ const AuthLogin = () => {
   const handleSubmit = () => {
     handleLogin(formValues)
   }
-
-  const colorByUserType = useMemo(() => {
-    if (formValues.role.value === 'CLIENT') return 'newBlue'
-    else return 'newRed'
-  }, [formValues.role])
 
   //Redirect to Dashboard if is logged
   useEffect(() => {
@@ -80,7 +59,7 @@ const AuthLogin = () => {
       <Flex justifyContent="center" alignItems="start" minH="100vh" bg="gray.100">
         <Grid maxW={480} w="100%" gap={6} p={8} borderRadius={16} m={6}>
           <GridItem>
-            <RstText fontVariant="h3" color={`${colorByUserType}.1100`}>
+            <RstText fontVariant="h3" color={`newBlue.1100`}>
               Bem-vindo
             </RstText>
             <RstText fontVariant="body1" color="gray.1100">
@@ -88,16 +67,10 @@ const AuthLogin = () => {
             </RstText>
           </GridItem>
 
-          <RstRadioButton
-            options={options}
-            onChange={(value) => handleChangeValue('role', value)}
-            colorScheme={`${colorByUserType}`}
-          />
-
           <RstInput
             placeholder="E-mail"
-            onChange={({ target }) => handleChangeValue('email', target.value)}
-            value={formValues.email}
+            onChange={({ target }) => handleChangeValue('phoneNumber', target.value)}
+            value={formValues.phoneNumber}
           />
 
           <GridItem display="flex" flexDir="column" alignItems="end">
@@ -112,26 +85,18 @@ const AuthLogin = () => {
             </RstButton>
           </GridItem>
 
-          <RstButton
-            size="md"
-            type="submit"
-            onClick={handleSubmit}
-            isLoading={isLoadingLogin}
-            colorScheme={`${colorByUserType}`}
-          >
+          <RstButton size="md" type="submit" onClick={handleSubmit} isLoading={isLoadingLogin} colorScheme={`newBlue`}>
             Login
           </RstButton>
 
           <Box color="gray.600" w="100%" h="2px" bg="gray.600" />
 
-          {formValues.role.value === 'CLIENT' && (
-            <RstText color="gray.1200" fontVariant="body1" textAlign="center">
-              Não possui conta?
-              <RstButton ml={2} variant="link" as="a" href="/auth/register">
-                Cadastre-se
-              </RstButton>
-            </RstText>
-          )}
+          <RstText color="gray.1200" fontVariant="body1" textAlign="center">
+            Não possui conta?
+            <RstButton ml={2} variant="link" as="a" href="/auth/register">
+              Cadastre-se
+            </RstButton>
+          </RstText>
         </Grid>
       </Flex>
     </Box>

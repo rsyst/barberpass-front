@@ -33,7 +33,7 @@ const logout = (type: string) => {
 
 const getUrlType = (url: string) => {
   url = url.split('/')[0]
-  const urlIsBarber = url === 'barber' || url === 'barber'
+  const urlIsBarber = url === 'barbers' || url === 'barbers'
   const urlIsClient = url === 'client' || url === 'client'
   const urlIsBarberShop = url === 'barberShop' || url === 'barberShop'
 
@@ -62,6 +62,8 @@ api.interceptors.request.use(
       [COOKIES_NAMES.BARBER_TOKEN]: barberToken,
       [COOKIES_NAMES.BARBER_SHOP_TOKEN]: barberShopToken
     } = parseCookies()
+
+    console.log(barberToken)
 
     const type = getUrlType(config.url || '')
 
