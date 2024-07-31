@@ -41,7 +41,10 @@ const AuthRegister = () => {
   const handleSubmit = () => {
     mutate(formValues, {
       onSuccess: () => {
-        handleLogin({ email: formValues.email, password: formValues.password, role: { id: 0, value: 'CLIENT' } })
+        handleLogin({
+          phoneNumber: formValues.phoneNumber,
+          password: formValues.password
+        })
       }
     })
     // router.push('/dashboard')

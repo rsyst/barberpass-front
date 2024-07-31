@@ -1,36 +1,23 @@
 import { Box, Flex, Grid, GridItem } from '@chakra-ui/react'
-import React, { useEffect, useMemo, useState } from 'react'
-import RstInput from '@shared/components/Input'
-import { useAuth } from '@shared/providers/auth'
 import RstButton from '@shared/components/Button'
+import RstInput from '@shared/components/Input'
 import RstText from '@shared/components/Text'
-import { useRouter } from 'next/router'
 import { COOKIES_NAMES } from '@shared/constants/cookie-names'
+import { useAuth } from '@shared/providers/auth'
+import { useRouter } from 'next/router'
 import { parseCookies } from 'nookies'
-import RstRadioButton from '@shared/components/RadioButton'
+import React, { useEffect, useMemo, useState } from 'react'
 
 export interface iLogin {
-  email: string
+  phoneNumber: string
   password: string
-  role: {
-    label?: string
-    value: 'BARBERSHOP'
-    id: number
-  }
 }
-
-const options = [{ label: 'Barbearia', value: 'BARBERSHOP', id: 0 }]
 
 const BarbershopLogin = () => {
   const initialValues: iLogin = useMemo(() => {
     return {
-      email: '',
-      password: '',
-      role: {
-        id: 0,
-        value: 'BARBERSHOP',
-        label: 'Barbearia'
-      }
+      phoneNumber: '',
+      password: ''
     }
   }, [])
 
@@ -77,16 +64,10 @@ const BarbershopLogin = () => {
             </RstText>
           </GridItem>
 
-          <RstRadioButton
-            options={options}
-            onChange={(value) => handleChangeValue('role', value)}
-            colorScheme={`newYellow`}
-          />
-
           <RstInput
             placeholder="E-mail"
-            onChange={({ target }) => handleChangeValue('email', target.value)}
-            value={formValues.email}
+            onChange={({ target }) => handleChangeValue('phoneNumber', target.value)}
+            value={formValues.phoneNumber}
           />
 
           <GridItem display="flex" flexDir="column" alignItems="end">
