@@ -13,9 +13,9 @@ import {
 import RstButton from '../Button'
 import moment from 'moment'
 import React from 'react'
-import { iAppointment } from '@shared/interface/public'
+import { iAppointment } from '@shared/interfaces/public'
 import { ENDPOINTS, QUERY_KEYS } from '@shared/constants'
-import { usePut } from '@shared/service/use-queries'
+import { usePut } from '@shared/services/use-queries'
 import { useQueryClient } from '@tanstack/react-query'
 
 interface iProps {
@@ -75,7 +75,7 @@ export const RstMeetCardClientAlertSchedule = ({ isOpen, onClose, appointment }:
     <>
       <Modal isOpen={isOpen} onClose={onClose}>
         <ModalOverlay />
-        <ModalContent mx={4}>
+        <ModalContent mx={4} borderRadius={24}>
           <ModalHeader>Agendar horário</ModalHeader>
           <ModalCloseButton />
           <ModalBody>

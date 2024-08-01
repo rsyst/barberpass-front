@@ -1,8 +1,8 @@
 import React from 'react'
-import RstInput, { iInputProps } from './Input'
+import { RstInput, iInputProps } from './Input'
 import { phoneMask } from '@shared/utils/phoneMask'
 
-const RstInputPhone = ({ onChange, ...props }: iInputProps) => {
+export const RstInputPhone = ({ onChange, ...props }: iInputProps) => {
   const handlePhoneChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     let value = e.target.value
 
@@ -25,5 +25,3 @@ const RstInputPhone = ({ onChange, ...props }: iInputProps) => {
 
   return <RstInput {...props} onChange={handlePhoneChange} />
 }
-
-export default RstInputPhone

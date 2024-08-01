@@ -4,8 +4,8 @@ import RstButton from '@shared/components/Button'
 import RstFormBarber from '@shared/components/FormBarber'
 import { RstHeaderBarbershop } from '@shared/components/Header/HeaderBarbershop'
 import { ENDPOINTS, QUERY_KEYS } from '@shared/constants'
-import { iBarber } from '@shared/interface/public'
-import { useFetch } from '@shared/service/use-queries'
+import { iBarber } from '@shared/interfaces/public'
+import { useFetch } from '@shared/services/use-queries'
 import { FiFrown, FiPlus } from 'react-icons/fi'
 
 const BarbershopDashboard = () => {

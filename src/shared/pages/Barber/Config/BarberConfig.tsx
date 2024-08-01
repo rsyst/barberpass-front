@@ -2,7 +2,7 @@ import { Flex, Grid, GridItem, Text } from '@chakra-ui/react'
 import { RstHeaderBarber } from '@shared/components/Header'
 import React from 'react'
 
-const BarberConfig = () => {
+export const BarberConfig = () => {
   return (
     <>
       <RstHeaderBarber />
@@ -27,5 +27,3 @@ const BarberConfig = () => {
     </>
   )
 }
-
-export default BarberConfig

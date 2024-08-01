@@ -8,7 +8,7 @@ interface iProps extends SelectProps {
   isError?: boolean
 }
 
-const RstSelect = ({ label, helperText, errorMessage, isError, ...props }: iProps) => {
+export const RstSelect = ({ label, helperText, errorMessage, isError, ...props }: iProps) => {
   return (
     <FormControl isInvalid={isError} isRequired={props.isRequired}>
       <FormLabel>{label}</FormLabel>
@@ -16,13 +16,13 @@ const RstSelect = ({ label, helperText, errorMessage, isError, ...props }: iProp
         {...props}
         h="54px"
         color="gray.1100"
-        borderColor="gray.600"
+        borderColor="gray.300"
         fontSize="16px"
         fontWeight="500"
         borderRadius={16}
-        _hover={{ borderColor: 'gray.700' }}
-        _focus={{ borderColor: 'newBlue.800', borderWidth: '2px' }}
-        _placeholder={{ color: 'gray.700' }}
+        _hover={{ borderColor: 'gray.800' }}
+        _focus={{ borderColor: 'blue.500', borderWidth: '2px' }}
+        _placeholder={{ color: 'gray.400' }}
       />
       {!isError ? (
         <FormHelperText fontSize="md">{helperText}</FormHelperText>
@@ -32,5 +32,3 @@ const RstSelect = ({ label, helperText, errorMessage, isError, ...props }: iProp
     </FormControl>
   )
 }
-
-export default RstSelect

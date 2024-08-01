@@ -1,3 +1,1 @@
-import BarberDashboard from './BarberDashboard'
-
-export default BarberDashboard
+export * from './BarberDashboard'

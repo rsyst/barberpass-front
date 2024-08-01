@@ -1,3 +1,1 @@
-import { RstAccordion } from './Accordion'
-
-export default RstAccordion
+export * from './Accordion'

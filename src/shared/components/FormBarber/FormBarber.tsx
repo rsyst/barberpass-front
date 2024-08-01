@@ -12,8 +12,8 @@ import {
 } from '@chakra-ui/react'
 
 import { ENDPOINTS, QUERY_KEYS } from '@shared/constants'
-import { iBarber } from '@shared/interface/public'
-import { usePost } from '@shared/service/use-queries'
+import { iBarber } from '@shared/interfaces/public'
+import { usePost } from '@shared/services/use-queries'
 import { useQueryClient } from '@tanstack/react-query'
 import moment from 'moment'
 import React, { useMemo, useState } from 'react'

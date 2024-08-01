@@ -71,6 +71,7 @@ export const theme = extendTheme({
     Button: {
       sizes: { sm: { h: 10 }, md: { h: '54px' } },
       baseStyle: {
+        borderRadius: 16,
         textTransform: 'initial'
       }
     }

@@ -7,16 +7,16 @@ import {
   ModalBody,
   ModalCloseButton,
   Text,
-  useToast
+  useToast,
+  Button
 } from '@chakra-ui/react'
-import RstButton from '../Button'
 import React from 'react'
-import { iAppointment } from '@shared/interface/public'
-import { usePatch } from '@shared/service/use-queries'
+import { iAppointment } from '@shared/interfaces'
+import { usePatch } from '@shared/services'
 import { ENDPOINTS, QUERY_KEYS } from '@shared/constants'
 import { useQueryClient } from '@tanstack/react-query'
-import RstInputCurrency from '../Input/InputCurrency'
-import { currencyToNumber, floatToCurrency } from '@shared/utils/currencyMask'
+import { currencyToNumber, floatToCurrency } from '@shared/utils'
+import { RstInputCurrency } from '@shared/components'
 
 interface iProps {
   isOpen: boolean
@@ -58,7 +58,7 @@ export const RstMeetCardBarberAlertConfirmed = ({ isOpen, onClose, appointment }
     <>
       <Modal isOpen={isOpen} onClose={onClose}>
         <ModalOverlay />
-        <ModalContent mx={4}>
+        <ModalContent mx={4} borderRadius={24}>
           <ModalHeader>Confirmar agendamento</ModalHeader>
           <ModalCloseButton />
           <ModalBody>
@@ -73,13 +73,13 @@ export const RstMeetCardBarberAlertConfirmed = ({ isOpen, onClose, appointment }
             />
           </ModalBody>
 
-          <ModalFooter display="flex" gap={2} justifyContent="end">
-            <RstButton variant="ghost" colorScheme="gray" color="gray.1100" onClick={onClose} isLoading={isLoading}>
+          <ModalFooter display="flex" gap={2} justifyContent="end" p={6}>
+            <Button variant="ghost" colorScheme="gray" color="gray.1100" onClick={onClose} isLoading={isLoading}>
               Cancelar
-            </RstButton>
-            <RstButton onClick={handleSubmit} isLoading={isLoading}>
+            </Button>
+            <Button onClick={handleSubmit} isLoading={isLoading}>
               Confirmar
-            </RstButton>
+            </Button>
           </ModalFooter>
         </ModalContent>
       </Modal>

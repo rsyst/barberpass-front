@@ -1,7 +1,6 @@
 import { Flex, FlexProps } from '@chakra-ui/react'
 import React from 'react'
-import RstBadge from '../Badge'
-import { iRstBadgeProps } from '../Badge/Badge'
+import { iRstBadgeProps, RstBadge } from '@shared/components'
 import RstText from '../Text'
 
 interface iRstInfoCardProps extends FlexProps {

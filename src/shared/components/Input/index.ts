@@ -1,3 +1,3 @@
-import RstInput from './Input'
-
-export default RstInput
+export * from './Input'
+export * from './InputCurrency'
+export * from './InputPhone'

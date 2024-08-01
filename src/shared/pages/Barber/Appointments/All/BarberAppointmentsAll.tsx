@@ -4,12 +4,12 @@ import RstInput from '@shared/components/Input'
 import { RstLoading } from '@shared/components/Loading'
 import { RstMeetCardBarber } from '@shared/components/MeetCard'
 import { ENDPOINTS, QUERY_KEYS } from '@shared/constants'
-import { iAppointment } from '@shared/interface/public'
-import { useFetch } from '@shared/service/use-queries'
+import { iAppointment } from '@shared/interfaces/public'
+import { useFetch } from '@shared/services/use-queries'
 import moment from 'moment'
 import React from 'react'
 
-const BarberAppointmentsAll = () => {
+export const BarberAppointmentsAll = () => {
   const [date, setDate] = React.useState(moment().format('YYYY-MM-DD') as string)
 
   const { data: appointments, isLoading } = useFetch<iAppointment[]>(
@@ -46,5 +46,3 @@ const BarberAppointmentsAll = () => {
     </>
   )
 }
-
-export default BarberAppointmentsAll

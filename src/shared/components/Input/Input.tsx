@@ -8,7 +8,7 @@ export interface iInputProps extends InputProps {
   isError?: boolean
 }
 
-const RstInput = ({ label, helperText, errorMessage, isError, ...props }: iInputProps) => {
+export const RstInput = ({ label, helperText, errorMessage, isError, ...props }: iInputProps) => {
   return (
     <FormControl isInvalid={isError} isRequired={props.isRequired}>
       <FormLabel>{label}</FormLabel>
@@ -17,13 +17,13 @@ const RstInput = ({ label, helperText, errorMessage, isError, ...props }: iInput
         {...props}
         h="54px"
         color="gray.1100"
-        borderColor="gray.700"
+        borderColor="gray.300"
         fontSize="16px"
         fontWeight="500"
         borderRadius={16}
         _hover={{ borderColor: 'gray.800' }}
-        _focus={{ borderColor: 'newBlue.800', borderWidth: '2px' }}
-        _placeholder={{ color: 'gray.800' }}
+        _focus={{ borderColor: 'blue.500', borderWidth: '2px' }}
+        _placeholder={{ color: 'gray.400' }}
       />
       {!isError ? (
         <FormHelperText fontSize={12} color="gray.1000">
@@ -35,5 +35,3 @@ const RstInput = ({ label, helperText, errorMessage, isError, ...props }: iInput
     </FormControl>
   )
 }
-
-export default RstInput

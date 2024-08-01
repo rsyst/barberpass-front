@@ -1,17 +1,19 @@
 import { useToast } from '@chakra-ui/react'
 import Router from 'next/router'
 import React, { useContext, createContext, useState, useEffect } from 'react'
-import { iLogin } from '@shared/pages/Auth/Login/AuthLogin'
-import { usePost } from '@shared/service/use-queries'
-import { ENDPOINTS } from '@shared/constants/endpoints'
+
 import { destroyCookie, setCookie } from 'nookies'
-import { COOKIES_NAMES } from '@shared/constants/cookie-names'
+import { COOKIES_NAMES } from '@shared/constants'
+import {
+  iAuthenticatesBarbersOwnersAndClientsPayload,
+  useMutationAuthenticatesBarbersOwnersAndClients
+} from '@shared/services'
 
 export interface iAuthContext {
   auth: any
   setAuth(item: unknown): void
   isLoadingLogin: boolean
-  handleLogin(user: iLogin): void
+  handleLogin(user: iAuthenticatesBarbersOwnersAndClientsPayload): void
   handleLogout: () => void
 }
 
@@ -25,9 +27,9 @@ export const AuthProvider = ({ children }: React.PropsWithChildren<unknown>) => 
 
   const toast = useToast()
 
-  const { mutate: postAuth, isLoading: isLoadingLogin } = usePost(ENDPOINTS.POST_AUTH)
+  const { mutate: postAuth, isLoading: isLoadingLogin } = useMutationAuthenticatesBarbersOwnersAndClients()
 
-  const handleLogin = (user: iLogin) => {
+  const handleLogin = (user: iAuthenticatesBarbersOwnersAndClientsPayload) => {
     postAuth(
       { phoneNumber: user.phoneNumber, password: user.password },
       {

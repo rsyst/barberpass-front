@@ -1,7 +1,7 @@
 import { Modal, ModalOverlay, ModalContent, ModalHeader, ModalBody, ModalCloseButton, Flex } from '@chakra-ui/react'
 import React from 'react'
-import { iBarber, iService } from '@shared/interface/public'
-import { useFetch } from '@shared/service/use-queries'
+import { iBarber, iService } from '@shared/interfaces/public'
+import { useFetch } from '@shared/services/use-queries'
 import { ENDPOINTS, QUERY_KEYS } from '@shared/constants'
 import { RstServiceCardClient } from '../ServiceCard/ServiceCardClient'
 

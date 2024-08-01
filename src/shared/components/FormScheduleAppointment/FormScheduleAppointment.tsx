@@ -12,9 +12,9 @@ import {
 import RstButton from '../Button'
 import RstInput from '../Input'
 import RstSelect from '../Select'
-import { useFetch, usePut } from '@shared/service/use-queries'
+import { useFetch, usePut } from '@shared/services/use-queries'
 import { ENDPOINTS, QUERY_KEYS } from '@shared/constants'
-import { iAppointment, iService } from '@shared/interface/public'
+import { iAppointment, iService } from '@shared/interfaces/public'
 import RstInputPhone from '../Input/InputPhone'
 import { useQueryClient } from '@tanstack/react-query'
 import { removePhoneMask } from '@shared/utils/phoneMask'
@@ -87,7 +87,7 @@ const RstFormScheduleMeet = ({ isOpen, onClose, appointment }: iProps) => {
   return (
     <Modal isOpen={isOpen} onClose={onClose}>
       <ModalOverlay />
-      <ModalContent mx={4}>
+      <ModalContent mx={4} borderRadius={24}>
         <ModalHeader>Realizar agendamento</ModalHeader>
         <ModalCloseButton />
         <ModalBody>

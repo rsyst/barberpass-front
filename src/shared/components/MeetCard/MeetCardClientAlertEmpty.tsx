@@ -11,8 +11,8 @@ import {
 } from '@chakra-ui/react'
 import RstButton from '../Button'
 import React from 'react'
-import { iAppointment } from '@shared/interface/public'
-import { usePut } from '@shared/service/use-queries'
+import { iAppointment } from '@shared/interfaces/public'
+import { usePut } from '@shared/services/use-queries'
 import { ENDPOINTS, QUERY_KEYS } from '@shared/constants'
 import { useQueryClient } from '@tanstack/react-query'
 
@@ -51,14 +51,14 @@ export const RstMeetCardClientAlertEmpty = ({ isOpen, onClose, appointment }: iP
     <>
       <Modal isOpen={isOpen} onClose={onClose}>
         <ModalOverlay />
-        <ModalContent mx={4}>
+        <ModalContent mx={4} borderRadius={24}>
           <ModalHeader>Cancelar horário</ModalHeader>
           <ModalCloseButton />
           <ModalBody>
             <Text>Você tem certeza que deseja cancelar este agendamento?</Text>
           </ModalBody>
 
-          <ModalFooter display="flex" gap={2} justifyContent="end">
+          <ModalFooter display="flex" gap={2} justifyContent="end" p={6}>
             <RstButton variant="ghost" colorScheme="gray" color="gray.1100" onClick={onClose} isLoading={isLoading}>
               Cancelar
             </RstButton>

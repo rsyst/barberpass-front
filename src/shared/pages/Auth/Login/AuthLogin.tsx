@@ -1,32 +1,31 @@
-import { Box, Flex, Grid, GridItem } from '@chakra-ui/react'
-import React, { useEffect, useMemo, useState } from 'react'
-import RstInput from '@shared/components/Input'
-import { useAuth } from '@shared/providers/auth'
-import RstButton from '@shared/components/Button'
-import RstText from '@shared/components/Text'
+import { Box, Button, Flex, Grid, GridItem, Text } from '@chakra-ui/react'
+import { RstInput } from '@shared/components'
+import { COOKIES_NAMES } from '@shared/constants'
+import { useAuth } from '@shared/providers'
+import Link from 'next/link'
 import { useRouter } from 'next/router'
-import { COOKIES_NAMES } from '@shared/constants/cookie-names'
 import { parseCookies } from 'nookies'
+import React, { useEffect, useMemo, useState } from 'react'
 
-export interface iLogin {
+interface iForm {
   phoneNumber: string
   password: string
 }
 
-const AuthLogin = () => {
-  const initialValues: iLogin = useMemo(() => {
+export const AuthLogin = () => {
+  const initialValues: iForm = useMemo(() => {
     return {
       phoneNumber: '',
       password: ''
     }
   }, [])
 
-  const [formValues, setFormValues] = useState<iLogin>(initialValues)
+  const [formValues, setFormValues] = useState<iForm>(initialValues)
 
   const { handleLogin, isLoadingLogin } = useAuth()
   const router = useRouter()
 
-  const handleChangeValue = (fname: keyof iLogin, value: unknown) => {
+  const handleChangeValue = (fname: keyof iForm, value: unknown) => {
     setFormValues((oldValues) => ({
       ...oldValues,
       [fname]: value
@@ -56,15 +55,25 @@ const AuthLogin = () => {
         e.preventDefault()
       }}
     >
-      <Flex justifyContent="center" alignItems="start" minH="100vh" bg="gray.100">
-        <Grid maxW={480} w="100%" gap={6} p={8} borderRadius={16} m={6}>
+      <Flex justifyContent="center" alignItems="center" minH="100dvh" bg="white">
+        <Grid
+          maxW={480}
+          w="100%"
+          gap={6}
+          p={8}
+          borderRadius={16}
+          m={6}
+          bg="gray.50"
+          border="2px solid"
+          borderColor="gray.200"
+        >
           <GridItem>
-            <RstText fontVariant="h3" color={`newBlue.1100`}>
+            <Text fontSize="2xl" fontWeight="bold" color={`newBlue.1100`}>
               Bem-vindo
-            </RstText>
-            <RstText fontVariant="body1" color="gray.1100">
+            </Text>
+            <Text fontSize="md" color="gray.1100">
               Estamos felizes em ver você aqui. para acessar sua conta, primeiro realize o login.
-            </RstText>
+            </Text>
           </GridItem>
 
           <RstInput
@@ -80,27 +89,25 @@ const AuthLogin = () => {
               type="password"
               value={formValues.password}
             />
-            <RstButton variant="link" textAlign="end" color="gray.900">
+            <Button variant="link" textAlign="end">
               esqueci minha senha
-            </RstButton>
+            </Button>
           </GridItem>
 
-          <RstButton size="md" type="submit" onClick={handleSubmit} isLoading={isLoadingLogin} colorScheme={`newBlue`}>
+          <Button size="md" type="submit" onClick={handleSubmit} isLoading={isLoadingLogin} colorScheme={`blue`}>
             Login
-          </RstButton>
+          </Button>
 
           <Box color="gray.600" w="100%" h="2px" bg="gray.600" />
 
-          <RstText color="gray.1200" fontVariant="body1" textAlign="center">
+          <Text color="gray.1200" fontSize="md" textAlign="center">
             Não possui conta?
-            <RstButton ml={2} variant="link" as="a" href="/auth/register">
+            <Button ml={2} variant="link" as={Link} href="/auth/register">
               Cadastre-se
-            </RstButton>
-          </RstText>
+            </Button>
+          </Text>
         </Grid>
       </Flex>
     </Box>
   )
 }
-
-export default AuthLogin

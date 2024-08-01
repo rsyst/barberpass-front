@@ -37,8 +37,8 @@ export const useFetch = <T>(
   )
 }
 
-export const usePost = <T = unknown>(path: string, callbacks?: callbacksType) => {
-  const mutation = useMutation<AxiosResponse<any, any>, iQueryError, T, unknown>((dataBody: T) => {
+export const usePost = <T = unknown, D = any>(path: string, callbacks?: callbacksType) => {
+  const mutation = useMutation<AxiosResponse<D, D>, iQueryError, T, unknown>((dataBody: T) => {
     return api.post(path, dataBody)
   }, callbacks)
 

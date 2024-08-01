@@ -1,14 +1,9 @@
 import { Flex, Grid, GridItem, Text } from '@chakra-ui/react'
-import RstAccordion from '@shared/components/Accordion'
-import RstInfoCard from '@shared/components/InfoCard'
-import { RstLoading } from '@shared/components/Loading'
-import { RstMeetCardBarber } from '@shared/components/MeetCard/MeetCardBarber'
-import RstText from '@shared/components/Text'
-import { ENDPOINTS } from '@shared/constants/endpoints'
-import { QUERY_KEYS } from '@shared/constants/query-keys'
-import { iAppointment, iBarber } from '@shared/interface/public'
-import { useFetch } from '@shared/service/use-queries'
-import { floatToCurrency } from '@shared/utils/currencyMask'
+import { RstAccordion, RstLoading, RstInfoCard, RstMeetCardBarber } from '@shared/components'
+import { ENDPOINTS, QUERY_KEYS } from '@shared/constants'
+import { iAppointment, iBarber } from '@shared/interfaces'
+import { useFetch } from '@shared/services'
+import { floatToCurrency } from '@shared/utils'
 
 interface GetBarberDashboard {
   dailyAmount: number
@@ -25,7 +20,7 @@ interface GetBarberDashboard {
   yearlyConfirmedAppointments: number
 }
 
-const BarberDashboard = () => {
+export const BarberDashboard = () => {
   const { data: barber, isLoading: loadingBarber } = useFetch<iBarber>(QUERY_KEYS.GET_BARBER, ENDPOINTS.GET_BARBER)
   const { data: dashboard, isLoading: loadingDashboard } = useFetch<GetBarberDashboard>(
     QUERY_KEYS.GET_BARBER_DASHBOARD,
@@ -57,12 +52,12 @@ const BarberDashboard = () => {
         borderRadius={16}
       >
         <Flex>
-          <RstText color="gray.1200" fontSize="lg" fontWeight="bold">
+          <Text color="gray.1200" fontSize="lg" fontWeight="bold">
             Bom dia,
-          </RstText>
-          <RstText color="gray.1100" fontVariant="h5" ml={1} textTransform="capitalize">
+          </Text>
+          <Text color="gray.1100" fontSize="lg" ml={1} textTransform="capitalize">
             {barber?.name}
-          </RstText>
+          </Text>
         </Flex>
 
         <Grid templateColumns="repeat(3, 1fr)" gap={3} overflowX="auto">
@@ -91,8 +86,8 @@ const BarberDashboard = () => {
 
         <Grid templateColumns="repeat(2, 1fr)" gap={4}>
           <GridItem colSpan={2}>
-            <RstAccordion title="Agendamentos Seguintes" isLoading={refetchingNextAppointments}>
-              <Flex flexDir="column" overflowY="auto" h="30vh">
+            <RstAccordion title="Agendamentos Seguintes" isLoading={refetchingNextAppointments} defaultIsOpen>
+              <Flex flexDir="column" overflowY="auto" maxH="30vh">
                 {nextAppointments?.map((appointment, index) => (
                   <RstMeetCardBarber key={index} {...appointment} />
                 ))}
@@ -101,8 +96,8 @@ const BarberDashboard = () => {
           </GridItem>
 
           <GridItem colSpan={2}>
-            <RstAccordion title="Agenda do Dia" isLoading={refetchingDailyAppointments}>
-              <Flex flexDir="column" overflowY="auto" h="30vh">
+            <RstAccordion title="Agenda do Dia" isLoading={refetchingDailyAppointments} defaultIsOpen>
+              <Flex flexDir="column" overflowY="auto" maxH="40dvh">
                 {dailyAppointments?.map((appointment, index) => (
                   <RstMeetCardBarber key={index} {...appointment} />
                 ))}
@@ -130,5 +125,3 @@ const BarberDashboard = () => {
     </>
   )
 }
-
-export default BarberDashboard

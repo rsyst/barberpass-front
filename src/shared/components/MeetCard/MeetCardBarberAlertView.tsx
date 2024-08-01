@@ -7,14 +7,14 @@ import {
   ModalBody,
   ModalCloseButton,
   Text,
-  Flex
+  Flex,
+  Button
 } from '@chakra-ui/react'
-import RstButton from '../Button'
 import React from 'react'
-import { iAppointment } from '@shared/interface/public'
+import { iAppointment } from '@shared/interfaces'
 import moment from 'moment'
-import { phoneMask } from '@shared/utils/phoneMask'
-import { floatToCurrency } from '@shared/utils/currencyMask'
+import { phoneMask } from '@shared/utils'
+import { floatToCurrency } from '@shared/utils'
 
 interface iProps {
   isOpen: boolean
@@ -30,7 +30,7 @@ export const RstMeetCardBarberAlertView = ({ isOpen, onClose, appointment }: iPr
     <>
       <Modal isOpen={isOpen} onClose={onClose}>
         <ModalOverlay />
-        <ModalContent mx={4}>
+        <ModalContent mx={4} borderRadius={24}>
           <ModalHeader>Agendamento</ModalHeader>
           <ModalCloseButton />
           <ModalBody>
@@ -67,8 +67,10 @@ export const RstMeetCardBarberAlertView = ({ isOpen, onClose, appointment }: iPr
             </Flex>
           </ModalBody>
 
-          <ModalFooter display="flex" gap={2} justifyContent="end">
-            <RstButton onClick={handleSubmit}>Fechar</RstButton>
+          <ModalFooter display="flex" gap={2} justifyContent="end" p={6}>
+            <Button onClick={handleSubmit} colorScheme="blue">
+              Fechar
+            </Button>
           </ModalFooter>
         </ModalContent>
       </Modal>

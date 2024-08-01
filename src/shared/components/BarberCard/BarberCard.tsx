@@ -1,6 +1,6 @@
 import { Avatar, Flex, Text, useDisclosure } from '@chakra-ui/react'
 import React from 'react'
-import { iBarber } from '@shared/interface/public'
+import { iBarber } from '@shared/interfaces/public'
 import RstBarberCardModalServices from './BarberCardModalServices'
 import { phoneMask } from '@shared/utils/phoneMask'
 

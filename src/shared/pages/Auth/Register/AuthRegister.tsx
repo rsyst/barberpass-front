@@ -4,20 +4,20 @@ import RstInput from '@shared/components/Input'
 import { useAuth } from '@shared/providers/auth'
 import RstButton from '@shared/components/Button'
 import RstText from '@shared/components/Text'
-import { usePost } from '@shared/service/use-queries'
+import { usePost } from '@shared/services/use-queries'
 // import { useRouter } from 'next/router'
 
-export interface iLogin {
+interface iRegister {
   name: string
   phoneNumber: string
   email: string
   password: string
 }
 
-const AuthRegister = () => {
+export const AuthRegister = () => {
   const { mutate } = usePost('/client')
 
-  const initialValues: iLogin = useMemo(() => {
+  const initialValues: iRegister = useMemo(() => {
     return {
       name: '',
       phoneNumber: '',
@@ -26,12 +26,12 @@ const AuthRegister = () => {
     }
   }, [])
 
-  const [formValues, setFormValues] = useState<iLogin>(initialValues)
+  const [formValues, setFormValues] = useState<iRegister>(initialValues)
   // const router = useRouter()
 
   const { handleLogin, isLoadingLogin } = useAuth()
 
-  const handleChangeValue = (fname: keyof iLogin, value: unknown) => {
+  const handleChangeValue = (fname: keyof iRegister, value: unknown) => {
     setFormValues((oldValues) => ({
       ...oldValues,
       [fname]: value
@@ -110,5 +110,3 @@ const AuthRegister = () => {
     </Box>
   )
 }
-
-export default AuthRegister

@@ -1,6 +1,6 @@
 import { Avatar, Flex, Text, useDisclosure } from '@chakra-ui/react'
 import React from 'react'
-import { iBarberShop } from '@shared/interface/public'
+import { iBarberShop } from '@shared/interfaces/public'
 import RstBarbershopCardModalBarber from './BarbershopCardModalBarber'
 
 export type iRstBarbershopCard = iBarberShop

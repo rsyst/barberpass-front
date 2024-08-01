@@ -2,8 +2,8 @@ import { Flex, Grid, GridItem, Text } from '@chakra-ui/react'
 import { RstHeaderBarber } from '@shared/components/Header'
 import { RstMeetCardBarber } from '@shared/components/MeetCard'
 import { ENDPOINTS, QUERY_KEYS } from '@shared/constants'
-import { iAppointment } from '@shared/interface/public'
-import { useFetch } from '@shared/service/use-queries'
+import { iAppointment } from '@shared/interfaces/public'
+import { useFetch } from '@shared/services/use-queries'
 import moment from 'moment'
 import React from 'react'
 import { getWeekDays } from './utils'
@@ -14,7 +14,7 @@ interface FetchAppointment {
   [key: string]: iAppointment[]
 }
 
-const BarberAppointmentsWeekly = () => {
+export const BarberAppointmentsWeekly = () => {
   const { data: appointments, isLoading: loadingAppointments } = useFetch<FetchAppointment>(
     QUERY_KEYS.GET_BARBER_APPOINTMENTS_WEEK,
     ENDPOINTS.GET_BARBER_APPOINTMENTS_WEEK
@@ -57,5 +57,3 @@ const BarberAppointmentsWeekly = () => {
     </>
   )
 }
-
-export default BarberAppointmentsWeekly

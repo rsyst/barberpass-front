@@ -3,9 +3,9 @@ import React from 'react'
 import RstAvatar from '../Avatar'
 import { FiMenu } from 'react-icons/fi'
 import { useAuth } from '@shared/providers/auth'
-import { iBarber } from '@shared/interface/public'
+import { iBarber } from '@shared/interfaces/public'
 import { QUERY_KEYS, ENDPOINTS } from '@shared/constants'
-import { useFetch } from '@shared/service/use-queries'
+import { useFetch } from '@shared/services/use-queries'
 
 export const RstHeaderClient = () => {
   const { handleLogout } = useAuth()

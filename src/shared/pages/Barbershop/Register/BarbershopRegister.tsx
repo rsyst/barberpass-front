@@ -4,7 +4,7 @@ import RstInput from '@shared/components/Input'
 import { useAuth } from '@shared/providers/auth'
 import RstButton from '@shared/components/Button'
 import RstText from '@shared/components/Text'
-import { usePost } from '@shared/service/use-queries'
+import { usePost } from '@shared/services/use-queries'
 // import { useRouter } from 'next/router'
 
 export interface iLogin {

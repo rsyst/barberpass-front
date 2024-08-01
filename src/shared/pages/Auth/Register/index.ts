@@ -1,3 +1,1 @@
-import AuthRegister from './AuthRegister'
-
-export default AuthRegister
+export * from './AuthRegister'

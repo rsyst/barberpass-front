@@ -16,7 +16,7 @@ const queryClient = new QueryClient({
   }
 })
 
-function Providers({ children }: React.PropsWithChildren<unknown>) {
+export function Providers({ children }: React.PropsWithChildren<unknown>) {
   return (
     <MobileProvider>
       <QueryClientProvider client={queryClient}>
@@ -32,5 +32,3 @@ function Providers({ children }: React.PropsWithChildren<unknown>) {
     </MobileProvider>
   )
 }
-
-export default Providers

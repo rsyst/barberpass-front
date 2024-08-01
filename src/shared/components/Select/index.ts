@@ -1,3 +1,1 @@
-import RstSelect from './Select'
-
-export default RstSelect
+export * from './Select'

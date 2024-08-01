@@ -1,23 +1,21 @@
-import React, { useState } from 'react'
 import {
+  Button,
   Modal,
-  ModalOverlay,
-  ModalContent,
-  ModalHeader,
-  ModalFooter,
   ModalBody,
   ModalCloseButton,
+  ModalContent,
+  ModalFooter,
+  ModalHeader,
+  ModalOverlay,
   useToast
 } from '@chakra-ui/react'
-import RstButton from '../Button'
-import RstInput from '../Input'
-import RstSelect from '../Select'
-import { useFetch, usePut } from '@shared/service/use-queries'
+import { RstInput, RstInputPhone, RstSelect } from '@shared/components'
 import { ENDPOINTS, QUERY_KEYS } from '@shared/constants'
-import { iAppointment, iService } from '@shared/interface/public'
-import RstInputPhone from '../Input/InputPhone'
+import { iAppointment, iService } from '@shared/interfaces'
+import { useFetch, usePut } from '@shared/services'
+import { removePhoneMask } from '@shared/utils'
 import { useQueryClient } from '@tanstack/react-query'
-import { removePhoneMask } from '@shared/utils/phoneMask'
+import React, { useState } from 'react'
 
 interface iProps {
   isOpen: boolean
@@ -87,7 +85,7 @@ const RstMeetCardBarberAlertSchedule = ({ isOpen, onClose, appointment }: iProps
   return (
     <Modal isOpen={isOpen} onClose={onClose}>
       <ModalOverlay />
-      <ModalContent mx={4}>
+      <ModalContent mx={4} borderRadius={24}>
         <ModalHeader>Realizar agendamento</ModalHeader>
         <ModalCloseButton />
         <ModalBody>
@@ -120,12 +118,12 @@ const RstMeetCardBarberAlertSchedule = ({ isOpen, onClose, appointment }: iProps
         </ModalBody>
 
         <ModalFooter p={6} justifyContent="space-between">
-          <RstButton variant="ghost" colorScheme="gray" onClick={onClose}>
+          <Button variant="ghost" colorScheme="gray" onClick={onClose}>
             Cancelar
-          </RstButton>
-          <RstButton onClick={handleSubmit} isLoading={loadingMutate}>
+          </Button>
+          <Button onClick={handleSubmit} isLoading={loadingMutate} colorScheme="blue">
             Agendar
-          </RstButton>
+          </Button>
         </ModalFooter>
       </ModalContent>
     </Modal>

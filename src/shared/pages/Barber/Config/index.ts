@@ -1,3 +1,1 @@
-import BarberConfig from './BarberConfig'
-
-export default BarberConfig
+export * from './BarberConfig'

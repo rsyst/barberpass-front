@@ -19,7 +19,7 @@ export const LayoutUserWithouProvider = ({ children }: iProps) => {
   const { isOpenMenu } = useLayoutUserContext()
 
   return (
-    <Flex flexDir="column">
+    <Flex flexDir="column" h="100dvh">
       <Box position="fixed" zIndex={999}>
         <Navbar />
       </Box>
@@ -31,6 +31,7 @@ export const LayoutUserWithouProvider = ({ children }: iProps) => {
           lg: `calc(100vw - ${isOpenMenu ? '260px' : '0px'})`
         }}
         overflowY="auto"
+        h="100dvh"
       >
         <Box h={16} display={{ base: 'block', lg: 'none' }} />
         <Flex flexDir="column" pt={4} px={{ base: 5, lg: 8 }} w="full" h="calc(100dvh - 64px)">

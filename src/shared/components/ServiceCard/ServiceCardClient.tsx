@@ -1,6 +1,6 @@
 import { Flex, Text, useDisclosure } from '@chakra-ui/react'
 import React from 'react'
-import { iBarber, iService } from '@shared/interface/public'
+import { iBarber, iService } from '@shared/interfaces/public'
 import { currencyMask } from '@shared/utils/currencyMask'
 import RstServiceCardClientModalAppointments from './ServiceCardClientModalAppointments'
 

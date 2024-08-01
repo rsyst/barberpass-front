@@ -1,3 +1,1 @@
-import AuthLogin from './AuthLogin'
-
-export default AuthLogin
+export * from './AuthLogin'

@@ -6,10 +6,11 @@ interface iProps {
   title: string
   isLoading?: boolean
   children: React.ReactNode
+  defaultIsOpen?: boolean
 }
 
-export const RstAccordion = ({ title, isLoading, children }: iProps) => {
-  const { isOpen, onToggle } = useDisclosure()
+export const RstAccordion = ({ title, isLoading, defaultIsOpen = false, children }: iProps) => {
+  const { isOpen, onToggle } = useDisclosure({ defaultIsOpen: defaultIsOpen })
   return (
     <Flex flexDir="column" gap={2}>
       <Box p={6} display="flex" justifyContent="space-between" alignItems="center" borderRadius={16} onClick={onToggle}>

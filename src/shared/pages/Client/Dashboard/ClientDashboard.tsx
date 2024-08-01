@@ -7,8 +7,8 @@ import { RstMeetCardClient } from '@shared/components/MeetCard'
 import RstText from '@shared/components/Text'
 import { ENDPOINTS } from '@shared/constants/endpoints'
 import { QUERY_KEYS } from '@shared/constants/query-keys'
-import { iAppointment, iBarber, iBarberShop } from '@shared/interface/public'
-import { useFetch } from '@shared/service/use-queries'
+import { iAppointment, iBarber, iBarberShop } from '@shared/interfaces/public'
+import { useFetch } from '@shared/services/use-queries'
 
 import { FiFrown } from 'react-icons/fi'
 

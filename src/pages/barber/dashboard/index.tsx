@@ -1,12 +1,12 @@
 import { LayoutUser } from '@shared/components/LayoutUser'
-import BarberDashboard from '@shared/pages/Barber/Dashboard'
+import { BarberDashboard } from '@shared/pages'
 import Head from 'next/head'
 
 const Page = () => {
   return (
     <>
       <Head>
-        <title>Demetria - Fermentation</title>
+        <title>Dashboard</title>
       </Head>
       <LayoutUser>
         <BarberDashboard />

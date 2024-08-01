@@ -1,2 +1,2 @@
-export { RstMeetCardBarber } from './MeetCardBarber'
-export { RstMeetCardClient } from './MeetCardClient'
+export * from './MeetCardBarber'
+export * from './MeetCardClient'
