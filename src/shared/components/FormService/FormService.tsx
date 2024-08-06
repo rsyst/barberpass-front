@@ -9,13 +9,13 @@ import {
   ModalCloseButton,
   useToast
 } from '@chakra-ui/react'
-import RstButton from '../Button'
-import RstInput from '../Input'
+import { RstButton } from '../Button'
+import { RstInput } from '../Input'
 import { usePost, usePut } from '@shared/services/use-queries'
 import { ENDPOINTS, QUERY_KEYS } from '@shared/constants'
 import { iService } from '@shared/interfaces/public'
 import { useQueryClient } from '@tanstack/react-query'
-import RstInputCurrency from '../Input/InputCurrency'
+import { RstInputCurrency } from '../Input/InputCurrency'
 import { currencyToNumber, floatToCurrency, removeCurrencyMask } from '@shared/utils/currencyMask'
 
 interface iProps {

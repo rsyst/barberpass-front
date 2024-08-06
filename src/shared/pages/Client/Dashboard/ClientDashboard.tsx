@@ -1,5 +1,5 @@
 import { Flex, Grid, GridItem, Icon, Text } from '@chakra-ui/react'
-import RstAccordion from '@shared/components/Accordion'
+import { RstAccordion } from '@shared/components'
 import RstBarbershopCard from '@shared/components/BarbershopCard'
 import { RstHeaderClient } from '@shared/components/Header'
 import { RstLoading } from '@shared/components/Loading'

@@ -1,3 +1,3 @@
-import BarberAppointmentsAll from './BarberAppointmentsAll'
+import { BarberAppointmentsAll } from './BarberAppointmentsAll'
 
 export default BarberAppointmentsAll

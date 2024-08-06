@@ -1,5 +1,6 @@
 import { ROLE_TYPES } from '@shared/interfaces'
-import { usePost } from './use-queries'
+import { useMutation } from '@tanstack/react-query'
+import api from './api'
 
 export interface iAuthenticatesBarbersOwnersAndClientsPayload {
   phoneNumber: string
@@ -7,11 +8,16 @@ export interface iAuthenticatesBarbersOwnersAndClientsPayload {
 }
 
 export interface iAuthenticatesBarbersOwnersAndClientsResponse {
-  token: string
-  role: ROLE_TYPES
+  data: { token: string; role: ROLE_TYPES }
 }
 
-export const useMutationAuthenticatesBarbersOwnersAndClients = () =>
-  usePost<iAuthenticatesBarbersOwnersAndClientsPayload, iAuthenticatesBarbersOwnersAndClientsResponse>(
-    'users/authenticate'
+const mutationAuthenticatesBarbersOwnersAndClients = (data: iAuthenticatesBarbersOwnersAndClientsPayload) =>
+  api.post<iAuthenticatesBarbersOwnersAndClientsPayload, iAuthenticatesBarbersOwnersAndClientsResponse>(
+    'users/authenticate',
+    data
   )
+
+export const useMutationAuthenticatesBarbersOwnersAndClients = () =>
+  useMutation<iAuthenticatesBarbersOwnersAndClientsResponse, any, iAuthenticatesBarbersOwnersAndClientsPayload>({
+    mutationFn: mutationAuthenticatesBarbersOwnersAndClients
+  })

@@ -9,7 +9,7 @@ import {
   Text,
   useToast
 } from '@chakra-ui/react'
-import RstButton from '../Button'
+import { RstButton } from '../Button'
 import React from 'react'
 import { iAppointment } from '@shared/interfaces/public'
 import { usePut } from '@shared/services/use-queries'

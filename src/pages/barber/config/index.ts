@@ -1,3 +1,3 @@
-import BarberConfig from '@shared/pages/Barber/Config'
+import { BarberConfig } from '@shared/pages'
 
 export default BarberConfig

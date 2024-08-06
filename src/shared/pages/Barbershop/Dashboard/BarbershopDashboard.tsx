@@ -1,6 +1,6 @@
 import { Flex, Grid, GridItem, Icon, Text, useDisclosure } from '@chakra-ui/react'
 import { RstBarberInfosCard } from '@shared/components/BarberInfosCard/BarberInfosCard'
-import RstButton from '@shared/components/Button'
+import { RstButton } from '@shared/components/Button'
 import RstFormBarber from '@shared/components/FormBarber'
 import { RstHeaderBarbershop } from '@shared/components/Header/HeaderBarbershop'
 import { ENDPOINTS, QUERY_KEYS } from '@shared/constants'

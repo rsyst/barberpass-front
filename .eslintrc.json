@@ -29,6 +29,7 @@
   "plugins": ["react", "react-hooks", "@typescript-eslint"],
   "rules": {
     //Trocar para "error"
+    "@typescript-eslint/no-non-null-assertion": "off",
     "@typescript-eslint/no-explicit-any": "off",
     "react-hooks/rules-of-hooks": "error",
     "react-hooks/exhaustive-deps": "warn",

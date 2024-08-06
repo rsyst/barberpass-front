@@ -8,7 +8,7 @@ import {
   ModalBody,
   ModalCloseButton
 } from '@chakra-ui/react'
-import RstButton from '../Button'
+import { RstButton } from '../Button'
 
 interface iProps {
   isOpen: boolean

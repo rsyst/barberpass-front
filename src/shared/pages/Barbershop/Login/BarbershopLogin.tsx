@@ -1,6 +1,6 @@
 import { Box, Flex, Grid, GridItem } from '@chakra-ui/react'
-import RstButton from '@shared/components/Button'
-import RstInput from '@shared/components/Input'
+import { RstButton } from '@shared/components/Button'
+import { RstInput } from '@shared/components/Input'
 import RstText from '@shared/components/Text'
 import { COOKIES_NAMES } from '@shared/constants/cookie-names'
 import { useAuth } from '@shared/providers/auth'

@@ -10,7 +10,7 @@ import {
   Flex,
   useToast
 } from '@chakra-ui/react'
-import RstButton from '../Button'
+import { RstButton } from '../Button'
 import moment from 'moment'
 import React from 'react'
 import { iAppointment } from '@shared/interfaces/public'

@@ -1,21 +1,27 @@
 import {
+  Button,
   Modal,
-  ModalOverlay,
-  ModalContent,
-  ModalHeader,
-  ModalFooter,
   ModalBody,
   ModalCloseButton,
+  ModalContent,
+  ModalFooter,
+  ModalHeader,
+  ModalOverlay,
   Text,
-  useToast,
-  Button
+  useToast
 } from '@chakra-ui/react'
-import React from 'react'
 import { iAppointment } from '@shared/interfaces'
-import { usePut } from '@shared/services'
-import { ENDPOINTS, QUERY_KEYS } from '@shared/constants'
+import {
+  queryGetAllAuthenticatedBarberAppointmentsFromNowToEndOfTheDayKey,
+  queryGetAllAuthenticatedBarberAppointmentsKey,
+  queryGetAllAuthenticatedBarberMonthAppointmentsKey,
+  queryGetAllAuthenticatedBarberTodayAppointmentsKey,
+  queryGetAllAuthenticatedBarberWeekAppointmentsKey,
+  queryGetAuthenticatedBarberDashboardKey,
+  useMutationBarberUnscheduleAnAppointment
+} from '@shared/services'
 import { useQueryClient } from '@tanstack/react-query'
-
+import React from 'react'
 interface iProps {
   isOpen: boolean
   onClose: () => void
@@ -24,32 +30,32 @@ interface iProps {
 
 export const RstMeetCardBarberAlertEmpty = ({ isOpen, onClose, appointment }: iProps) => {
   console.log(appointment)
-  const { mutate: emptyAppointment, isLoading } = usePut(
-    ENDPOINTS.PUT_BARBER_APPOINTMENTS_BY_GROUP_INDEX_EMPTY(appointment?.groupIndex || '')
-  )
+  const { mutate: emptyAppointment, isPending: isLoading } = useMutationBarberUnscheduleAnAppointment({
+    groupIndex: appointment.groupIndex!
+  })
 
   const queryClient = useQueryClient()
   const toast = useToast()
 
   const handleSubmit = () => {
-    emptyAppointment(
-      {},
-      {
-        onSuccess: () => {
-          queryClient.invalidateQueries(QUERY_KEYS.GET_BARBER_APPOINTMENTS)
-          queryClient.invalidateQueries(QUERY_KEYS.GET_BARBER_APPOINTMENTS_DAY)
-          queryClient.invalidateQueries(QUERY_KEYS.GET_BARBER_APPOINTMENTS_WEEK)
-          queryClient.invalidateQueries(QUERY_KEYS.GET_BARBER_APPOINTMENTS_NEXT)
-          queryClient.invalidateQueries(QUERY_KEYS.GET_BARBER_DASHBOARD)
-          toast({
-            title: 'Agendamento cancelado com sucesso',
-            status: 'success',
-            isClosable: true
-          })
-          onClose()
-        }
+    emptyAppointment(null, {
+      onSuccess: () => {
+        queryClient.invalidateQueries({ queryKey: [queryGetAuthenticatedBarberDashboardKey] })
+        queryClient.invalidateQueries({ queryKey: [queryGetAllAuthenticatedBarberAppointmentsKey] })
+        queryClient.invalidateQueries({ queryKey: [queryGetAllAuthenticatedBarberTodayAppointmentsKey] })
+        queryClient.invalidateQueries({
+          queryKey: [queryGetAllAuthenticatedBarberAppointmentsFromNowToEndOfTheDayKey]
+        })
+        queryClient.invalidateQueries({ queryKey: [queryGetAllAuthenticatedBarberWeekAppointmentsKey] })
+        queryClient.invalidateQueries({ queryKey: [queryGetAllAuthenticatedBarberMonthAppointmentsKey] })
+        toast({
+          title: 'Agendamento cancelado com sucesso',
+          status: 'success',
+          isClosable: true
+        })
+        onClose()
       }
-    )
+    })
   }
 
   return (
@@ -67,7 +73,7 @@ export const RstMeetCardBarberAlertEmpty = ({ isOpen, onClose, appointment }: iP
             <Button variant="ghost" colorScheme="gray" color="gray.1100" onClick={onClose} isLoading={isLoading}>
               Cancelar
             </Button>
-            <Button colorScheme="newRed" onClick={handleSubmit} isLoading={isLoading}>
+            <Button colorScheme="red" onClick={handleSubmit} isLoading={isLoading}>
               Confirmar
             </Button>
           </ModalFooter>

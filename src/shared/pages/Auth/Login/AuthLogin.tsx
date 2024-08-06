@@ -38,13 +38,16 @@ export const AuthLogin = () => {
 
   //Redirect to Dashboard if is logged
   useEffect(() => {
-    const { [COOKIES_NAMES.CLIENT_TOKEN]: clientToken, [COOKIES_NAMES.BARBER_TOKEN]: barberToken } = parseCookies()
+    const { [COOKIES_NAMES.USER_ROLE]: userRole } = parseCookies()
 
-    if (barberToken) {
+    if (userRole === 'BARBER') {
       router.push('/barber/dashboard')
     }
-    if (clientToken) {
+    if (userRole === 'CLIENT') {
       router.push('/client/dashboard')
+    }
+    if (userRole === 'OWNER') {
+      router.push('/barbershop/dashboard')
     }
   }, [router])
 

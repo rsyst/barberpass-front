@@ -17,9 +17,9 @@ import { usePost } from '@shared/services/use-queries'
 import { useQueryClient } from '@tanstack/react-query'
 import moment from 'moment'
 import React, { useMemo, useState } from 'react'
-import RstButton from '../Button'
-import RstInput from '../Input'
-import RstInputPhone from '../Input/InputPhone'
+import { RstButton } from '../Button'
+import { RstInput } from '../Input'
+import { RstInputPhone } from '../Input/InputPhone'
 
 interface iProps {
   barber?: iBarber

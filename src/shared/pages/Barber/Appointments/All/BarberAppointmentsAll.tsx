@@ -1,6 +1,6 @@
 import { Flex, Grid, GridItem, Text } from '@chakra-ui/react'
 import { RstHeaderBarber } from '@shared/components/Header'
-import RstInput from '@shared/components/Input'
+import { RstInput } from '@shared/components/Input'
 import { RstLoading } from '@shared/components/Loading'
 import { RstMeetCardBarber } from '@shared/components/MeetCard'
 import { ENDPOINTS, QUERY_KEYS } from '@shared/constants'

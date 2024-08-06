@@ -1,3 +1,3 @@
-import BarberAppointmentsWeekly from './BarberAppointmentsWeekly'
+import { BarberAppointmentsWeekly } from './BarberAppointmentsWeekly'
 
 export default BarberAppointmentsWeekly

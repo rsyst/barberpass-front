@@ -10,12 +10,20 @@ import {
   useToast
 } from '@chakra-ui/react'
 import { RstInput, RstInputPhone, RstSelect } from '@shared/components'
-import { ENDPOINTS, QUERY_KEYS } from '@shared/constants'
-import { iAppointment, iService } from '@shared/interfaces'
-import { useFetch, usePut } from '@shared/services'
+import { iAppointment } from '@shared/interfaces'
+import {
+  queryGetAllAuthenticatedBarberAppointmentsFromNowToEndOfTheDayKey,
+  queryGetAllAuthenticatedBarberAppointmentsKey,
+  queryGetAllAuthenticatedBarberMonthAppointmentsKey,
+  queryGetAllAuthenticatedBarberTodayAppointmentsKey,
+  queryGetAllAuthenticatedBarberWeekAppointmentsKey,
+  queryGetAuthenticatedBarberDashboardKey,
+  useMutationBarberScheduleAnAppointment,
+  useQueryGetAllAuthenticatedBarberServices
+} from '@shared/services'
 import { removePhoneMask } from '@shared/utils'
 import { useQueryClient } from '@tanstack/react-query'
-import React, { useState } from 'react'
+import React, { useMemo, useState } from 'react'
 
 interface iProps {
   isOpen: boolean
@@ -30,10 +38,10 @@ interface iFormMeet {
 }
 
 const RstMeetCardBarberAlertSchedule = ({ isOpen, onClose, appointment }: iProps) => {
-  const { data: services } = useFetch<iService[]>(QUERY_KEYS.GET_BARBER_SERVICES, ENDPOINTS.GET_BARBER_SERVICES)
-  const { mutate: occupiedAppointment, isLoading: loadingMutate } = usePut(
-    ENDPOINTS.PUT_BARBER_APPOINTMENTS_BY_ID_OCCUPIED(appointment?.id || '')
-  )
+  const { data: services } = useQueryGetAllAuthenticatedBarberServices()
+  const { mutate: occupiedAppointment, isPending: loadingMutate } = useMutationBarberScheduleAnAppointment({
+    appointmentId: appointment.id
+  })
 
   const queryClient = useQueryClient()
   const toast = useToast()
@@ -52,15 +60,19 @@ const RstMeetCardBarberAlertSchedule = ({ isOpen, onClose, appointment }: iProps
       {
         name: formValues.name,
         phoneNumber: removePhoneMask(formValues.phoneNumber || ''),
-        serviceId: formValues.serviceId
+        serviceId: formValues.serviceId,
+        price: services?.find((service) => service.id === formValues.serviceId)?.price || 0
       },
       {
         onSuccess: () => {
-          queryClient.invalidateQueries(QUERY_KEYS.GET_BARBER_APPOINTMENTS)
-          queryClient.invalidateQueries(QUERY_KEYS.GET_BARBER_APPOINTMENTS_DAY)
-          queryClient.invalidateQueries(QUERY_KEYS.GET_BARBER_APPOINTMENTS_WEEK)
-          queryClient.invalidateQueries(QUERY_KEYS.GET_BARBER_APPOINTMENTS_NEXT)
-          queryClient.invalidateQueries(QUERY_KEYS.GET_BARBER_DASHBOARD)
+          queryClient.invalidateQueries({ queryKey: [queryGetAuthenticatedBarberDashboardKey] })
+          queryClient.invalidateQueries({ queryKey: [queryGetAllAuthenticatedBarberAppointmentsKey] })
+          queryClient.invalidateQueries({ queryKey: [queryGetAllAuthenticatedBarberTodayAppointmentsKey] })
+          queryClient.invalidateQueries({
+            queryKey: [queryGetAllAuthenticatedBarberAppointmentsFromNowToEndOfTheDayKey]
+          })
+          queryClient.invalidateQueries({ queryKey: [queryGetAllAuthenticatedBarberWeekAppointmentsKey] })
+          queryClient.invalidateQueries({ queryKey: [queryGetAllAuthenticatedBarberMonthAppointmentsKey] })
           toast({
             title: 'Agendamento realizado com sucesso',
             status: 'success',
@@ -81,6 +93,12 @@ const RstMeetCardBarberAlertSchedule = ({ isOpen, onClose, appointment }: iProps
       }
     )
   }
+
+  const validationSchema = useMemo(() => {
+    if (!formValues.name || !formValues.serviceId) {
+      return true
+    }
+  }, [formValues])
 
   return (
     <Modal isOpen={isOpen} onClose={onClose}>
@@ -121,7 +139,7 @@ const RstMeetCardBarberAlertSchedule = ({ isOpen, onClose, appointment }: iProps
           <Button variant="ghost" colorScheme="gray" onClick={onClose}>
             Cancelar
           </Button>
-          <Button onClick={handleSubmit} isLoading={loadingMutate} colorScheme="blue">
+          <Button onClick={handleSubmit} isLoading={loadingMutate} colorScheme="blue" isDisabled={validationSchema}>
             Agendar
           </Button>
         </ModalFooter>

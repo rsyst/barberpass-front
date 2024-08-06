@@ -1,1 +1,2 @@
 export type ROLE_TYPES = 'BARBER' | 'CLIENT' | 'OWNER'
+export type STATUS_TYPES = 'OCCUPIED' | 'CONFIRMED' | 'BREAK' | 'EMPTY'

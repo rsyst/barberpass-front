@@ -1,5 +1,5 @@
 import { Flex, Grid, GridItem, Icon, Text, useDisclosure } from '@chakra-ui/react'
-import RstButton from '@shared/components/Button'
+import { RstButton } from '@shared/components/Button'
 import RstFormService from '@shared/components/FormService'
 import { RstHeaderBarber } from '@shared/components/Header'
 import { RstServiceCardBarber } from '@shared/components/ServiceCard'

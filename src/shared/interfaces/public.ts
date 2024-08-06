@@ -1,38 +1,78 @@
-export interface iClient {
+import { ROLE_TYPES, STATUS_TYPES } from './enuns'
+
+export interface iUser {
   id: string
   name: string
   phoneNumber: string
-  document: string
-  email: string
-  password: string
-  created_at: string
-  updated_at: string
+  passwordHash: string
+  role: ROLE_TYPES
+  createdAt: Date
+  updatedAt?: Date
+
+  barberShops: iBarberShop[]
+  barbers: iBarber[]
+  clients: iClient[]
 }
 
 export interface iBarberShop {
   id: string
   name: string
+  email: string
   document: string
   phoneNumber: string
-  email: string
-  password: string
   address: string
-  logo: string
+  logo?: string
+  userId: string
+  user: iUser
+  createdAt: Date
+  updatedAt?: Date
+  barbers: iBarber[]
+  products: iProduct[]
 }
 
 export interface iBarber {
   id: string
-  barberShopId: string
-  barberShop?: iBarberShop
-  name: string
-  phoneNumber: string
-  startWork: string
-  endWork: string
+  startWork: Date
+  endWork: Date
   timePerWork: number
-  email: string
-  password?: string
-  created_at: string
-  updated_at: string
+  barberShopId: string
+  userId: string
+  createdAt: Date
+  updatedAt?: Date
+  barberShop: iBarberShop
+  user: iUser
+  appointments: iAppointment[]
+  services: iService[]
+}
+
+export interface iAppointment {
+  id: string
+  start: Date
+  end: Date
+  serviceId?: string
+  barberId: string
+  clientId?: string
+  statusId: string
+  name?: string
+  phoneNumber?: string
+  price?: number
+  index: number
+  groupIndex?: string
+  createdAt: Date
+  updatedAt?: Date
+  service?: iService
+  barber: iBarber
+  client?: iClient
+  status: iStatus
+}
+
+export interface iClient {
+  id: string
+  userId: string
+  user: iUser
+  createdAt: Date
+  updatedAt?: Date
+  appointments: iAppointment[]
 }
 
 export interface iService {
@@ -40,43 +80,25 @@ export interface iService {
   name: string
   price: number
   workAmount: number
-}
-
-export interface iCompany {
-  id: string
-  name: string
-  companyName: string
-  email: string
-  password: string
-  document: string
-  phoneNumber: string
-  created_at: string
-  updated_at: string
-}
-
-export interface iAppointment {
-  id: string
-  start: string
-  end: string
-  name: string
-  phoneNumber: string
-  price?: number
-  index: number
-  groupIndex: string
-  serviceId: string
-  service: iService
   barberId: string
-  barber?: iBarber
-  clientId: string
-  client?: iClient
-  statusId: string
-  status?: iStatus
+  barber: iBarber
+  appointments: iAppointment[]
 }
 
 export interface iStatus {
   id: string
-  key: Status
+  key: STATUS_TYPES
   pt: string
+  appointments: iAppointment[]
 }
 
-export type Status = 'OCCUPIED' | 'CONFIRMED' | 'BREAK' | 'EMPTY'
+export interface iProduct {
+  id: string
+  name: string
+  price: number
+  quantity: number
+  barberShopId: string
+  barberShop: iBarberShop
+  createdAt: Date
+  updatedAt?: Date
+}

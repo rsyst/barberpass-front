@@ -1,3 +1,3 @@
-import AuthRegister from '@shared/pages/Auth/Register'
+import { AuthRegister } from '@shared/pages'
 
 export default AuthRegister

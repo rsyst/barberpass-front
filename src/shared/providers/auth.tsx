@@ -1,7 +1,6 @@
 import { useToast } from '@chakra-ui/react'
 import Router from 'next/router'
 import React, { useContext, createContext, useState, useEffect } from 'react'
-
 import { destroyCookie, setCookie } from 'nookies'
 import { COOKIES_NAMES } from '@shared/constants'
 import {
@@ -22,12 +21,19 @@ export const Auth = createContext({} as iAuthContext)
 export const useAuth = () => useContext(Auth)
 
 const EXPIRE_TOKEN_IN_SECONDS = 60 * 60 * 24 * 7 // one week
+
+const ROUTES_TO_PUSH = {
+  BARBER: '/barber/dashboard',
+  CLIENT: '/client/dashboard',
+  OWNER: '/barbershop/dashboard'
+}
+
 export const AuthProvider = ({ children }: React.PropsWithChildren<unknown>) => {
   const [auth, setAuth] = useState<any>({} as any)
 
   const toast = useToast()
 
-  const { mutate: postAuth, isLoading: isLoadingLogin } = useMutationAuthenticatesBarbersOwnersAndClients()
+  const { mutate: postAuth, isPending: isLoadingLogin } = useMutationAuthenticatesBarbersOwnersAndClients()
 
   const handleLogin = (user: iAuthenticatesBarbersOwnersAndClientsPayload) => {
     postAuth(
@@ -35,32 +41,18 @@ export const AuthProvider = ({ children }: React.PropsWithChildren<unknown>) => 
       {
         onSuccess: ({ data }) => {
           console.log(data)
-          if (data.role === 'CLIENT') {
-            setCookie(undefined, COOKIES_NAMES.CLIENT_TOKEN, data.token, {
-              maxAge: EXPIRE_TOKEN_IN_SECONDS,
-              path: '/',
-              secure: true
-            })
-            Router.push('/client/dashboard')
-          }
+          setCookie(undefined, COOKIES_NAMES.USER_TOKEN, data.token, {
+            maxAge: EXPIRE_TOKEN_IN_SECONDS,
+            path: '/',
+            secure: true
+          })
+          setCookie(undefined, COOKIES_NAMES.USER_ROLE, data.role, {
+            maxAge: EXPIRE_TOKEN_IN_SECONDS,
+            path: '/',
+            secure: true
+          })
 
-          if (data.role === 'BARBER') {
-            setCookie(undefined, COOKIES_NAMES.BARBER_TOKEN, data.token, {
-              maxAge: EXPIRE_TOKEN_IN_SECONDS,
-              path: '/',
-              secure: true
-            })
-            Router.push('/barber/dashboard')
-          }
-
-          if (data.role === 'OWNER') {
-            setCookie(undefined, COOKIES_NAMES.BARBER_SHOP_TOKEN, data.token, {
-              maxAge: EXPIRE_TOKEN_IN_SECONDS,
-              path: '/',
-              secure: true
-            })
-            Router.push('/barbershop/dashboard')
-          }
+          Router.push(ROUTES_TO_PUSH[data.role])
 
           setAuth(data)
         },
@@ -75,18 +67,14 @@ export const AuthProvider = ({ children }: React.PropsWithChildren<unknown>) => 
         }
       }
     )
+    console.log('post')
   }
 
   const handleLogout = () => {
-    destroyCookie(undefined, COOKIES_NAMES.CLIENT_TOKEN, {
+    destroyCookie(undefined, COOKIES_NAMES.USER_TOKEN, {
       path: '/'
     })
-    destroyCookie(undefined, COOKIES_NAMES.BARBER_TOKEN, {
-      path: '/'
-    })
-    destroyCookie(undefined, COOKIES_NAMES.BARBER_SHOP_TOKEN, {
-      path: '/'
-    })
+
     setAuth({} as any)
     Router.push('/')
   }

@@ -1,22 +1,29 @@
 import {
+  Button,
   Modal,
-  ModalOverlay,
-  ModalContent,
-  ModalHeader,
-  ModalFooter,
   ModalBody,
   ModalCloseButton,
+  ModalContent,
+  ModalFooter,
+  ModalHeader,
+  ModalOverlay,
   Text,
-  useToast,
-  Button
+  useToast
 } from '@chakra-ui/react'
-import React from 'react'
-import { iAppointment } from '@shared/interfaces'
-import { usePatch } from '@shared/services'
-import { ENDPOINTS, QUERY_KEYS } from '@shared/constants'
-import { useQueryClient } from '@tanstack/react-query'
-import { currencyToNumber, floatToCurrency } from '@shared/utils'
 import { RstInputCurrency } from '@shared/components'
+import { iAppointment } from '@shared/interfaces'
+import {
+  queryGetAllAuthenticatedBarberAppointmentsFromNowToEndOfTheDayKey,
+  queryGetAllAuthenticatedBarberAppointmentsKey,
+  queryGetAllAuthenticatedBarberMonthAppointmentsKey,
+  queryGetAllAuthenticatedBarberTodayAppointmentsKey,
+  queryGetAllAuthenticatedBarberWeekAppointmentsKey,
+  queryGetAuthenticatedBarberDashboardKey,
+  useMutationBarberConfirmAnScheduleAppointment
+} from '@shared/services'
+import { currencyToNumber, floatToCurrency } from '@shared/utils'
+import { useQueryClient } from '@tanstack/react-query'
+import React from 'react'
 
 interface iProps {
   isOpen: boolean
@@ -25,9 +32,9 @@ interface iProps {
 }
 
 export const RstMeetCardBarberAlertConfirmed = ({ isOpen, onClose, appointment }: iProps) => {
-  const { mutate: confirmedAppointment, isLoading } = usePatch(
-    ENDPOINTS.PATCH_BARBER_APPOINTMENTS_BY_ID_CONFIRMED(appointment?.groupIndex || '')
-  )
+  const { mutate: confirmedAppointment, isPending: isLoading } = useMutationBarberConfirmAnScheduleAppointment({
+    appointmentId: appointment.id
+  })
 
   const [price, setPrice] = React.useState(floatToCurrency(appointment.service?.price || 0))
 
@@ -39,11 +46,14 @@ export const RstMeetCardBarberAlertConfirmed = ({ isOpen, onClose, appointment }
       { price: currencyToNumber(price as string) },
       {
         onSuccess: () => {
-          queryClient.invalidateQueries(QUERY_KEYS.GET_BARBER_APPOINTMENTS)
-          queryClient.invalidateQueries(QUERY_KEYS.GET_BARBER_APPOINTMENTS_DAY)
-          queryClient.invalidateQueries(QUERY_KEYS.GET_BARBER_APPOINTMENTS_WEEK)
-          queryClient.invalidateQueries(QUERY_KEYS.GET_BARBER_APPOINTMENTS_NEXT)
-          queryClient.invalidateQueries(QUERY_KEYS.GET_BARBER_DASHBOARD)
+          queryClient.invalidateQueries({ queryKey: [queryGetAuthenticatedBarberDashboardKey] })
+          queryClient.invalidateQueries({ queryKey: [queryGetAllAuthenticatedBarberAppointmentsKey] })
+          queryClient.invalidateQueries({ queryKey: [queryGetAllAuthenticatedBarberTodayAppointmentsKey] })
+          queryClient.invalidateQueries({
+            queryKey: [queryGetAllAuthenticatedBarberAppointmentsFromNowToEndOfTheDayKey]
+          })
+          queryClient.invalidateQueries({ queryKey: [queryGetAllAuthenticatedBarberWeekAppointmentsKey] })
+          queryClient.invalidateQueries({ queryKey: [queryGetAllAuthenticatedBarberMonthAppointmentsKey] })
           toast({
             title: 'Agendamento confirmado com sucesso',
             status: 'success',

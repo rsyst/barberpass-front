@@ -7,7 +7,7 @@ import { useFetch } from '@shared/services/use-queries'
 import moment from 'moment'
 import React from 'react'
 import { getWeekDays } from './utils'
-import RstSelect from '@shared/components/Select'
+import { RstSelect } from '@shared/components/Select'
 import { RstLoading } from '@shared/components/Loading'
 
 interface FetchAppointment {

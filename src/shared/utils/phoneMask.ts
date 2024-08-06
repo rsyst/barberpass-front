@@ -1,4 +1,4 @@
-export const phoneMask = (value: string): string => {
+export const phoneMask = (value: string | undefined | null): string => {
   if (!value) return ''
   value = value.replace(/\D/g, '') // Remove tudo o que não é dígito
   value = value.replace(/^(\d{2})(\d)/g, '($1) $2') // Coloca parênteses em volta dos dois primeiros dígitos

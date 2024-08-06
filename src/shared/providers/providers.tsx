@@ -7,6 +7,7 @@ import { AuthProvider } from './auth'
 import { MobileProvider } from './isMobile'
 import { theme } from './theme'
 // import { UserProvider } from './user'
+
 const queryClient = new QueryClient({
   defaultOptions: {
     queries: {

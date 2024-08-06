@@ -4,7 +4,7 @@ import { iAppointment, iBarber, iService } from '@shared/interfaces/public'
 import { useFetch } from '@shared/services/use-queries'
 import { ENDPOINTS, QUERY_KEYS } from '@shared/constants'
 import moment from 'moment'
-import RstInput from '../Input'
+import { RstInput } from '../Input'
 import { RstMeetCardClient } from '../MeetCard'
 
 interface iProps {
